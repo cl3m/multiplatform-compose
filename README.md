@@ -32,7 +32,7 @@ The simpliest code is :
 ```kotlin
 @Composable
 fun Content(resources: Resources) {
-	Text("Hello world!")
+    Text("Hello world!")
 }
 ```
 
@@ -41,7 +41,7 @@ A better start would be :
 ```kotlin
 @Composable
 fun Content(resources: Resources) {
-	HelloPlatform()
+    HelloPlatform()
 }
 
 @Composable
@@ -104,19 +104,19 @@ UINavigationController for Compose
 
 ```kotlin
 NavigationView(startDestination = "first") { navController ->
-        composable("first", title = "First") {
-            SafeArea {
-              Button(onClick = { navController.navigate("second") }) { 
+    composable("first", title = "First") {
+	SafeArea {
+	    Button(onClick = { navController.navigate("second") }) { 
                 // ...
-              }
-            }
-        }
-        composable("second", title = "Second") {
-            SafeArea {
-		// ...
             }
         }
     }
+    composable("second", title = "Second") {
+        SafeArea {
+	    // ...
+        }
+    }
+}
 ```
 
 ## Known issues
