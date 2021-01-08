@@ -54,6 +54,7 @@ fun HelloPlatform() {
     }
 }
 ```
+<img src="https://github.com/cl3m/multiplatform-compose/blob/develop/screenshots/HelloPlatform.png?raw=true" height="620">
 
 More advance sample are in the test library.
 
@@ -79,6 +80,9 @@ SafeArea {
 }
 ```
 
+![Safe Area Screenshot](https://github.com/cl3m/multiplatform-compose/blob/develop/screenshots/Layout.png?raw=true)
+*Layout without the safe area, with the safe area and on android*
+
 #### TabView
 
 UITabBarController for Compose
@@ -88,7 +92,7 @@ TabView {
     Tab(title = "First", image = UIImage.systemImageNamed("a.circle.fill")) {
       // ...
     }
-	  Tab(title = "Second", image = UIImage.systemImageNamed("a.circle.fill")) {
+    Tab(title = "Second", image = UIImage.systemImageNamed("a.circle.fill")) {
       // ...
     }
 }
@@ -109,7 +113,7 @@ NavigationView(startDestination = "first") { navController ->
         }
         composable("second", title = "Second") {
             SafeArea {
-							// ...
+		// ...
             }
         }
     }
