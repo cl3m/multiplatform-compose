@@ -13,6 +13,7 @@ A Kotlin library to use Jetpack Compose in Android and iOS. Allow to write UI fo
 - [Troubleshooting](#troubleshooting)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
+- [Sponsors](#sponsors)
 - [License](#license)
 
 ## Requirements
@@ -140,6 +141,10 @@ You did not read the requirements. Install cocoapods-generate "gem install cocoa
 - Better images/resources support
 - UI Test with Github Actions
 - Performance improvement/optimisation
+
+## Sponsors
+
+No one yet, be the first [sponsor](https://github.com/sponsors/cl3m)!
 
 ## Contributing
 
