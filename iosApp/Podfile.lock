@@ -1,0 +1,27 @@
+PODS:
+  - test (0.0.1):
+    - YogaKit (~> 1.7)
+  - Yoga (1.14.0)
+  - YogaKit (1.18.1):
+    - Yoga (~> 1.14)
+
+DEPENDENCIES:
+  - test (from `../test`)
+
+SPEC REPOS:
+  trunk:
+    - Yoga
+    - YogaKit
+
+EXTERNAL SOURCES:
+  test:
+    :path: "../test"
+
+SPEC CHECKSUMS:
+  test: 674c3bf082d75a388f275aff3081f2df63a2abb2
+  Yoga: cff67a400f6b74dc38eb0bad4f156673d9aa980c
+  YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
+
+PODFILE CHECKSUM: 9a6cae4b13ea55407e3d7c97432125b82a015dfb
+
+COCOAPODS: 1.10.0

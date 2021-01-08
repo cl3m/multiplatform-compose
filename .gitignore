@@ -1,0 +1,13 @@
+sample/androidApp/build
+sample/shared/build
+sample/multiplatform-compose/build
+sample/test/build
+local.properties
+.gradle
+multiplatform-compose/build
+test/build
+.idea/libraries
+.idea/modules
+androidApp/build
+build
+modules.xml
