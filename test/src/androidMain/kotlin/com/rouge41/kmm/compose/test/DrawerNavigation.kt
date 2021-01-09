@@ -11,11 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.navigation.compose.*
+import com.rouge41.kmm.compose.MutableState
 import com.rouge41.kmm.compose.SafeArea
 import com.rouge41.kmm.compose.ScrollableColumn
+import com.rouge41.kmm.compose.test.demos.*
 
 @Composable
-fun DrawerNavigation(resources: Resources) {
+fun DrawerNavigation(state: MutableState<Boolean>, resources: Resources) {
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -38,39 +40,26 @@ fun DrawerNavigation(resources: Resources) {
             )
         },
         drawerContent = {
-            contents().forEach { screen ->
-                ListItem(
-                    text = {
-                        Text(
-                            screen.toString(),
-                            style = TextStyle(color = if (currentRoute == screen.toString()) MaterialTheme.colors.primary else Color.Black)
-                        )
-                    },
-                    modifier = Modifier.clickable(
-                        onClick = {
-                            navController.navigate(screen.toString()) {
-                                launchSingleTop = true
-                            }
-                            scaffoldState.drawerState.close()
-                        }
-                    )
-                )
+            Menu(state) { route ->
+                navController.navigate(route) {
+                    launchSingleTop = true
+                }
+                scaffoldState.drawerState.close()
             }
         },
         scaffoldState = scaffoldState
     ) {
-        NavHost(navController, startDestination = contents().first().toString()) {
-            contents().forEach { screen ->
+        NavHost(navController, startDestination = Demo.values().first().toString()) {
+            Demo.values().dropLast(4).forEach { screen ->
                 composable(screen.toString()) {
                     when (screen) {
-                        ContentType.HelloPlatform -> HelloPlatform()
-                        ContentType.Lorem -> ScrollableColumn { Lorem() }
-                        ContentType.Counter -> Counter()
-                        ContentType.BackPress -> BackPress()
-                        ContentType.Layout -> Layout()
-                        ContentType.Images ->  Images(resources)
-                        ContentType.TextStyles -> Column { TextStyles() }
-                        ContentType.BottomNavigation -> BottomNavigation()
+                        Demo.HelloPlatform -> HelloPlatform()
+                        Demo.Lorem -> ScrollableColumn { Lorem() }
+                        Demo.Counter -> Counter()
+                        Demo.BackPress -> BackPress()
+                        Demo.Layout -> Layout()
+                        Demo.Images ->  Images(resources)
+                        Demo.TextStyles -> Column { TextStyles() }
                     }
                 }
             }
@@ -79,4 +68,4 @@ fun DrawerNavigation(resources: Resources) {
 }
 
 @Composable
-actual fun Navigation(resources: Resources) = DrawerNavigation(resources)
+actual fun Navigation(state: MutableState<Boolean>, resources: Resources) = DrawerNavigation(state, resources)

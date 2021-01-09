@@ -1,6 +1,8 @@
 package com.rouge41.kmm.compose
 
 import cocoapods.YogaKit.*
+import platform.Foundation.NSLog
+import platform.Foundation.NSSelectorFromString
 import platform.UIKit.*
 
 actual interface Modifier {
@@ -17,6 +19,8 @@ actual interface Modifier {
 class iosModifier : Modifier {
     var changes = mutableListOf<Layout>()
     var backgroundColor: Color? = null
+    var onClick: (() -> Unit)? = null
+
 
     sealed class Layout {
         data class padding(val dp: Dp) : Layout()
@@ -30,6 +34,18 @@ class iosModifier : Modifier {
         super.setup(view)
         backgroundColor?.let {
             view.backgroundColor = it.toUIColor()
+        }
+        onClick?.let {
+            if (view is UIComposeView) {
+                val tapController = UITapGestureRecognizer()
+                tapController.addTarget(
+                    target = view,
+                    action = NSSelectorFromString("tap"),
+                )
+                view.userInteractionEnabled = true
+                view.onClick = it
+                view.addGestureRecognizer(tapController)
+            }
         }
         view.configureLayoutWithBlock { layout ->
             for (change in this.changes) {
@@ -90,3 +106,10 @@ actual fun Modifier.height(dp: Dp): Modifier {
 
 actual fun Modifier.preferredWidth(dp: Dp): Modifier = width(dp)
 actual fun Modifier.preferredHeight(dp: Dp): Modifier = height(dp)
+
+@Composable
+actual fun Modifier.clickable(onClick: () -> Unit): Modifier {
+    val modifier = if (this is iosModifier) { this } else { iosModifier() }
+    modifier.onClick = onClick
+    return modifier
+}

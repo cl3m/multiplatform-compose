@@ -3,11 +3,11 @@ package com.rouge41.kmm.compose.test
 import com.rouge41.kmm.compose.*
 
 @Composable
-expect fun BottomNavigation()
+expect fun BottomNavigation(state: MutableState<Boolean>, resources: Resources)
 
-enum class Page {
-    Page1,
-    Page2,
-    Page3,
-    Page4
+enum class Tab {
+    Tab1,
+    Tab2,
+    Tab3,
+    Tab4
 }

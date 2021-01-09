@@ -18,25 +18,29 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.*
+import com.rouge41.kmm.compose.MutableState
+import com.rouge41.kmm.compose.test.demos.Counter
+import com.rouge41.kmm.compose.test.demos.Layout
+import com.rouge41.kmm.compose.test.demos.Lorem
 
-fun Page.icon(): ImageVector {
+fun Tab.icon(): ImageVector {
     return when (this) {
-        Page.Page1 -> Icons.Filled.Home
-        Page.Page2 -> Icons.Filled.Call
-        Page.Page3 -> Icons.Filled.Info
-        Page.Page4 -> Icons.Filled.Info
+        Tab.Tab1 -> Icons.Filled.Home
+        Tab.Tab2 -> Icons.Filled.Call
+        Tab.Tab3 -> Icons.Filled.Info
+        Tab.Tab4 -> Icons.Filled.Info
     }
 }
 
 @Composable
-actual fun BottomNavigation() {
+actual fun BottomNavigation(state: MutableState<Boolean>, resources: Resources) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {
             BottomNavigation {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE)
-                Page.values().forEach { screen ->
+                Tab.values().forEach { screen ->
                     BottomNavigationItem(
                         icon = { Icon(screen.icon()) },
                         label = { Text(screen.toString(), style = TextStyle(color = Color.White)) },
@@ -52,11 +56,12 @@ actual fun BottomNavigation() {
             }
         }
     ) {
-        NavHost(navController, startDestination = Page.values().first().toString()) {
-            Page.values().forEach { screen ->
+        NavHost(navController, startDestination = Tab.values().first().toString()) {
+            Tab.values().forEach { screen ->
                 composable(screen.toString()) {
                     when (screen) {
-                        Page.Page1 -> {
+                        Tab.Tab1 -> Navigation(state, resources)
+                        Tab.Tab2 -> {
                             ScrollableColumn() {
                                 Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dui erat, consequat eget felis malesuada, gravida pellentesque massa. Suspendisse id aliquet ex. Praesent diam dui, consectetur et orci eu, interdum cursus tortor. Aenean quis laoreet lectus, quis consectetur orci. Quisque ac diam varius, malesuada lacus varius, semper nulla. Ut vitae faucibus justo. Fusce nibh tortor, pulvinar viverra urna et, porttitor viverra ipsum. Proin et lacus ac leo lacinia tempus. Suspendisse dictum tortor nec efficitur faucibus.")
                                 Counter()
@@ -64,9 +69,8 @@ actual fun BottomNavigation() {
                                 Spacer(modifier = Modifier.height(60.dp))
                             }
                         }
-                        Page.Page2 -> Text ("Page 2")
-                        Page.Page3 -> Counter ()
-                        Page.Page4 -> Layout ()
+                        Tab.Tab3 -> Layout ()
+                        Tab.Tab4 -> Counter ()
                     }
                 }
             }

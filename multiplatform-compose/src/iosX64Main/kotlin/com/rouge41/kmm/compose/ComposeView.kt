@@ -1,9 +1,7 @@
 package com.rouge41.kmm.compose
 
 import cocoapods.YogaKit.*
-import kotlinx.cinterop.CValue
-import kotlinx.cinterop.cValue
-import kotlinx.cinterop.useContents
+import kotlinx.cinterop.*
 import platform.CoreGraphics.*
 import platform.Foundation.NSLog
 import platform.UIKit.*
@@ -15,8 +13,10 @@ interface ComposeView {
     var identifier: String
 }*/
 
+@ExportObjCClass
 class UIComposeView(val contentIdentifier: String) : UIView(frame = cValue { CGRectZero }) {
     var isDirty: Boolean = false
+    var onClick: (() -> Unit)? = null
 
     companion object {
         fun createOrReuse(contentIdentifier: String): UIComposeView {
@@ -28,6 +28,11 @@ class UIComposeView(val contentIdentifier: String) : UIView(frame = cValue { CGR
             }
             return UIComposeView(contentIdentifier)
         }
+    }
+
+    @ObjCAction
+    fun tap() {
+        onClick?.invoke()
     }
 }
 

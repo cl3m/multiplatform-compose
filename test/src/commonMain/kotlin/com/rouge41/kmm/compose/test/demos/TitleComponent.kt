@@ -1,4 +1,4 @@
-package com.rouge41.kmm.compose.test
+package com.rouge41.kmm.compose.test.demos
 
 import com.rouge41.kmm.compose.*
 

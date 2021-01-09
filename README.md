@@ -55,7 +55,7 @@ fun HelloPlatform() {
     }
 }
 ```
-<img src="https://github.com/cl3m/multiplatform-compose/blob/develop/screenshots/HelloPlatform.png?raw=true" height="620">
+![Hello Platform Screenshot](https://github.com/cl3m/multiplatform-compose/blob/develop/screenshots/HelloPlatform.png?raw=true)
 
 More advance sample are in the test library.
 

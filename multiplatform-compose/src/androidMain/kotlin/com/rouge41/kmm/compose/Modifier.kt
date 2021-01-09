@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding as _padding
 import androidx.compose.foundation.layout.preferredHeight as _preferredHeight
 import androidx.compose.foundation.layout.preferredWidth as _preferredWidth
 import androidx.compose.foundation.layout.width as _width
+import androidx.compose.foundation.clickable as _clickable
 
 actual typealias Modifier = androidx.compose.ui.Modifier
 actual fun Modifier.fillMaxSize(): Modifier = _fillMaxSize()
@@ -20,3 +21,5 @@ actual fun Modifier.width(dp: Dp): Modifier = _width(dp)
 actual fun Modifier.height(dp: Dp): Modifier = _height(dp)
 actual fun Modifier.preferredWidth(dp: Dp): Modifier = _preferredWidth(dp)
 actual fun Modifier.preferredHeight(dp: Dp): Modifier = _preferredHeight(dp)
+@Composable
+actual fun Modifier.clickable(onClick: () -> Unit): Modifier = _clickable(onClick = onClick)
