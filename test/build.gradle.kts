@@ -7,7 +7,41 @@ plugins {
 }
 
 version = "0.0.1"
-val composeVersion:String by project
+
+android {
+    compileSdkVersion(AndroidSdk.compile)
+    defaultConfig {
+        minSdkVersion(AndroidSdk.min)
+        targetSdkVersion(AndroidSdk.target)
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerVersion = Version.kotlin
+        kotlinCompilerExtensionVersion = Version.compose
+    }
+    sourceSets {
+        getByName("main") {
+            java.srcDirs("src/androidMain/kotlin")
+            res.srcDirs("src/androidMain/res")
+        }
+        getByName("test") {
+            java.srcDirs("src/androidTest/kotlin")
+            res.srcDirs("src/androidTest/res")
+        }
+    }
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+}
+
+tasks.withType<KotlinCompile>() {
+    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.useIR = true
+}
 
 // workaround for https://youtrack.jetbrains.com/issue/KT-43944
 android {
@@ -26,12 +60,14 @@ kotlin {
     ios ()
     cocoapods {
         summary = "Multiplatform Compose Shared Test Module"
-        homepage = "Link to a Kotlin/Native module homepage"
+        homepage = "https://github.com/cl3m/multiplatform-compose"
         frameworkName = "test"
+
+        ios.deploymentTarget = iOSSdk.deploymentTarget
         pod("YogaKit") {
-            version = "~> 1.7"
+            version = Version.yoga
         }
-        ios.deploymentTarget = "9.0"
+        podfile = project.file("../iosApp/Podfile")
     }
     sourceSets {
         val commonMain by getting {
@@ -39,24 +75,35 @@ kotlin {
                 implementation(project(":multiplatform-compose"))
             }
         }
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test-common"))
+                implementation(kotlin("test-annotations-common"))
+            }
+        }
         val androidMain by getting {
             dependencies {
-                implementation("com.google.android.material:material:1.2.1")
-                // Compose
-                implementation("androidx.compose.runtime:runtime:$composeVersion")
-                implementation("androidx.compose.ui:ui:$composeVersion")
-                implementation("androidx.compose.foundation:foundation:$composeVersion")
-                implementation("androidx.compose.foundation:foundation-layout:$composeVersion")
-                implementation("androidx.compose.material:material:$composeVersion")
-                implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
-                //implementation("androidx.ui:ui-tooling:$composeVersion")
-                implementation("com.google.android.material:compose-theme-adapter:$composeVersion")
-                implementation("androidx.navigation:navigation-compose:1.0.0-alpha04")
+                implementation(Android.material)
+
+                implementation(Compose.runtime)
+                implementation(Compose.ui)
+                implementation(Compose.foundationLayout)
+                implementation(Compose.material)
+                implementation(Compose.runtimeLiveData)
+                implementation(Compose.navigation)
+            }
+        }
+        val androidTest by getting {
+            dependencies {
+                implementation(kotlin("test-junit"))
+                implementation("junit:junit:${Version.junit}")
             }
         }
         val iosMain by getting
+        val iosTest by getting
     }
 }
+
 //workaround (https://github.com/arunkumar9t2/compose_mpp_workaround/tree/patch-1):
 configurations {
     create("composeCompiler") {
@@ -64,25 +111,9 @@ configurations {
     }
 }
 dependencies {
-    "composeCompiler"("androidx.compose.compiler:compiler:$composeVersion")
+    "composeCompiler"("androidx.compose.compiler:compiler:${Version.compose}")
 }
 android {
-    compileSdkVersion(29)
-    defaultConfig {
-        minSdkVersion(24)
-        targetSdkVersion(29)
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerVersion = "1.4.21"
-        kotlinCompilerExtensionVersion = composeVersion
-    }
     afterEvaluate {
         val composeCompilerJar =
             configurations["composeCompiler"]
@@ -93,10 +124,4 @@ android {
             kotlinOptions.freeCompilerArgs += listOf("-Xuse-ir", "-Xplugin=$composeCompilerJar")
         }
     }
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-}
-
-tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "1.8"
-    kotlinOptions.useIR = true
 }

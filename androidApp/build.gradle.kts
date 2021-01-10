@@ -3,14 +3,12 @@ plugins {
     kotlin("android")
 }
 
-val composeVersion:String by project
-
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(AndroidSdk.compile)
     defaultConfig {
         applicationId = "com.rouge41.kmm.compose.androidApp"
-        minSdkVersion(24)
-        targetSdkVersion(29)
+        minSdkVersion(AndroidSdk.min)
+        targetSdkVersion(AndroidSdk.target)
         versionCode = 1
         versionName = "1.0"
     }
@@ -31,25 +29,22 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerVersion = "1.4.21"
-        kotlinCompilerExtensionVersion = composeVersion
+        kotlinCompilerVersion = Version.kotlin
+        kotlinCompilerExtensionVersion = Version.compose
     }
 }
 
 dependencies {
-    implementation(project(":test"))
-    implementation(project(":multiplatform-compose"))
-    implementation("com.google.android.material:material:1.2.1")
-    implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.2")
+    implementation(Android.appcompact)
+    implementation(Android.material)
 
-    // Compose
-    implementation("androidx.compose.runtime:runtime:$composeVersion")
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.compose.foundation:foundation:$composeVersion")
-    implementation("androidx.compose.foundation:foundation-layout:$composeVersion")
-    implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
-    //implementation("androidx.ui:ui-tooling:$composeVersion")
-    implementation("com.google.android.material:compose-theme-adapter:$composeVersion")
+    implementation(project(":multiplatform-compose"))
+    implementation(project(":test"))
+
+    implementation(Compose.runtime)
+    implementation(Compose.ui)
+    implementation(Compose.foundationLayout)
+    implementation(Compose.material)
+    implementation(Compose.runtimeLiveData)
+    implementation(Compose.navigation)
 }

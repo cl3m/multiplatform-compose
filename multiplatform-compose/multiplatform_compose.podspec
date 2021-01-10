@@ -1,11 +1,11 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'multiplatform_compose'
     spec.version                  = '0.0.1'
-    spec.homepage                 = 'Link to a Kotlin/Native module homepage'
+    spec.homepage                 = 'https://github.com/cl3m/multiplatform-compose'
     spec.source                   = { :git => "Not Published", :tag => "Cocoapods/#{spec.name}/#{spec.version}" }
     spec.authors                  = ''
     spec.license                  = ''
-    spec.summary                  = 'KMM Compose Sample Shared Module'
+    spec.summary                  = 'Kotlin Library multiplatform-compose'
 
     spec.static_framework         = true
     spec.vendored_frameworks      = "build/cocoapods/framework/MultiplatformCompose.framework"

@@ -11,3 +11,4 @@ test/build
 androidApp/build
 build
 modules.xml
+.idea

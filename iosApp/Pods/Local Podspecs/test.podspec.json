@@ -1,7 +1,7 @@
 {
   "name": "test",
   "version": "0.0.1",
-  "homepage": "Link to a Kotlin/Native module homepage",
+  "homepage": "https://github.com/cl3m/multiplatform-compose",
   "source": {
     "git": "Not Published",
     "tag": "Cocoapods/test/0.0.1"
