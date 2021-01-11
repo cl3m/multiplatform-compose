@@ -4,14 +4,21 @@ import com.rouge41.kmm.compose.*
 import com.rouge41.kmm.compose.test.demos.Counter
 import com.rouge41.kmm.compose.test.demos.Layout
 import com.rouge41.kmm.compose.test.demos.Lorem
+import kotlinx.cinterop.useContents
+import platform.Foundation.NSProcessInfo
+import platform.Foundation.NSSelectorFromString
 import platform.UIKit.*
 
 fun Tab.image(): UIImage? {
-    return when (this) {
-        Tab.Tab1 -> UIImage.systemImageNamed("a.circle.fill")
-        Tab.Tab2 -> UIImage.systemImageNamed("b.circle.fill")
-        Tab.Tab3 -> UIImage.systemImageNamed("c.circle.fill")
-        Tab.Tab4 -> UIImage.systemImageNamed("d.circle.fill")
+    return if (NSProcessInfo.processInfo.operatingSystemVersion.useContents { majorVersion } >= 13) {
+        when (this) {
+            Tab.Tab1 -> UIImage.systemImageNamed("a.circle.fill")
+            Tab.Tab2 -> UIImage.systemImageNamed("b.circle.fill")
+            Tab.Tab3 -> UIImage.systemImageNamed("c.circle.fill")
+            Tab.Tab4 -> UIImage.systemImageNamed("d.circle.fill")
+        }
+    } else {
+        UIImage()
     }
 }
 

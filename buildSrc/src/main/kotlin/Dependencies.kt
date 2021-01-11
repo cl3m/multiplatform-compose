@@ -21,7 +21,7 @@ object AndroidSdk {
 }
 
 object iOSSdk {
-    const val deploymentTarget = "9.0"
+    const val deploymentTarget = "10.0"
 }
 
 object Android {

@@ -65,7 +65,7 @@ fun composable(route: String,
         navigationController.composableControllers.add(controller)
     }
     controller.title = title
-    controller.view.backgroundColor = UIColor.systemBackgroundColor
+    controller.view.backgroundColor = systemBackgroundColor()
     controller.view.configureLayoutWithBlock { layout ->
         layout?.isEnabled = true
         layout?.width = YGPercentValue(100.0)
