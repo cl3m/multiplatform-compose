@@ -74,6 +74,8 @@ class ButtonContainer(val button: UIButton, val action: () -> Unit) : UIView(fra
         addSubview(button)
         button.configureLayoutWithBlock { layout ->
             layout?.isEnabled = true
+            layout?.minHeight = YGPointValue(44.0)
+            layout?.minWidth = YGPointValue(44.0)
         }
     }
 

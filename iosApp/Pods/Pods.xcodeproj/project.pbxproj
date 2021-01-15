@@ -1108,28 +1108,13 @@
 			};
 			name = Release;
 		};
-		4D0342BE648F9D40B7F92812199F8CB6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4E2ABEA715FF7B8D562347FADFC432EB /* test.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		67678E911095DE06150E97262F73C647 /* Debug */ = {
+		6B2E19460FA97CAB1F1102F2FFDCE37C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6256EEF2BDE6B455D4F8EDE58AE86BC6 /* test.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1209,6 +1194,23 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		B67E5765566C03C4F4DAAA25CDC4EE8F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4E2ABEA715FF7B8D562347FADFC432EB /* test.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
 		};
 		C929320C59C978503EEBD706CBDF969F /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1427,8 +1429,8 @@
 		E8176B8EC9A24461A2ED480105BC0AAB /* Build configuration list for PBXAggregateTarget "test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				67678E911095DE06150E97262F73C647 /* Debug */,
-				4D0342BE648F9D40B7F92812199F8CB6 /* Release */,
+				6B2E19460FA97CAB1F1102F2FFDCE37C /* Debug */,
+				B67E5765566C03C4F4DAAA25CDC4EE8F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

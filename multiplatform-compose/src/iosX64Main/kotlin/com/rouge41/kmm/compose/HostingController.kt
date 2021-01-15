@@ -164,12 +164,16 @@ fun addSubview(view: UIView, content: (() -> Unit)? = null) {
     HostingController.views.removeLast()
 }
 
-fun addController(controller: UIViewController, content: (() -> Unit)? = null) {
-    HostingController.controllers.add(controller)
-    HostingController.views.add(controller.view)
+fun addController(controller: UIViewController?, content: (() -> Unit)? = null) {
+    controller?.let {
+        HostingController.controllers.add(it)
+        HostingController.views.add(it.view)
+    }
     content?.invoke()
-    HostingController.views.removeLast()
-    HostingController.controllers.removeLast()
+    controller?.let {
+        HostingController.views.removeLast()
+        HostingController.controllers.removeLast()
+    }
 }
 
 fun getHostingView(): HostingView {

@@ -4,11 +4,8 @@ expect interface ColumnScope
 
 @Composable
 expect fun Column(
-    modifier: Modifier,
-    verticalArrangement: ArrangementVertical,
-    horizontalAlignment: AlignmentHorizontal,
+    modifier: Modifier = Modifier,
+    verticalArrangement: ArrangementVertical = Arrangement.Top,
+    horizontalAlignment: AlignmentHorizontal = Alignment.Start,
     content: @Composable ColumnScope.() -> Unit
 )
-
-@Composable
-expect fun Column(content: @Composable ColumnScope.() -> Unit)

@@ -18,9 +18,9 @@ actual fun Navigation(state: MutableState<Boolean>, resources: Resources) {
                 when (screen) {
                     Demo.HelloPlatform -> SafeArea { HelloPlatform() }
                     Demo.Lorem -> SafeArea { ScrollableColumn { Lorem() } }
-                    Demo.Counter -> SafeArea { Counter() }
-                    Demo.BackPress -> SafeArea { BackPress() }
-                    Demo.Layout -> Layout()
+                    Demo.Counter -> Counter()
+                    Demo.BackPress -> BackPress()
+                    Demo.Layout -> SafeArea { Layout() }
                     Demo.Images ->  SafeArea { Images(resources) }
                     Demo.TextStyles -> SafeArea { Column { TextStyles() } }
                 }

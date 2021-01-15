@@ -18,7 +18,7 @@ EXTERNAL SOURCES:
     :path: "../test"
 
 SPEC CHECKSUMS:
-  test: b76f6c4e9103aacb0cb567fa165a9ba77f2250fb
+  test: fc4bac006dbcc16c5317efb7a92e4d063a28d169
   Yoga: cff67a400f6b74dc38eb0bad4f156673d9aa980c
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 

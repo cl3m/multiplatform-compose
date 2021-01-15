@@ -15,4 +15,8 @@ fun TextStyles() {
     Text("I am Large Text", style = TextStyle(fontSize = 25.sp))
     // This is normal simpler way to write the text
     Text("But We are all Custom  Made Fonts")
+    // More
+    Text("I am Cursive Text", style = TextStyle(fontFamily = FontFamily.Cursive))
+    Text("I am Monospace Text", style = TextStyle(fontFamily = FontFamily.Monospace))
+    Text("I am Serif Text", style = TextStyle(fontFamily = FontFamily.Serif))
 }

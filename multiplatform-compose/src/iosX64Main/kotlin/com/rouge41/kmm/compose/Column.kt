@@ -33,8 +33,3 @@ actual fun Column(
     }
     addSubview(view) { content.invoke(iosColumnScope()) }
 }
-
-@Composable
-actual fun Column(content: @Composable ColumnScope.() -> Unit) {
-    Column(Modifier, Arrangement.Top, Alignment.Start, content)
-}

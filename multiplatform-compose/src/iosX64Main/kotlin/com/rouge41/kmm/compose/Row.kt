@@ -33,8 +33,3 @@ actual fun Row(
     }
     addSubview(view) { content.invoke(iosRowScope()) }
 }
-
-@Composable
-actual fun Row(content: @Composable RowScope.() -> Unit) {
-    Row(Modifier, Arrangement.Start, Alignment.Top, content)
-}

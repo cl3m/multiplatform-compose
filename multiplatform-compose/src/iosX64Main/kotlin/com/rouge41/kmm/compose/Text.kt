@@ -17,7 +17,7 @@ actual fun Text(text: String, modifier: Modifier, style: TextStyle) {
         label.sizeToFit()
         modifier.setup(label)
         view.addSubview(label)
-        style.color?.let { label.textColor = it.toUIColor() }
+        style.color?.toUIColor()?.let { label.textColor = it }
         label.font = style.toUIFont()
     }
 }

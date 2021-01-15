@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
         //has to be set in code or in theme
         window.decorView.setBackgroundColor(Color.WHITE)
-        window.statusBarColor = Color.parseColor("#3700B3")
+        window.statusBarColor = Color.parseColor("#cc7000")
         //window.statusBarColor = Color.WHITE
         //window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 

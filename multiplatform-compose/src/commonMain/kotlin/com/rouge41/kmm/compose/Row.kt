@@ -4,11 +4,8 @@ expect interface RowScope
 
 @Composable
 expect fun Row(
-    modifier: Modifier,
-    horizontalArrangement: ArrangementHorizontal,
-    verticalAlignment: AlignmentVertical,
-    content: @Composable RowScope.() -> Unit
+        modifier: Modifier = Modifier,
+        horizontalArrangement: ArrangementHorizontal = Arrangement.Start,
+        verticalAlignment: AlignmentVertical = Alignment.Top,
+        content: @Composable RowScope.() -> Unit
 )
-
-@Composable
-expect fun Row(content: @Composable RowScope.() -> Unit)

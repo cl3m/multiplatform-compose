@@ -14,5 +14,8 @@ expect inline class Color(val value: ULong) {
         val Cyan : Color
         val Magenta : Color
         val Transparent : Color
+        val Unspecified: Color
     }
 }
+
+expect fun Color(color: Long): Color

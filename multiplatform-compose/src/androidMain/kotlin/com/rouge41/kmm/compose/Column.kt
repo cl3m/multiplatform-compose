@@ -4,11 +4,12 @@ import androidx.compose.foundation.layout.Column as _Column
 
 actual typealias ColumnScope = androidx.compose.foundation.layout.ColumnScope
 
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
 @Composable
 actual fun Column(
-    modifier: Modifier,
-    verticalArrangement: ArrangementVertical,
-    horizontalAlignment: AlignmentHorizontal,
+    modifier: Modifier = Modifier,
+    verticalArrangement: ArrangementVertical = Arrangement.Top,
+    horizontalAlignment: AlignmentHorizontal = Alignment.Start,
     content: @Composable ColumnScope.() -> Unit
 ) {
     _Column(
@@ -17,9 +18,4 @@ actual fun Column(
         horizontalAlignment = horizontalAlignment,
         content = content
     )
-}
-
-@Composable
-actual fun Column(content: @Composable ColumnScope.() -> Unit) {
-    _Column(content = content)
 }

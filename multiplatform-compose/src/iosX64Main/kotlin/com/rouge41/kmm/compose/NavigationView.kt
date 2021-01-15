@@ -40,8 +40,10 @@ class UIComposeNavigationController() : UINavigationController(nibName = null, b
 
     private fun layout(controller: UIComposeViewController) {
         controller.view.setFrame(view.bounds)
-        addController(this) {
-            addControllerAndLayout(controller)
+        addController(this.tabBarController) {
+            addController(this) {
+                addControllerAndLayout(controller)
+            }
         }
     }
 
