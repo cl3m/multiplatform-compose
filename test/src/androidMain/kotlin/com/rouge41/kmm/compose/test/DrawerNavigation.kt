@@ -53,6 +53,7 @@ fun DrawerNavigation(state: MutableState<Boolean>, resources: Resources) {
             Demo.values().dropLast(4).forEach { screen ->
                 composable(screen.toString()) {
                     when (screen) {
+                        Demo.LazyColumn -> LazyColumn()
                         Demo.HelloPlatform -> HelloPlatform()
                         Demo.Lorem -> ScrollableColumn { Lorem() }
                         Demo.Counter -> Counter()

@@ -20,6 +20,7 @@ fun Content(resources: Resources) {
 enum class Demo {
     HelloPlatform,
     Lorem,
+    LazyColumn,
     Counter,
     BackPress,
     Layout,

@@ -1,9 +1,11 @@
 package com.rouge41.kmm.compose
 
 import cocoapods.YogaKit.*
+import kotlinx.cinterop.CValue
 import kotlinx.cinterop.cValue
 import kotlinx.cinterop.useContents
 import platform.CoreGraphics.CGRectZero
+import platform.CoreGraphics.CGSize
 import platform.CoreGraphics.CGSizeMake
 import platform.Foundation.NSLog
 import platform.UIKit.*
@@ -62,7 +64,7 @@ open class HostingController(val controller: UIViewController, val content: @Com
         }
     }
 
-    private fun removeSubViews(view: UIView) {
+    fun removeSubViews(view: UIView) {
         for (subview in view.subviews) {
             if (subview is UIComposeView) {
                 subview.isDirty = true
@@ -88,7 +90,7 @@ open class HostingController(val controller: UIViewController, val content: @Com
         }
     }
 
-    private fun removeDirtySubViews(view: UIView) {
+    fun removeDirtySubViews(view: UIView) {
         for (subview in view.subviews) {
             if (subview is UIComposeView && subview.isDirty) {
                 subview.removeFromSuperview()
@@ -115,13 +117,16 @@ open class HostingController(val controller: UIViewController, val content: @Com
         }
     }
 
-    private fun yoga_applyLayout(view: UIView) {
+    fun yoga_applyLayout(view: UIView) {
         this.yoga_scrollViewFixPreLayout(view)
         view.yoga.applyLayoutPreservingOrigin(true)
         this.yoga_scrollViewFixPostLayout(view)
     }
 
     private fun yoga_scrollViewFixPreLayout(view: UIView) {
+        if (view is UITableView) {
+            return
+        }
         if (view.isYogaEnabled && view is UIScrollView) {
             view.showsVerticalScrollIndicator = false
             view.showsHorizontalScrollIndicator = false
@@ -134,20 +139,13 @@ open class HostingController(val controller: UIViewController, val content: @Com
     }
 
     private fun yoga_scrollViewFixPostLayout(view: UIView) {
+        if (view is UITableView) {
+            return
+        }
         if (view.isYogaEnabled && view is UIScrollView) {
             view.showsVerticalScrollIndicator = true
             view.showsHorizontalScrollIndicator = true
-            var w = 0.0
-            var h = 0.0
-            for (subview in view.subviews) {
-                if (subview is UIView) {
-                    val fw = subview.frame.useContents { origin.x + size.width }
-                    val fh = subview.frame.useContents { origin.y + size.height }
-                    w = max(fw, w)
-                    h = max(fh, h)
-                }
-            }
-            view.setContentSize(CGSizeMake(w, h))
+            view.setContentSize(contentSize(view))
         }
         for (subview in view.subviews) {
             if (subview is UIView && subview.isYogaEnabled) {
@@ -155,6 +153,20 @@ open class HostingController(val controller: UIViewController, val content: @Com
             }
         }
     }
+}
+
+fun contentSize(view: UIView): CValue<CGSize> {
+    var w = 0.0
+    var h = 0.0
+    for (subview in view.subviews) {
+        if (subview is UIView) {
+            val fw = subview.frame.useContents { origin.x + size.width }
+            val fh = subview.frame.useContents { origin.y + size.height }
+            w = max(fw, w)
+            h = max(fh, h)
+        }
+    }
+    return CGSizeMake(w, h)
 }
 
 fun addSubview(view: UIView, content: (() -> Unit)? = null) {
@@ -197,4 +209,13 @@ fun addControllerAndLayout(controller: UIComposeViewController) {
     addController(controller, controller.content)
     HostingController.host.removeDirtySubViews(controller)
     HostingController.host.yoga_applyLayout(controller)
+}
+
+fun addViewAndLayout(view: UIView, content: (() -> Unit)? = null) {
+    HostingController.host.removeSubViews(view)
+    HostingController.views.add(view)
+    content?.invoke()
+    HostingController.views.removeLast()
+    HostingController.host.removeDirtySubViews(view)
+    HostingController.host.yoga_applyLayout(view)
 }

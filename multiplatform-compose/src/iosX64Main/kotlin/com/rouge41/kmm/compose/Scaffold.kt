@@ -1,7 +1,5 @@
 package com.rouge41.kmm.compose
 
-actual class PaddingValues
-
 // Do nothing on iOS
 
 @Composable

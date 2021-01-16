@@ -16,6 +16,7 @@ actual fun Navigation(state: MutableState<Boolean>, resources: Resources) {
         Demo.values().dropLast(4).forEach { screen ->
             composable(screen.toString(), screen.toString()) {
                 when (screen) {
+                    Demo.LazyColumn -> SafeArea { LazyColumn() }
                     Demo.HelloPlatform -> SafeArea { HelloPlatform() }
                     Demo.Lorem -> SafeArea { ScrollableColumn { Lorem() } }
                     Demo.Counter -> Counter()
