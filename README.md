@@ -124,6 +124,7 @@ NavigationView(startDestination = "first") { navController ->
 
 - Jetpack Compose require Android Studio Canary and an alpha build of Gradle. There is some workaround in _build.gradle.kts_ to make it work (testApi).
 - Jetpack Compose is not supported in Kotlin Multiplatform Mobile library ([KT-38694](https://youtrack.jetbrains.com/issue/KT-38694)). Unfortunatly, the workaround was messing with actual/expect function and prevent the use of expect function with default value. The library now use @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS") to workaround this problem. If you use an expect function with default value and without the suppress, you will get an error function not found or _java.lang.IllegalStateException: 2. expected value parameter count to be higher_.
+- Jetpack Compose dependencies can not be used in commonMain because they have a dependency on kotlinx-coroutines-android.
 - Android Studio does not autocomplete cocoapods imported library in iosMain. Thus it is in iosx64Main and symlinked to iosArm64Main.
 - Images needs currently to be included in the android and ios resources separately.
 - Navigation is currently not shared in the library
