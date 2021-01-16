@@ -3,10 +3,7 @@ package com.rouge41.kmm.compose
 import androidx.compose.foundation.lazy.rememberLazyListState as _rememberLazyListState
 import androidx.compose.foundation.lazy.LazyColumn as _LazyColumn
 
-actual typealias Scrollable = androidx.compose.foundation.gestures.Scrollable
 actual typealias InteractionState = androidx.compose.foundation.InteractionState
-actual typealias FlingConfig = androidx.compose.foundation.animation.FlingConfig
-actual typealias AnimationClockObservable = androidx.compose.animation.core.AnimationClockObservable
 actual typealias LazyListState = androidx.compose.foundation.lazy.LazyListState
 actual typealias LazyItemScope = androidx.compose.foundation.lazy.LazyItemScope
 @Suppress("NO_ACTUAL_CLASS_MEMBER_FOR_EXPECTED_CLASS")
