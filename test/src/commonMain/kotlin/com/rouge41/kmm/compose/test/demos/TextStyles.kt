@@ -19,4 +19,7 @@ fun TextStyles() {
     Text("I am Cursive Text", style = TextStyle(fontFamily = FontFamily.Cursive))
     Text("I am Monospace Text", style = TextStyle(fontFamily = FontFamily.Monospace))
     Text("I am Serif Text", style = TextStyle(fontFamily = FontFamily.Serif))
+    Text("Big text", fontSize = 30.sp)
+    Text("Red text", color = Color.Red)
+
 }

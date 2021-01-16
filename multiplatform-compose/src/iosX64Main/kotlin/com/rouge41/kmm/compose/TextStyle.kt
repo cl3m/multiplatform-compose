@@ -23,14 +23,17 @@ actual data class TextStyle actual constructor(
     actual val lineHeight: TextUnit,
     actual val textIndent: TextIndent?
 ) {
-    fun toUIFont(): UIFont {
-        val size: CGFloat = if (fontSize == TextUnit.Unspecified) UILabel.appearance().font.pointSize else fontSize.packedValue.toDouble()
-        val weight: CGFloat = fontWeight?.weight?.toDouble() ?: 0.0
-        when (fontStyle) {
+    fun toUIFont(overrideFontSize: TextUnit? = null,
+                 overrideFontWeight: FontWeight? = null,
+                 overrideFontStyle: FontStyle? = null,
+                 overrideFontFamily: FontFamily? = null): UIFont {
+        val size: CGFloat = overrideFontSize?.packedValue?.toDouble() ?: if (fontSize == TextUnit.Unspecified) UILabel.appearance().font.pointSize else fontSize.packedValue.toDouble()
+        val weight: CGFloat = overrideFontWeight?.weight?.toDouble() ?: fontWeight?.weight?.toDouble() ?: 0.0
+        when (overrideFontStyle ?: fontStyle) {
             FontStyle.Normal -> TODO()
             FontStyle.Italic -> return UIFont.italicSystemFontOfSize(size)
         }
-        when (fontFamily) {
+        when (overrideFontFamily ?: fontFamily) {
             FontFamily.Default -> return UIFont.systemFontOfSize(size, weight)
             FontFamily.SansSerif -> return UIFont.systemFontOfSize(size, weight)
             FontFamily.Serif -> return UIFont.fontWithName("Times", size)!!
