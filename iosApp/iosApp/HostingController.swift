@@ -49,6 +49,11 @@ class HostingControllerProxy: UIViewController {
         hostingController.refreshContent()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        hostingController.refreshContent()
+    }
+    
     @available(iOS 11.0, *)
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()

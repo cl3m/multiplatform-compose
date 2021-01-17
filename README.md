@@ -59,6 +59,14 @@ fun HelloPlatform() {
 
 More advance sample are in the test library.
 
+#### Image
+
+The image composable allow url loading
+
+```kotlin
+Image(url = "https://loremflickr.com/320/240/ocean", modifier = Modifier.preferredSize(200.dp))
+```
+
 ### iOS Composables
 
 #### HumanAppearance

@@ -13,6 +13,12 @@ import platform.darwin.dispatch_get_main_queue
 import platform.posix.intptr_t
 import kotlin.native.concurrent.freeze
 
+actual interface ImageBitmap
+data class iosImageBitmap(val id: ImageResource): ImageBitmap {
+    fun toUIImage(): UIImage? {
+        return UIImage.imageNamed(id)
+    }
+}
 actual typealias ImageResource = String
 
 actual interface ContentScale{
@@ -24,21 +30,28 @@ actual interface ContentScale{
 sealed class iosContentScale: ContentScale {
     object Fit: iosContentScale()
 }
+
 @Composable
-actual inline fun Image(resourceId: ImageResource,
+actual fun imageResource(id: ImageResource): ImageBitmap = iosImageBitmap(id)
+
+@Composable
+actual inline fun Image(bitmap: ImageBitmap,
                         modifier: Modifier,
                         alignment: AlignmentVerticalAndHorizontal,
                         contentScale: ContentScale,
                         alpha: Float) {
     val imageView = UIImageView()
-    imageView.image = UIImage.imageNamed(resourceId)
+    imageView.image = (bitmap as iosImageBitmap).toUIImage()
     imageView.contentMode = UIViewContentMode.UIViewContentModeScaleAspectFit
     modifier.setup(imageView)
     addSubview(imageView)
 }
 
 @Composable
-actual inline fun Image(url: String, modifier: Modifier) {
+actual inline fun Image(url: String, modifier: Modifier,
+                        alignment: AlignmentVerticalAndHorizontal,
+                        contentScale: ContentScale,
+                        alpha: Float) {
     val imageView = UIImageView()
     imageView.contentMode = UIViewContentMode.UIViewContentModeScaleAspectFit
     modifier.setup(imageView)
