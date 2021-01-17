@@ -12,5 +12,6 @@ expect fun Modifier.width(dp: Dp): Modifier
 expect fun Modifier.height(dp: Dp): Modifier
 expect fun Modifier.preferredWidth(dp: Dp): Modifier
 expect fun Modifier.preferredHeight(dp: Dp): Modifier
+expect fun Modifier.preferredSize(dp: Dp): Modifier
 @Composable
 expect fun Modifier.clickable(onClick: () -> Unit): Modifier

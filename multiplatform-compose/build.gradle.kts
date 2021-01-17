@@ -64,7 +64,10 @@ kotlin {
         }
     }
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+            }
+        }
         val androidMain by getting {
             dependencies {
                 implementation(Android.material)
@@ -75,6 +78,8 @@ kotlin {
                 implementation(Compose.material)
                 implementation(Compose.runtimeLiveData)
                 implementation(Compose.navigation)
+
+                implementation(Coil.coil)
             }
         }
         val iosMain by getting

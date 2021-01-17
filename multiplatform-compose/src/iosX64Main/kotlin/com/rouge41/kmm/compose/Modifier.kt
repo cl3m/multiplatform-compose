@@ -106,6 +106,7 @@ actual fun Modifier.height(dp: Dp): Modifier {
 
 actual fun Modifier.preferredWidth(dp: Dp): Modifier = width(dp)
 actual fun Modifier.preferredHeight(dp: Dp): Modifier = height(dp)
+actual fun Modifier.preferredSize(dp: Dp): Modifier = height(dp).width(dp)
 
 @Composable
 actual fun Modifier.clickable(onClick: () -> Unit): Modifier {

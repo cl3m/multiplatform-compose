@@ -16,12 +16,4 @@ fun Menu(state: MutableState<Boolean>, onClick: (String) -> Unit) {
             )
         )
     }
-    ListItem(
-        text = { Text("Raw mode") },
-        modifier = Modifier.clickable(
-            onClick = {
-                state.value = false
-            }
-        )
-    )
 }

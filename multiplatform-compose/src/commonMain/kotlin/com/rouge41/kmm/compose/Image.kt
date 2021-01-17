@@ -10,6 +10,17 @@ package com.rouge41.kmm.compose
  */
 
 expect class ImageResource
+expect interface ContentScale{
+    companion object {
+        val Fit: ContentScale
+    }
+}
+@Composable
+expect inline fun Image(resourceId: ImageResource,
+                        modifier: Modifier = Modifier,
+                        alignment: AlignmentVerticalAndHorizontal = Alignment.Center,
+                        contentScale: ContentScale = ContentScale.Fit,
+                        alpha: Float = 1.0f)
 
 @Composable
-expect inline fun Image(resourceId: ImageResource, modifier: Modifier)
+expect inline fun Image(url: String, modifier: Modifier)

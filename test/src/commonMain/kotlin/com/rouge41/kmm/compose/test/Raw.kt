@@ -11,6 +11,7 @@ fun Raw(state: MutableState<Boolean>, resources: Resources) {
         Demo.HelloPlatform -> SafeArea { HelloPlatform() }
         Demo.Lorem -> SafeArea { ScrollableColumn { Lorem() } }
         Demo.LazyColumn -> LazyColumn()
+        Demo.PeopleInSpace -> PeopleInSpace()
         Demo.Counter -> SafeArea { Counter() }
         Demo.BackPress -> SafeArea { BackPress() }
         Demo.Layout -> SafeArea { Layout() }

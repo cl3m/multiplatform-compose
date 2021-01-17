@@ -152,3 +152,4 @@ expect enum class FontStyle {
 }
 
 expect val Int.sp: TextUnit
+expect val Double.sp: TextUnit

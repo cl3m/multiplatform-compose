@@ -14,6 +14,7 @@ import androidx.navigation.compose.*
 import com.rouge41.kmm.compose.MutableState
 import com.rouge41.kmm.compose.SafeArea
 import com.rouge41.kmm.compose.ScrollableColumn
+import com.rouge41.kmm.compose.clickable
 import com.rouge41.kmm.compose.test.demos.*
 
 @Composable
@@ -46,6 +47,14 @@ fun DrawerNavigation(state: MutableState<Boolean>, resources: Resources) {
                 }
                 scaffoldState.drawerState.close()
             }
+            ListItem(
+                text = { Text("Raw mode") },
+                modifier = Modifier.clickable(
+                    onClick = {
+                        state.value = false
+                    }
+                )
+            )
         },
         scaffoldState = scaffoldState
     ) {
@@ -57,6 +66,7 @@ fun DrawerNavigation(state: MutableState<Boolean>, resources: Resources) {
                         Demo.HelloPlatform -> HelloPlatform()
                         Demo.Lorem -> ScrollableColumn { Lorem() }
                         Demo.Counter -> Counter()
+                        Demo.PeopleInSpace -> PeopleInSpace()
                         Demo.BackPress -> BackPress()
                         Demo.Layout -> Layout()
                         Demo.Images ->  Images(resources)

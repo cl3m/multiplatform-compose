@@ -73,6 +73,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(project(":multiplatform-compose"))
+                implementation(Kotlinx.coroutines)
             }
         }
         val commonTest by getting {

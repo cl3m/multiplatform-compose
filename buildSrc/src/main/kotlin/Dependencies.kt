@@ -11,6 +11,9 @@ object Version {
     const val yoga = "~> 1.7"
 
     const val junit = "4.13"
+
+    const val coil = "1.1.1"
+    const val coroutines = "1.4.2"
 }
 
 
@@ -36,4 +39,12 @@ object Compose {
     const val material = "androidx.compose.material:material:${Version.compose}"
     const val runtimeLiveData = "androidx.compose.runtime:runtime-livedata:${Version.compose}"
     const val navigation = "androidx.navigation:navigation-compose:${Version.nav_compose}"
+}
+
+object Coil {
+    const val coil = "io.coil-kt:coil:${Version.coil}"
+}
+
+object Kotlinx {
+    const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Version.coroutines}"
 }

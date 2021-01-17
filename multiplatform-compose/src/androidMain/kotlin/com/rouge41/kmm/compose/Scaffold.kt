@@ -10,4 +10,5 @@ actual fun Scaffold(
 ) = _Scaffold(topBar = topBar, bodyContent = bodyContent)
 
 @Composable
-actual fun TopAppBar(title: @Composable () -> Unit) = _TopAppBar(title = title)
+@Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+actual fun TopAppBar(title: @Composable () -> Unit, navigationIcon: @Composable (() -> Unit)? = null) = _TopAppBar(title = title, navigationIcon = navigationIcon)

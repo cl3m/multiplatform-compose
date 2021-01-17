@@ -99,6 +99,7 @@ class UIComposeTableViewController() : UIViewController(nibName = null, bundle =
     init {
         tableView.estimatedRowHeight = 44.0
         tableView.dataSource = this
+        tableView.tableFooterView = UIView()
         delegate = UIComposeTableViewDelegate(this)
         tableView.delegate = delegate
     }

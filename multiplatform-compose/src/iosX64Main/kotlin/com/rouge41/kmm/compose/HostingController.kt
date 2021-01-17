@@ -118,15 +118,15 @@ open class HostingController(val controller: UIViewController, val content: @Com
     }
 
     fun yoga_applyLayout(view: UIView) {
+        if (view is UITableView) {
+            return
+        }
         this.yoga_scrollViewFixPreLayout(view)
         view.yoga.applyLayoutPreservingOrigin(true)
         this.yoga_scrollViewFixPostLayout(view)
     }
 
     private fun yoga_scrollViewFixPreLayout(view: UIView) {
-        if (view is UITableView) {
-            return
-        }
         if (view.isYogaEnabled && view is UIScrollView) {
             view.showsVerticalScrollIndicator = false
             view.showsHorizontalScrollIndicator = false
@@ -139,9 +139,6 @@ open class HostingController(val controller: UIViewController, val content: @Com
     }
 
     private fun yoga_scrollViewFixPostLayout(view: UIView) {
-        if (view is UITableView) {
-            return
-        }
         if (view.isYogaEnabled && view is UIScrollView) {
             view.showsVerticalScrollIndicator = true
             view.showsHorizontalScrollIndicator = true
@@ -176,12 +173,16 @@ fun addSubview(view: UIView, content: (() -> Unit)? = null) {
     HostingController.views.removeLast()
 }
 
-fun addController(controller: UIViewController?, content: (() -> Unit)? = null) {
+fun addController(controller: UIViewController?, content: (@Composable (NavBackStackEntry) -> Unit)? = null) {
     controller?.let {
         HostingController.controllers.add(it)
         HostingController.views.add(it.view)
     }
-    content?.invoke()
+    if (controller is UIComposeViewController) {
+        content?.invoke(NavBackStackEntry(controller.bundle))
+    } else {
+        content?.invoke(NavBackStackEntry())
+    }
     controller?.let {
         HostingController.views.removeLast()
         HostingController.controllers.removeLast()

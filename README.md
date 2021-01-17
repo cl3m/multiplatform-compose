@@ -101,12 +101,13 @@ TabView {
 
 #### NavigationView
 
-UINavigationController for Compose
+UINavigationController for Compose, renamed to NavHost but as additional parameter title in composable
 
 ```kotlin
-NavigationView(startDestination = "first") { navController ->
+val navController = rememberNavController()
+NavHost(navController = navController, startDestination = "first") {
     composable("first", title = "First") {
-	SafeArea {
+			SafeArea {
 	    Button(onClick = { navController.navigate("second") }) { 
                 // ...
             }

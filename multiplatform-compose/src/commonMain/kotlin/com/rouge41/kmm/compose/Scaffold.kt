@@ -7,4 +7,4 @@ expect fun Scaffold(
 )
 
 @Composable
-expect fun TopAppBar(title: @Composable () -> Unit)
+expect fun TopAppBar(title: @Composable () -> Unit, navigationIcon: @Composable (() -> Unit)? = null)

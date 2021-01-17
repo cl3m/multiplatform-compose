@@ -73,6 +73,7 @@ actual inline class TextUnit(val packedValue: Long) {
     }
 }
 actual inline val Int.sp: TextUnit get() = TextUnit(packedValue = this.toLong())
+actual inline val Double.sp: TextUnit get() = TextUnit(packedValue = this.toLong())
 
 actual sealed class FontFamily {
     actual companion object {

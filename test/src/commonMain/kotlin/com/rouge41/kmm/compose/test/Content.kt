@@ -26,6 +26,7 @@ enum class Demo {
     Layout,
     TextStyles,
     Images,
+    PeopleInSpace,
     // Below are dropped in navigation demos
     BottomNavigation,
     Navigation,

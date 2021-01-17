@@ -3,8 +3,19 @@ package com.rouge41.kmm.compose
 import cocoapods.YogaKit.*
 import platform.UIKit.*
 
+actual class ScrollState
+
 @Composable
-actual fun ScrollableColumn(content: @Composable ColumnScope.() -> Unit) {
+actual fun ScrollableColumn(
+    modifier: Modifier,
+    scrollState: ScrollState,
+    verticalArrangement: ArrangementVertical,
+    horizontalAlignment: AlignmentHorizontal,
+    reverseScrollDirection: Boolean,
+    isScrollEnabled: Boolean,
+    contentPadding: PaddingValues,
+    content: @Composable ColumnScope.() -> Unit
+) {
     val scrollView = UIComposeScrollView.createOrReuse("${content::class}")
     scrollView.configureLayoutWithBlock { layout ->
         layout?.isEnabled = true
@@ -14,3 +25,9 @@ actual fun ScrollableColumn(content: @Composable ColumnScope.() -> Unit) {
     }
     addSubview(scrollView) { content.invoke(iosColumnScope()) }
 }
+
+@Composable
+actual fun rememberScrollState(
+    initial: Float,
+    interactionState: InteractionState?
+): ScrollState = ScrollState()
