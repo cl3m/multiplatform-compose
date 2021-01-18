@@ -114,7 +114,7 @@ fun MainLayout(peopleInSpaceViewModel: PeopleInSpaceViewModel) {
             }
             composable(Screen.PersonDetailsDetails.title + "/{person}", title = "{person}") { backStackEntry ->
                 PersonDetailsView(peopleInSpaceViewModel,
-                    backStackEntry.getArguments()?.get("person") as String,
+                    backStackEntry.arguments?.get("person") as String,
                     popBack = {
                         navController.popBackStack()
                     })

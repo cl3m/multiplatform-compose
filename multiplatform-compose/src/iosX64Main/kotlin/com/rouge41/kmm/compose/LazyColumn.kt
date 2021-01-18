@@ -1,9 +1,9 @@
 package com.rouge41.kmm.compose
 
 import cocoapods.YogaKit.*
+import kotlinx.cinterop.ExportObjCClass
 import kotlinx.cinterop.useContents
 import platform.CoreGraphics.CGFloat
-import platform.CoreGraphics.CGRectMake
 import platform.Foundation.NSIndexPath
 import platform.Foundation.NSLog
 import platform.UIKit.*
@@ -31,13 +31,13 @@ actual fun LazyColumn(
     }
 }
 
-actual typealias LazyListState = UIComposeTableViewController
+actual typealias LazyListState = ComposeTableViewController
 actual class InteractionState
 actual fun rememberLazyListState(
     initialFirstVisibleItemIndex: Int,
     initialFirstVisibleItemScrollOffset: Int,
     interactionState: InteractionState?
-): LazyListState = remember { UIComposeTableViewController() }
+): LazyListState = remember { ComposeTableViewController() }
 
 actual interface LazyListScope {
     actual fun <T> items(
@@ -55,7 +55,7 @@ actual interface LazyListScope {
 class iosLazyListScope : LazyListScope {
     override fun <T> items(items: List<T>, itemContent: LazyItemScope.(item: T) -> Unit) {
         val controller = getCurrentController()
-        if (controller is UIComposeTableViewController) {
+        if (controller is ComposeTableViewController) {
             for (item in items) {
                 controller.items.add {
                     itemContent.invoke(this, item)
@@ -66,7 +66,7 @@ class iosLazyListScope : LazyListScope {
 
     override fun item(content: LazyItemScope.() -> Unit) {
         val controller = getCurrentController()
-        if (controller is UIComposeTableViewController) {
+        if (controller is ComposeTableViewController) {
             controller.items.add(content)
         }
     }
@@ -76,7 +76,7 @@ class iosLazyListScope : LazyListScope {
         itemContent: LazyItemScope.(index: Int, item: T) -> Unit
     ) {
         val controller = getCurrentController()
-        if (controller is UIComposeTableViewController) {
+        if (controller is ComposeTableViewController) {
             for ((index, item) in items.withIndex()) {
                 controller.items.add {
                     itemContent.invoke(this, index, item)
@@ -90,18 +90,21 @@ class iosLazyListScope : LazyListScope {
 actual interface LazyItemScope
 class iosLazyItemScope : LazyItemScope
 
-class UIComposeTableViewController() : UIViewController(nibName = null, bundle = null), UITableViewDataSourceProtocol {
+private val cellIdentifier = "lazyCell"
+
+class ComposeTableViewController() : UIViewController(nibName = null, bundle = null), UITableViewDataSourceProtocol {
     var items =  mutableListOf<@Composable LazyItemScope.() -> Unit>()
     var heights = mutableMapOf<Long, CGFloat>()
     val tableView = UITableView()
-    lateinit var delegate: UIComposeTableViewDelegate
+    var delegate: ComposeTableViewDelegate
 
     init {
         tableView.estimatedRowHeight = 44.0
         tableView.dataSource = this
         tableView.tableFooterView = UIView()
-        delegate = UIComposeTableViewDelegate(this)
+        delegate = ComposeTableViewDelegate(this)
         tableView.delegate = delegate
+        tableView.registerClass(cellClass = ComposeTableViewCell(UITableViewCellStyle.UITableViewCellStyleDefault, null)::`class`.invoke(), forCellReuseIdentifier = cellIdentifier)
     }
 
     override fun tableView(tableView: UITableView, numberOfRowsInSection: NSInteger): NSInteger {
@@ -109,9 +112,9 @@ class UIComposeTableViewController() : UIViewController(nibName = null, bundle =
     }
 
     override fun tableView(tableView: UITableView, cellForRowAtIndexPath: NSIndexPath): UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("cell")
+        var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, cellForRowAtIndexPath)
         if (cell == null) {
-            cell = UITableViewCell(UITableViewCellStyle.UITableViewCellStyleDefault, "cell")
+            cell = UITableViewCell(UITableViewCellStyle.UITableViewCellStyleDefault, cellIdentifier)
             cell.contentView.configureLayoutWithBlock { layout ->
                 layout?.isEnabled = true
                 layout?.width = YGPercentValue(100.0)
@@ -128,8 +131,21 @@ class UIComposeTableViewController() : UIViewController(nibName = null, bundle =
     }
 }
 
-class UIComposeTableViewDelegate(val controller: UIComposeTableViewController): NSObject(), UITableViewDelegateProtocol {
+class ComposeTableViewDelegate(val controller: ComposeTableViewController): NSObject(), UITableViewDelegateProtocol {
     override fun tableView(tableView: UITableView, heightForRowAtIndexPath: NSIndexPath): CGFloat {
         return controller.heights[heightForRowAtIndexPath.row] ?: 44.0
     }
+}
+
+@ExportObjCClass
+class ComposeTableViewCell: UITableViewCell {
+    init {
+        if (DEBUG_COMPOSE) NSLog("🔴 [init ComposeTableViewCell]")
+        contentView.configureLayoutWithBlock { layout ->
+            layout?.isEnabled = true
+            layout?.width = YGPercentValue(100.0)
+        }
+    }
+
+    @OverrideInit constructor(style: UITableViewCellStyle, reuseIdentifier: String?) : super(style, reuseIdentifier)
 }

@@ -8,7 +8,7 @@ expect class NavHostController {
 }
 expect class NavGraphBuilder
 expect class NavBackStackEntry {
-    fun getArguments(): Bundle?
+    val arguments: Bundle?
 }
 expect class NavDeepLink
 expect class NamedNavArgument

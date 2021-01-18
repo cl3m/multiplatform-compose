@@ -1,6 +1,10 @@
 package com.rouge41.kmm.compose
 
 import cocoapods.YogaKit.*
+import kotlinx.cinterop.useContents
+import platform.CoreGraphics.CGPointMake
+import platform.CoreGraphics.CGPointZero
+import platform.Foundation.NSLog
 import platform.UIKit.*
 import platform.darwin.*
 
@@ -50,8 +54,10 @@ class UIComposeNavigationController() : UINavigationController(nibName = null, b
 
         }
         layout(controller)
+        resetTableViews(controller.view)
         pushViewController(controller, true)
         dispatch_async(dispatch_get_main_queue()) {
+            //TODO: Avoid a full relayout
             layout(controller)
         }
     }
@@ -65,11 +71,24 @@ class UIComposeNavigationController() : UINavigationController(nibName = null, b
         }
     }
 
-    fun layout(controller: UIComposeViewController) {
+    private fun layout(controller: UIComposeViewController) {
         controller.view.setFrame(view.bounds)
         addController(this.tabBarController) {
             addController(this) {
                 addControllerAndLayout(controller)
+            }
+        }
+    }
+
+    private fun resetTableViews(view: UIView) {
+        for (view in view.subviews) {
+            if (view is UITableView) {
+                view.beginUpdates()
+                val y = view.adjustedContentInset.useContents { top }
+                view.setContentOffset(CGPointMake(0.0, -y), false)
+                view.endUpdates()
+            } else if (view is UIView){
+                resetTableViews(view)
             }
         }
     }
@@ -142,7 +161,6 @@ actual class Bundle {
 }
 
 actual data class NavBackStackEntry(val bundle: Bundle? = null) {
-    actual fun getArguments(): Bundle? {
-        return bundle
-    }
+    actual val arguments: Bundle?
+        get() = bundle
 }

@@ -9,6 +9,7 @@ actual typealias Bundle = android.os.Bundle
 actual typealias NavController = androidx.navigation.NavController
 actual typealias NavHostController = androidx.navigation.NavHostController
 actual typealias NavGraphBuilder = androidx.navigation.NavGraphBuilder
+@Suppress("NO_ACTUAL_CLASS_MEMBER_FOR_EXPECTED_CLASS")
 actual typealias NavBackStackEntry =  androidx.navigation.NavBackStackEntry
 actual typealias NavDeepLink =  androidx.navigation.NavDeepLink
 actual typealias NamedNavArgument =  androidx.navigation.compose.NamedNavArgument

@@ -1,6 +1,6 @@
 package com.rouge41.kmm.compose
 
-actual inline class Dp(val value: Float)
+actual inline class Dp(val value: Float) : CornerSize
 
 actual inline val Int.dp: Dp get() = Dp(value = this.toFloat())
 
