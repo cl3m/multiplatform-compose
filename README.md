@@ -57,7 +57,7 @@ fun HelloPlatform() {
 ```
 ![Hello Platform Screenshot](https://github.com/cl3m/multiplatform-compose/blob/develop/screenshots/HelloPlatform.png?raw=true)
 
-More advance sample are in the test library.
+More advance sample are in the [demos](https://github.com/cl3m/multiplatform-compose/tree/develop/test/src/commonMain/kotlin/com/rouge41/kmm/compose/test/demos) directory of the test library.
 
 #### Image
 
