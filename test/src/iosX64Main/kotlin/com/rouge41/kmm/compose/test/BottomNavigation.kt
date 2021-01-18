@@ -37,6 +37,7 @@ actual fun BottomNavigation(state: MutableState<Boolean>, resources: Resources) 
                                 horizontalAlignment = Alignment.CenterHorizontally) {
                                 Counter()
                             }
+                            Image(bitmap = imageResource(resources.logo), modifier = Modifier.width(100.dp).height(100.dp))
                             Lorem()
                         }
                     }

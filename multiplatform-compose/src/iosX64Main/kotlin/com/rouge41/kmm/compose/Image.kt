@@ -1,16 +1,15 @@
 package com.rouge41.kmm.compose
 
 import cocoapods.YogaKit.*
-import platform.Foundation.NSData
-import platform.Foundation.NSLog
-import platform.Foundation.NSURL
-import platform.Foundation.dataWithContentsOfURL
+import kotlinx.cinterop.ExportObjCClass
+import kotlinx.cinterop.ObjCAction
+import kotlinx.cinterop.cValue
+import platform.CoreGraphics.CGRectZero
+import platform.Foundation.*
 import platform.UIKit.*
-import platform.darwin.DISPATCH_QUEUE_PRIORITY_DEFAULT
-import platform.darwin.dispatch_async
-import platform.darwin.dispatch_get_global_queue
-import platform.darwin.dispatch_get_main_queue
+import platform.darwin.*
 import platform.posix.intptr_t
+import platform.posix.printf
 import kotlin.native.concurrent.freeze
 
 actual interface ImageBitmap
@@ -40,26 +39,68 @@ actual inline fun Image(bitmap: ImageBitmap,
                         alignment: AlignmentVerticalAndHorizontal,
                         contentScale: ContentScale,
                         alpha: Float) {
-    val imageView = UIImageView()
-    imageView.image = (bitmap as iosImageBitmap).toUIImage()
-    imageView.contentMode = UIViewContentMode.UIViewContentModeScaleAspectFit
+    val imageView = ComposeImageView.createOrReuse(bitmap = bitmap)
     modifier.setup(imageView)
     addSubview(imageView)
 }
 
 @Composable
-actual inline fun Image(url: String, modifier: Modifier,
+actual inline fun Image(url: String,
+                        modifier: Modifier,
                         alignment: AlignmentVerticalAndHorizontal,
                         contentScale: ContentScale,
                         alpha: Float) {
-    val imageView = UIImageView()
-    imageView.contentMode = UIViewContentMode.UIViewContentModeScaleAspectFit
+    val imageView = ComposeImageView.createOrReuse(url = url)
     modifier.setup(imageView)
     addSubview(imageView)
-    dispatch_async(dispatch_get_main_queue()) {
-        //TODO: Make it on another thread and handle errors
-        val imageUrl = NSURL.URLWithString("$url")
-        val data = NSData.dataWithContentsOfURL(imageUrl!!)
-        imageView.image = UIImage.imageWithData(data!!)
+}
+
+@ExportObjCClass
+class ComposeImageView(bitmap: ImageBitmap?, val url: String?) : UIImageView(frame = cValue { CGRectZero }), NSURLSessionDelegateProtocol, NSURLSessionDataDelegateProtocol {
+    var isDirty: Boolean = false
+    var contentIdentifier: String
+    var task: NSURLSessionDataTask? = null
+    var session: NSURLSession? = null
+    var imageData = NSMutableData()
+
+    init {
+        contentIdentifier = contentIdentifier(bitmap, url)
+        if (DEBUG_COMPOSE) NSLog("🔴 [init ComposeImageView] $contentIdentifier")
+        bitmap?.let { image = (it as iosImageBitmap).toUIImage() }
+        url?.let { downloadImage(it) }
+        contentMode = UIViewContentMode.UIViewContentModeScaleAspectFit
+    }
+
+    private fun downloadImage(urlString: String) {
+        val url = NSURL(string = urlString)
+        if (url != null) {
+            session = NSURLSession.sessionWithConfiguration(NSURLSessionConfiguration.defaultSessionConfiguration(), delegate = null, delegateQueue = NSOperationQueue.mainQueue())
+            task = session!!.dataTaskWithURL(url) { data, _ , _ ->
+                if (DEBUG_COMPOSE) NSLog("🔵 [dataTaskWithURL ComposeImageView]")
+                if (data != null) {
+                    image = UIImage(data = data)
+                }
+            }
+            task!!.resume()
+        }
+    }
+
+    companion object {
+        fun createOrReuse(bitmap: ImageBitmap? = null, url: String? = null): ComposeImageView {
+            for (view in getCurrentView().subviews) {
+                if (view is ComposeImageView && view.isDirty && view.contentIdentifier == contentIdentifier(bitmap, url)) {
+                    if (DEBUG_COMPOSE) NSLog("🟢 [reuse ComposeImageView] ${view.contentIdentifier}")
+                    view.isDirty = false
+                    return view
+                }
+            }
+            return ComposeImageView(bitmap = bitmap, url = url)
+        }
+
+        private fun contentIdentifier(bitmap: ImageBitmap?, url: String?): String {
+            return if (bitmap != null) {
+                "$bitmap"
+            } else url ?: throw Exception("contentIdentifier undefined")
+        }
     }
 }

@@ -12,6 +12,8 @@ import platform.UIKit.*
 import platform.posix.printf
 import kotlin.math.max
 
+val DEBUG_COMPOSE = true
+
 open class HostingController(val controller: UIViewController, val content: @Composable () -> Unit) {
     @ThreadLocal
     companion object {
@@ -66,15 +68,21 @@ open class HostingController(val controller: UIViewController, val content: @Com
 
     fun removeSubViews(view: UIView) {
         for (subview in view.subviews) {
-            if (subview is UIComposeView) {
-                subview.isDirty = true
-                removeSubViews(subview)
-            } else if (subview is UIComposeScrollView) {
-                subview.isDirty =
-                    true
-                removeSubViews(subview)
-            } else {
-                (subview as UIView).removeFromSuperview()
+            when (subview) {
+                is UIComposeView -> {
+                    subview.isDirty = true
+                    removeSubViews(subview)
+                }
+                is UIComposeScrollView -> {
+                    subview.isDirty = true
+                    removeSubViews(subview)
+                }
+                is ComposeImageView -> {
+                    subview.isDirty = true
+                }
+                else -> {
+                    (subview as UIView).removeFromSuperview()
+                }
             }
         }
     }
@@ -95,6 +103,8 @@ open class HostingController(val controller: UIViewController, val content: @Com
             if (subview is UIComposeView && subview.isDirty) {
                 subview.removeFromSuperview()
             } else if (subview is UIComposeScrollView && subview.isDirty) {
+                subview.removeFromSuperview()
+            } else if (subview is ComposeImageView && subview.isDirty) {
                 subview.removeFromSuperview()
             } else {
                 removeDirtySubViews((subview as UIView))
