@@ -70,6 +70,7 @@ fun DrawerNavigation(state: MutableState<Boolean>, resources: Resources) {
                         Demo.BackPress -> BackPress()
                         Demo.Layout -> Layout()
                         Demo.Images ->  Images(resources)
+                        Demo.Buttons ->  Buttons()
                         Demo.TextStyles -> Column { TextStyles() }
                     }
                 }

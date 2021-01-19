@@ -27,9 +27,13 @@ enum class Demo {
     TextStyles,
     Images,
     PeopleInSpace,
+    Buttons,
     // Below are dropped in navigation demos
     BottomNavigation,
     Navigation,
     App,
     Raw,
 }
+
+@Composable
+expect fun Test()

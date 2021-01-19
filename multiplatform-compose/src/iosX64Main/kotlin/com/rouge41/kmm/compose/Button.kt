@@ -2,75 +2,107 @@ package com.rouge41.kmm.compose
 
 import cocoapods.YogaKit.*
 import kotlinx.cinterop.*
-import platform.CoreGraphics.CGRect
+import platform.CoreGraphics.CGFloat
 import platform.CoreGraphics.CGRectZero
-import platform.Foundation.*
+import platform.CoreGraphics.CGSizeMake
+import platform.CoreImage.CIGlassLozengeProtocol
+import platform.Foundation.NSLog
 import platform.Foundation.NSSelectorFromString
 import platform.UIKit.*
-import platform.darwin.NSObject
 
 actual interface ButtonColors
-actual object ButtonDefaults
+actual object ButtonDefaults {
+    actual val outlinedBorder = BorderStroke(1.dp, SolidColor(Color.Tint))
+    actual val ContentPadding = PaddingValues(8.dp)
+    actual val TextButtonContentPadding = PaddingValues(16.dp, 8.dp, 16.dp, 8.dp)
 
-class iosButtonColors : ButtonColors
-
-@Composable
-actual fun ButtonDefaults.buttonColors(backgroundColor: Color): ButtonColors {
-    return iosButtonColors()
+    @Composable
+    actual fun elevation(defaultElevation: Dp, pressedElevation: Dp, disabledElevation: Dp): ButtonElevation = iosButtonElevation()
 }
 
+class DefaultButtonColors(
+    val backgroundColor: Color = Color.Unspecified,
+    val disabledBackgroundColor: Color = Color.Unspecified,
+    val contentColor: Color? = null,
+    val disabledContentColor: Color? = null
+) : ButtonColors
+
 @Composable
-actual fun ButtonDefaults.buttonColors(): ButtonColors {
-    return iosButtonColors()
-}
+actual fun ButtonDefaults.buttonColors(backgroundColor: Color): ButtonColors = DefaultButtonColors(backgroundColor, backgroundColor.copy(alpha = 0.12))
+
+@Composable
+actual fun ButtonDefaults.buttonColors(): ButtonColors = DefaultButtonColors()
+
+@Composable
+actual fun ButtonDefaults.outlinedButtonColors(): ButtonColors = DefaultButtonColors()
+
+@Composable
+actual fun ButtonDefaults.textButtonColors(): ButtonColors = DefaultButtonColors()
 
 @Composable
 actual fun Button(
     onClick: () -> Unit,
     modifier: Modifier,
-    colors: ButtonColors,
+    enabled: Boolean,
+    interactionState: InteractionState?,
+    elevation: ButtonElevation?,
+    shape: Shape?,
+    border: BorderStroke?,
+    colors: ButtonColors?,
+    contentPadding: PaddingValues?,
     content: @Composable RowScope.() -> Unit
 ) {
-    // in a container because system button are not subclassable
-    val container = ButtonContainer(UIButton.buttonWithType(1), onClick)
-    modifier.setup(container)
-    container.configureLayoutWithBlock { layout ->
-        layout?.isEnabled = true
-        layout?.flexDirection = YGFlexDirection.YGFlexDirectionColumn
-        layout?.justifyContent = YGJustify.YGJustifyFlexStart
-        layout?.alignItems = YGAlign.YGAlignFlexStart
-        layout?.padding = YGPointValue(0.0)
-        layout?.margin = YGPointValue(0.0)
+    val container = ComposeSystemButton.createOrReuse(onClick)
+    modifier.margin(10.dp).padding(0.dp).setup(container)
+    modifier.background(Color.Transparent).setup(container.button)
+    if (border != null) {
+        if (border.brush is SolidColor) {
+            container.layer.borderColor = border.brush.value.toUIColor()?.CGColor
+        }
+        container.layer.borderWidth = border.width.value.toDouble()
+    } else {
+        container.layer.borderWidth = 0.0
     }
-    modifier.setup(container.button)
+    if (shape != null && shape is RoundedCornerShape) {
+        if (colors != null && colors is DefaultButtonColors) {
+            colors.backgroundColor.toUIColor()?.let { container.backgroundColor = it }
+        } else {
+            container.backgroundColor = getHostingView().tintColor
+            container.button.tintColor = UIColor.whiteColor
+            container.button.titleLabel?.textColor = UIColor.whiteColor
+        }
+        //TODO: Use UIBezierPath
+        container.layer.cornerRadius = (shape.topLeft as Dp).value.toDouble()
+    }
+    if (colors != null && colors is DefaultButtonColors) {
+        colors.backgroundColor.toUIColor()?.let { container.backgroundColor = it }
+    }
+    container.button.enabled = enabled
     addSubview(container) {
         addSubview(container.button) { content.invoke(iosRowScope()) }
     }
 }
 
-actual fun Button(
-    onClick: () -> Unit,
-    colors: ButtonColors,
-    content: @Composable RowScope.() -> Unit
-) {
-    Button(onClick = onClick, modifier = Modifier, colors = colors, content = content)
-}
-
-actual fun Button(
-    onClick: () -> Unit,
-    content: @Composable RowScope.() -> Unit
-) {
-    Button(onClick = onClick, modifier = Modifier, colors = ButtonDefaults.buttonColors(), content = content)
-}
-
+// in a container because system button are not subclassable
 @ExportObjCClass
-class ButtonContainer(val button: UIButton, val action: () -> Unit) : UIView(frame = cValue { CGRectZero }) {
+class ComposeSystemButton(val contentIdentifier: String, val onClick: () -> Unit) : UIView(frame = cValue { CGRectZero }) {
+    var isDirty: Boolean = false
+    var button: UIButton = UIButton.buttonWithType(1)
+    private var initialBackgroundColor: UIColor? = null
+
     init {
-        button.addTarget(
-            target = this,
-            action = NSSelectorFromString("touchUpInside"),
-            forControlEvents = UIControlEventTouchUpInside
-        )
+        if (DEBUG_COMPOSE) NSLog("🔴 [init ComposeSystemButton] $contentIdentifier")
+        configureLayoutWithBlock { layout ->
+            layout?.isEnabled = true
+            layout?.flexDirection = YGFlexDirection.YGFlexDirectionColumn
+            layout?.justifyContent = YGJustify.YGJustifyFlexStart
+            layout?.alignItems = YGAlign.YGAlignFlexStart
+            layout?.padding = YGPointValue(0.0)
+            layout?.margin = YGPointValue(0.0)
+        }
+        button.addTarget(this, NSSelectorFromString("touchDown"), UIControlEventTouchDown)
+        button.addTarget(this, NSSelectorFromString("touchUpInside"), UIControlEventTouchUpInside)
+        button.addTarget(this, NSSelectorFromString("touchUpOutside"), UIControlEventTouchUpOutside)
         addSubview(button)
         button.configureLayoutWithBlock { layout ->
             layout?.isEnabled = true
@@ -79,8 +111,93 @@ class ButtonContainer(val button: UIButton, val action: () -> Unit) : UIView(fra
         }
     }
 
+    companion object {
+        fun createOrReuse(onClick: () -> Unit): ComposeSystemButton {
+            val contentIdentifier = "${onClick::class}"
+            for (view in getCurrentView().subviews) {
+                if (view is ComposeSystemButton && view.isDirty && view.contentIdentifier == contentIdentifier) {
+                    if (DEBUG_COMPOSE) NSLog("🟢 [reuse ComposeSystemButton] ${view.contentIdentifier}")
+                    view.isDirty = false
+                    return view
+                }
+            }
+            return ComposeSystemButton(contentIdentifier, onClick)
+        }
+    }
+
     @ObjCAction
     fun touchUpInside() {
-        action()
+        backgroundColor = initialBackgroundColor
+        onClick()
+    }
+
+    @ObjCAction
+    fun touchUpOutside() {
+        backgroundColor = initialBackgroundColor
+    }
+
+    @ObjCAction
+    fun touchDown() {
+        initialBackgroundColor = backgroundColor
+        if (backgroundColor != null && backgroundColor != Color.Transparent.toUIColor()) {
+            NSLog("$backgroundColor ${UIColor.clearColor}")
+            backgroundColor = backgroundColor?.colorWithAlphaComponent(0.5)
+        }
     }
 }
+
+actual interface ButtonElevation
+class iosButtonElevation : ButtonElevation
+actual sealed class Brush
+actual data class BorderStroke(actual val width: Dp, actual val brush: Brush)
+actual data class SolidColor(actual val value: Color) : Brush()
+
+@Composable
+actual fun OutlinedButton(
+    onClick: () -> Unit,
+    modifier: Modifier,
+    enabled: Boolean,
+    interactionState: InteractionState?,
+    elevation: ButtonElevation?,
+    shape: Shape?,
+    border: BorderStroke?,
+    colors: ButtonColors?,
+    contentPadding: PaddingValues?,
+    content: @Composable RowScope.() -> Unit
+) = Button(
+    onClick = onClick,
+    modifier = modifier,
+    enabled = enabled,
+    interactionState = interactionState,
+    elevation = elevation,
+    shape = shape ?: MaterialTheme.shapes.small,
+    border = border,
+    colors = colors ?: ButtonDefaults.outlinedButtonColors(),
+    contentPadding = contentPadding ?: ButtonDefaults.ContentPadding,
+    content = content
+)
+
+@Composable
+actual fun TextButton(
+    onClick: () -> Unit,
+    modifier: Modifier,
+    enabled: Boolean,
+    interactionState: InteractionState?,
+    elevation: ButtonElevation?,
+    shape: Shape?,
+    border: BorderStroke?,
+    colors: ButtonColors?,
+    contentPadding: PaddingValues?,
+    content: @Composable RowScope.() -> Unit
+) = Button(
+    onClick = onClick,
+    modifier = modifier,
+    enabled = enabled,
+    interactionState = interactionState,
+    elevation = elevation,
+    shape = shape ?: MaterialTheme.shapes.small,
+    border = border,
+    colors = colors ?: ButtonDefaults.textButtonColors(),
+    contentPadding = contentPadding ?: ButtonDefaults.TextButtonContentPadding,
+    content = content
+)

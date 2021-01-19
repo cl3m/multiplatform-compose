@@ -40,6 +40,7 @@ actual fun Navigation(state: MutableState<Boolean>, resources: Resources) {
                     Demo.PeopleInSpace -> SafeArea { Text("Go through Raw first") }
                     Demo.BackPress -> BackPress()
                     Demo.Layout -> SafeArea { Layout() }
+                    Demo.Buttons -> SafeArea { Buttons() }
                     Demo.Images ->  SafeArea { Images(resources) }
                     Demo.TextStyles -> SafeArea { Column { TextStyles() } }
                 }

@@ -80,6 +80,9 @@ open class HostingController(val controller: UIViewController, val content: @Com
                 is ComposeImageView -> {
                     subview.isDirty = true
                 }
+                is ComposeSystemButton -> {
+                    subview.isDirty = true
+                }
                 else -> {
                     (subview as UIView).removeFromSuperview()
                 }
@@ -105,6 +108,8 @@ open class HostingController(val controller: UIViewController, val content: @Com
             } else if (subview is UIComposeScrollView && subview.isDirty) {
                 subview.removeFromSuperview()
             } else if (subview is ComposeImageView && subview.isDirty) {
+                subview.removeFromSuperview()
+            } else if (subview is ComposeSystemButton && subview.isDirty) {
                 subview.removeFromSuperview()
             } else {
                 removeDirtySubViews((subview as UIView))

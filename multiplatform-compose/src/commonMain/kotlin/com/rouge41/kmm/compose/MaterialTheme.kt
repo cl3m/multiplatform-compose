@@ -103,12 +103,16 @@ expect class Typography {
 
 expect interface CornerSize
 
-expect abstract class CornerBasedShape {
+expect interface Shape
+
+expect abstract class CornerBasedShape: Shape {
     val topLeft: CornerSize
     val topRight: CornerSize
     val bottomRight: CornerSize
     val bottomLeft: CornerSize
 }
+
+expect class RoundedCornerShape: CornerBasedShape
 
 expect class Shapes {
     val small: CornerBasedShape
@@ -161,3 +165,5 @@ expect fun lightColors(
     onSurface: Color = Color.Black,
     onError: Color = Color.White
 ): Colors
+
+expect fun RoundedCornerShape(size: Dp) : CornerBasedShape

@@ -70,21 +70,21 @@ private fun TextStyle.withDefaultFontFamily(default: FontFamily): TextStyle {
 
 actual interface CornerSize
 
+actual interface Shape
+
 actual abstract class CornerBasedShape(
     actual val topLeft: CornerSize,
     actual val topRight: CornerSize,
     actual val bottomRight: CornerSize,
     actual val bottomLeft: CornerSize
-)
+): Shape
 
-class RoundedCornerShape(
+actual class RoundedCornerShape(
     topLeft: CornerSize,
     topRight: CornerSize,
     bottomRight: CornerSize,
     bottomLeft: CornerSize
-) : CornerBasedShape(topLeft, topRight, bottomRight, bottomLeft) {
-    constructor(dp: Dp): this(dp, dp, dp, dp)
-}
+) : CornerBasedShape(topLeft, topRight, bottomRight, bottomLeft)
 
 actual class Shapes {
     actual val small: CornerBasedShape = RoundedCornerShape(4.dp)
@@ -144,3 +144,4 @@ actual fun lightColors(
         surface = surface, error = error, onPrimary = onPrimary, onSecondary = onSecondary, onBackground = onBackground,
         onSurface = onSurface, onError = onError, isLight = true)
 
+actual fun RoundedCornerShape(size: Dp): CornerBasedShape = RoundedCornerShape(size, size, size, size)

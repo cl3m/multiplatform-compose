@@ -1,7 +1,10 @@
 package com.rouge41.kmm.compose
 
 import platform.CoreGraphics.CGFloat
+import platform.Foundation.NSLog
 import platform.UIKit.UIColor
+import platform.UIKit.tintColor
+import platform.UIKit.window
 
 actual inline class Color(val value: ULong) {
     actual companion object {
@@ -18,18 +21,48 @@ actual inline class Color(val value: ULong) {
         actual val Magenta = Color(4294902015u)
         actual val Transparent = Color(0u)
         actual val Unspecified = Color(ULong.MAX_VALUE)
+        val Tint = Color(ULong.MAX_VALUE - 1u)
     }
-}
 
-fun Color.toUIColor(): UIColor? {
-    return if (value == ULong.MAX_VALUE) {
-        null
-    } else {
-        val alpha: CGFloat = (value and 4278190080u shr 24).toDouble() / 255.0
-        val red: CGFloat = (value and 16711680u shr 16).toDouble() / 255.0
-        val green: CGFloat = (value and 65280u shr 8).toDouble() / 255.0
-        val blue: CGFloat = (value and 255u).toDouble() / 255.0
-        UIColor(red = red, green = green, blue = blue, alpha = alpha)
+    fun copy(
+        alpha: CGFloat = this.alpha,
+        red: CGFloat = this.red,
+        green: CGFloat = this.green,
+        blue: CGFloat = this.blue
+    ): Color = Color(
+        red = red,
+        green = green,
+        blue = blue,
+        alpha = alpha
+    )
+
+    private fun Color(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat): Color {
+        val argb = (
+                ((alpha * 255.0).toInt() shl 24) or
+                        ((red * 255.0).toInt() shl 16) or
+                        ((green * 255.0).toInt() shl 8) or
+                        (blue * 255.0).toInt()
+                )
+        return Color(value = argb.toULong())
+    }
+
+    private val alpha: CGFloat
+        get() = (value and 4278190080u shr 24).toDouble() / 255.0
+    private val red: CGFloat
+        get() = (value and 16711680u shr 16).toDouble() / 255.0
+    private val green: CGFloat
+        get() = (value and 65280u shr 8).toDouble() / 255.0
+    private val blue: CGFloat
+        get() = (value and 255u).toDouble() / 255.0
+
+    fun toUIColor(): UIColor? {
+        return if (value == Unspecified.value) {
+            null
+        } else return if (value == Tint.value) {
+            getHostingView().tintColor
+        } else {
+            UIColor(red = red, green = green, blue = blue, alpha = alpha)
+        }
     }
 }
 

@@ -23,6 +23,7 @@ class iosModifier : Modifier {
 
 
     sealed class Layout {
+        data class margin(val dp: Dp) : Layout()
         data class padding(val dp: Dp) : Layout()
         data class width(val dp: Dp) : Layout()
         data class height(val dp: Dp) : Layout()
@@ -51,6 +52,7 @@ class iosModifier : Modifier {
             for (change in this.changes) {
                 when (change) {
                     is Layout.padding -> layout?.padding = YGPointValue(change.dp.toCGFloat())
+                    is Layout.margin -> layout?.margin = YGPointValue(change.dp.toCGFloat())
                     is Layout.fillMaxWidth -> layout?.width = YGPercentValue(100.0)
                     is Layout.fillMaxHeight -> layout?.height = YGPercentValue(100.0)
                     is Layout.width -> layout?.width = YGPointValue(change.dp.toCGFloat())
@@ -83,6 +85,12 @@ actual fun Modifier.fillMaxHeight(): Modifier {
 actual fun Modifier.padding(dp: Dp): Modifier {
     val modifier = if (this is iosModifier) { this } else { iosModifier() }
     modifier.changes.add(iosModifier.Layout.padding(dp))
+    return modifier
+}
+
+fun Modifier.margin(dp: Dp): Modifier {
+    val modifier = if (this is iosModifier) { this } else { iosModifier() }
+    modifier.changes.add(iosModifier.Layout.margin(dp))
     return modifier
 }
 

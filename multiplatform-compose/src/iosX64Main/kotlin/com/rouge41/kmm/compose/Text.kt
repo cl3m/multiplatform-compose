@@ -33,16 +33,18 @@ actual fun Text(
     if (view is UIButton) {
         view.setTitle(text, 0)
         color?.let { view.setTitleColor(it.toUIColor(), 0) }
+        view.titleLabel?.font = (style ?: TextStyle()).toUIFont(overrideFontSize = if (fontSize != TextUnit.Unspecified) fontSize else null,
+            overrideFontStyle = fontStyle, overrideFontWeight = fontWeight, overrideFontFamily = fontFamily)
         modifier.setup(view)
     } else {
         val label = UILabel()
         label.numberOfLines = 0
         label.text = text
         label.sizeToFit()
-        modifier.setup(label)
-        view.addSubview(label)
         color?.toUIColor()?.let { label.textColor = it }
         label.font = (style ?: TextStyle()).toUIFont(overrideFontSize = if (fontSize != TextUnit.Unspecified) fontSize else null,
             overrideFontStyle = fontStyle, overrideFontWeight = fontWeight, overrideFontFamily = fontFamily)
+        modifier.setup(label)
+        view.addSubview(label)
     }
 }
