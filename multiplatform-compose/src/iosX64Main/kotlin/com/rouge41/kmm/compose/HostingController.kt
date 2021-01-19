@@ -14,7 +14,7 @@ import kotlin.math.max
 
 val DEBUG_COMPOSE = true
 
-open class HostingController(val controller: UIViewController, val content: @Composable () -> Unit) {
+open class HostingController(val controller: UIViewController, val content: @Composable () -> Unit, val imageViewLoader: (UIImageView, String) -> Unit) {
     @ThreadLocal
     companion object {
         lateinit var host: HostingController

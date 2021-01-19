@@ -56,33 +56,16 @@ actual inline fun Image(url: String,
 }
 
 @ExportObjCClass
-class ComposeImageView(bitmap: ImageBitmap?, val url: String?) : UIImageView(frame = cValue { CGRectZero }), NSURLSessionDelegateProtocol, NSURLSessionDataDelegateProtocol {
+class ComposeImageView(bitmap: ImageBitmap?, val url: String?) : UIImageView(frame = cValue { CGRectZero }) {
     var isDirty: Boolean = false
     var contentIdentifier: String
-    var task: NSURLSessionDataTask? = null
-    var session: NSURLSession? = null
-    var imageData = NSMutableData()
 
     init {
         contentIdentifier = contentIdentifier(bitmap, url)
         if (DEBUG_COMPOSE) NSLog("🔴 [init ComposeImageView] $contentIdentifier")
         bitmap?.let { image = (it as iosImageBitmap).toUIImage() }
-        url?.let { downloadImage(it) }
+        url?.let { HostingController.host.imageViewLoader(this, url) }
         contentMode = UIViewContentMode.UIViewContentModeScaleAspectFit
-    }
-
-    private fun downloadImage(urlString: String) {
-        val url = NSURL(string = urlString)
-        if (url != null) {
-            session = NSURLSession.sessionWithConfiguration(NSURLSessionConfiguration.defaultSessionConfiguration(), delegate = null, delegateQueue = NSOperationQueue.mainQueue())
-            task = session!!.dataTaskWithURL(url) { data, _ , _ ->
-                if (DEBUG_COMPOSE) NSLog("🔵 [dataTaskWithURL ComposeImageView]")
-                if (data != null) {
-                    image = UIImage(data = data)
-                }
-            }
-            task!!.resume()
-        }
     }
 
     companion object {

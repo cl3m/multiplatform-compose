@@ -8,6 +8,7 @@
 
 import UIKit
 import test
+import Network
 
 class HostingControllerProxy: UIViewController {
     var hostingController: HostingController!
@@ -25,6 +26,8 @@ class HostingControllerProxy: UIViewController {
         let resources = Resources(logo: "logo")
         hostingController = HostingController(controller: self, content: {
             ContentKt.Content(resources: resources)
+        }, imageViewLoader: { imageView, url in
+            imageView.load(url)
         })
         hostingController.viewDidLoad()
     }
@@ -58,5 +61,20 @@ class HostingControllerProxy: UIViewController {
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
         hostingController.refreshContent()
+    }
+}
+
+extension UIImageView {
+    func load(_ url: String) {
+        guard let url = URL(string: url) else { return }
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
     }
 }
