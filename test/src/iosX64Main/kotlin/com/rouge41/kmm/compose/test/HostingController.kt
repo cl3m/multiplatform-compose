@@ -1,6 +1,7 @@
 package com.rouge41.kmm.compose.test
 
 import com.rouge41.kmm.compose.Composable
+import com.rouge41.kmm.compose.SafeArea
 import com.rouge41.kmm.compose.Text
 import platform.UIKit.UIImageView
 import platform.UIKit.UIViewController
@@ -14,5 +15,5 @@ class HostingController(
 
 @Composable
 actual fun Test() {
-    Text("iOS")
+    SafeArea { Text("iOS") }
 }

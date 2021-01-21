@@ -139,6 +139,7 @@ open class HostingController(val controller: UIViewController, val content: @Com
         this.yoga_scrollViewFixPreLayout(view)
         view.yoga.applyLayoutPreservingOrigin(true)
         this.yoga_scrollViewFixPostLayout(view)
+        this.tableViewsLayout(view)
     }
 
     private fun yoga_scrollViewFixPreLayout(view: UIView) {
@@ -162,6 +163,17 @@ open class HostingController(val controller: UIViewController, val content: @Com
         for (subview in view.subviews) {
             if (subview is UIView && subview.isYogaEnabled) {
                 this.yoga_scrollViewFixPostLayout(subview)
+            }
+        }
+    }
+
+    private fun tableViewsLayout(view: UIView) {
+        if (view is UITableView && view.superview != null) {
+            view.setFrame(view.superview!!.bounds)
+        }
+        for (subview in view.subviews) {
+            if (subview is UIView) {
+                this.tableViewsLayout(subview)
             }
         }
     }
