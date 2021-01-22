@@ -52,34 +52,40 @@ actual fun Button(
     contentPadding: PaddingValues?,
     content: @Composable RowScope.() -> Unit
 ) {
-    val container = ComposeSystemButton.createOrReuse(onClick)
-    modifier.margin(10.dp).padding(0.dp).setup(container)
-    modifier.background(Color.Transparent).setup(container.button)
-    if (border != null) {
-        if (border.brush is SolidColor) {
-            container.layer.borderColor = border.brush.value.toUIColor()?.CGColor
-        }
-        container.layer.borderWidth = border.width.value.toDouble()
+    val controller = getCurrentController()
+    if (controller is ComposeAlertController) {
+        controller.onClick = onClick
+        content.invoke(iosRowScope())
     } else {
-        container.layer.borderWidth = 0.0
-    }
-    if (shape != null && shape is RoundedCornerShape) {
+        val container = ComposeSystemButton.createOrReuse(onClick)
+        modifier.margin(10.dp).padding(0.dp).setup(container)
+        modifier.background(Color.Transparent).setup(container.button)
+        if (border != null) {
+            if (border.brush is SolidColor) {
+                container.layer.borderColor = border.brush.value.toUIColor()?.CGColor
+            }
+            container.layer.borderWidth = border.width.value.toDouble()
+        } else {
+            container.layer.borderWidth = 0.0
+        }
+        if (shape != null && shape is RoundedCornerShape) {
+            if (colors != null && colors is DefaultButtonColors) {
+                colors.backgroundColor.toUIColor()?.let { container.backgroundColor = it }
+            } else {
+                container.backgroundColor = getHostingView().tintColor
+                container.button.tintColor = UIColor.whiteColor
+                container.button.titleLabel?.textColor = UIColor.whiteColor
+            }
+            //TODO: Use UIBezierPath
+            container.layer.cornerRadius = (shape.topLeft as Dp).value.toDouble()
+        }
         if (colors != null && colors is DefaultButtonColors) {
             colors.backgroundColor.toUIColor()?.let { container.backgroundColor = it }
-        } else {
-            container.backgroundColor = getHostingView().tintColor
-            container.button.tintColor = UIColor.whiteColor
-            container.button.titleLabel?.textColor = UIColor.whiteColor
         }
-        //TODO: Use UIBezierPath
-        container.layer.cornerRadius = (shape.topLeft as Dp).value.toDouble()
-    }
-    if (colors != null && colors is DefaultButtonColors) {
-        colors.backgroundColor.toUIColor()?.let { container.backgroundColor = it }
-    }
-    container.button.enabled = enabled
-    addSubview(container) {
-        addSubview(container.button) { content.invoke(iosRowScope()) }
+        container.button.enabled = enabled
+        addSubview(container) {
+            addSubview(container.button) { content.invoke(iosRowScope()) }
+        }
     }
 }
 

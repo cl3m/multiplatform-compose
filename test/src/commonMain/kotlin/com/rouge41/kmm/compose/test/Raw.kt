@@ -18,6 +18,7 @@ fun Raw(state: MutableState<Boolean>, resources: Resources) {
         Demo.TextStyles -> SafeArea { TextStyles() }
         Demo.Images -> SafeArea { Images(resources) }
         Demo.Buttons ->  SafeArea { Buttons() }
+        Demo.Alert -> SafeArea { Alert() }
         Demo.BottomNavigation -> BottomNavigation(state, resources)
         Demo.Navigation -> Navigation(state, resources)
     }

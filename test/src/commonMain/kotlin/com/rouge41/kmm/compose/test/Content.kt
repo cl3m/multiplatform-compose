@@ -28,6 +28,7 @@ enum class Demo {
     Images,
     PeopleInSpace,
     Buttons,
+    Alert,
     // Below are dropped in navigation demos
     BottomNavigation,
     Navigation,

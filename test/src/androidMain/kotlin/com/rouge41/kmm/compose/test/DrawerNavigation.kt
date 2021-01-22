@@ -71,6 +71,7 @@ fun DrawerNavigation(state: MutableState<Boolean>, resources: Resources) {
                         Demo.Layout -> Layout()
                         Demo.Images ->  Images(resources)
                         Demo.Buttons ->  Buttons()
+                        Demo.Alert ->  Alert()
                         Demo.TextStyles -> Column { TextStyles() }
                     }
                 }
