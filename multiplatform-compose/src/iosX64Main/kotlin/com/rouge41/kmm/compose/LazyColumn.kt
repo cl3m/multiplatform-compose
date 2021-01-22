@@ -3,6 +3,7 @@ package com.rouge41.kmm.compose
 import cocoapods.YogaKit.*
 import kotlinx.cinterop.ExportObjCClass
 import kotlinx.cinterop.useContents
+import platform.CoreGraphics.CGFLOAT_MAX
 import platform.CoreGraphics.CGFloat
 import platform.Foundation.NSIndexPath
 import platform.Foundation.NSLog
@@ -20,13 +21,21 @@ actual fun LazyColumn(
     horizontalAlignment: AlignmentHorizontal,
     content: LazyListScope.() -> Unit
 ) {
-    val controller = state
-    controller.tableView.setFrame(getCurrentView().bounds)
-    addSubview(controller.tableView) {
-        addController(controller) {
-            controller.items.clear()
-            content.invoke(iosLazyListScope())
-            controller.tableView.reloadData()
+    val view = UIComposeView.createOrReuse("${content::class}")
+    modifier.setup(view)
+    view.configureLayoutWithBlock { layout ->
+        layout?.width = YGPercentValue(100.0)
+        layout?.flexGrow = 1.0
+    }
+    addSubview(view) {
+        val controller = state
+        controller.tableView.setFrame(getCurrentView().bounds)
+        addSubview(controller.tableView) {
+            addController(controller) {
+                controller.items.clear()
+                content.invoke(iosLazyListScope())
+                controller.tableView.reloadData()
+            }
         }
     }
 }
@@ -113,15 +122,12 @@ class ComposeTableViewController() : UIViewController(nibName = null, bundle = n
 
     override fun tableView(tableView: UITableView, cellForRowAtIndexPath: NSIndexPath): UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, cellForRowAtIndexPath)
-        if (cell == null) {
-            cell = UITableViewCell(UITableViewCellStyle.UITableViewCellStyleDefault, cellIdentifier)
-            cell.contentView.configureLayoutWithBlock { layout ->
-                layout?.isEnabled = true
-                layout?.width = YGPercentValue(100.0)
-            }
-        }
         cell.selectionStyle = UITableViewCellSelectionStyle.UITableViewCellSelectionStyleNone
         cell.separatorInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, CGFloat.MAX_VALUE)
+        cell.contentView.configureLayoutWithBlock { layout ->
+            layout?.width = YGPointValue( cell.frame.useContents { size.width } )
+            layout?.height = YGPointValue( 10000.0 ) //Do not use CGFLOAT_MAX
+        }
         addViewAndLayout(cell.contentView) {
             items[cellForRowAtIndexPath.row.toInt()].invoke(iosLazyItemScope())
         }

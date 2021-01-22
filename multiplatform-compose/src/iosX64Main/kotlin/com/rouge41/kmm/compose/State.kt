@@ -7,11 +7,14 @@ import kotlin.reflect.KProperty
 val cache = HashMap<String, Any>()
 
 @Composable actual fun <T> remember(calculation: @ComposableContract() () -> T): T {
-    return if (cache["${calculation::class}"] != null) {
-        cache["${calculation::class}"] as T
+    val controller = getCurrentController()
+    val key = "$controller ${calculation::class}"
+    NSLog(key)
+    return if (cache[key] != null) {
+        cache[key] as T
     } else {
         val value = calculation()
-        cache["${calculation::class}"] = value as Any
+        cache[key] = value as Any
         value
     }
 }

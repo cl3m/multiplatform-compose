@@ -32,11 +32,6 @@ class HostingControllerProxy: UIViewController {
         hostingController.viewDidLoad()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        hostingController.refreshContent()
-    }
-    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         hostingController.viewWillLayoutSubviews()
