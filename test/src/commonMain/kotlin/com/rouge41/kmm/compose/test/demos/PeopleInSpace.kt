@@ -5,6 +5,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlin.native.concurrent.ThreadLocal
 
+//FROM https://github.com/joreilly/PeopleInSpace
+
 @Composable
 fun PeopleInSpace() {
     val peopleInSpaceViewModel = PeopleInSpaceViewModel()
