@@ -122,7 +122,6 @@ class ComposeTableViewController() : UIViewController(nibName = null, bundle = n
 
     override fun tableView(tableView: UITableView, cellForRowAtIndexPath: NSIndexPath): UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, cellForRowAtIndexPath)
-        cell.selectionStyle = UITableViewCellSelectionStyle.UITableViewCellSelectionStyleNone
         cell.separatorInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, CGFloat.MAX_VALUE)
         cell.contentView.configureLayoutWithBlock { layout ->
             layout?.width = YGPointValue( cell.frame.useContents { size.width } )

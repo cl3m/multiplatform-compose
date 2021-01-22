@@ -55,6 +55,7 @@ class UIComposeNavigationController() : UINavigationController(nibName = null, b
         }
         layout(controller)
         resetTableViews(controller.view)
+        resetScrollViews(controller.view)
         pushViewController(controller, true)
         dispatch_async(dispatch_get_main_queue()) {
             //TODO: Avoid a full relayout
@@ -89,6 +90,17 @@ class UIComposeNavigationController() : UINavigationController(nibName = null, b
                 view.endUpdates()
             } else if (view is UIView){
                 resetTableViews(view)
+            }
+        }
+    }
+
+    private fun resetScrollViews(view: UIView) {
+        for (view in view.subviews) {
+            if (view !is UITableView && view is UIScrollView) {
+                val y = view.adjustedContentInset.useContents { top }
+                view.setContentOffset(CGPointMake(0.0, -y), false)
+            } else if (view is UIView){
+                resetScrollViews(view)
             }
         }
     }

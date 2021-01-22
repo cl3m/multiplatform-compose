@@ -23,6 +23,7 @@ actual fun ScrollableColumn(
         layout?.height = YGPercentValue(100.0)
         layout?.overflow = YGOverflow.YGOverflowScroll
     }
+    modifier.setup(scrollView)
     addSubview(scrollView) { content.invoke(iosColumnScope()) }
 }
 
