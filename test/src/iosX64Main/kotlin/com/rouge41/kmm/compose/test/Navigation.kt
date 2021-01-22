@@ -8,7 +8,15 @@ import platform.Foundation.NSLog
 actual fun Navigation(state: MutableState<Boolean>, resources: Resources) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "Main") {
-        composable("Main", "Navigation") {
+        composable("Main", "Navigation", leadingButton = {
+            Button( onClick = {
+                NSLog("🎉 Leading")
+            }) { Text ("Leading") }
+        }, trailingButton = {
+            Button( onClick = {
+                NSLog("🎉 Trailing")
+            }) { Text ("Trailing") }
+        }) {
             SafeArea {
                 Menu(state) { route ->
                     navController.navigate(route)

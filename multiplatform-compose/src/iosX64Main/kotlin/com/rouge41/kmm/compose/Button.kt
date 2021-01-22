@@ -56,6 +56,12 @@ actual fun Button(
     if (controller is ComposeAlertController) {
         controller.onClick = onClick
         content.invoke(iosRowScope())
+    } else if (controller is UIComposeViewController && controller.barButtonItemScope != BarButtonItemScope.NONE) {
+        when (controller.barButtonItemScope) {
+            BarButtonItemScope.LEADING -> controller.navigationItem.leftBarButtonItem = ComposeBarButtonItem(onClick)
+            BarButtonItemScope.TRAILING -> controller.navigationItem.rightBarButtonItem = ComposeBarButtonItem(onClick)
+        }
+        content.invoke(iosRowScope())
     } else {
         val container = ComposeSystemButton.createOrReuse(onClick)
         modifier.margin(10.dp).padding(0.dp).setup(container)
@@ -207,3 +213,12 @@ actual fun TextButton(
     contentPadding = contentPadding ?: ButtonDefaults.TextButtonContentPadding,
     content = content
 )
+
+@ExportObjCClass
+class ComposeBarButtonItem(val onClick: () -> Unit) : UIBarButtonItem() {
+    init {
+        setPrimaryAction(UIAction.actionWithTitle("<title>", null, null) {
+            onClick()
+        })
+    }
+}

@@ -42,6 +42,11 @@ actual fun Text(
     val color = if (color != Color.Unspecified) color else style?.color
     if (controller is ComposeAlertController) {
         controller.text = text
+    } else if (controller is UIComposeViewController && controller.barButtonItemScope != BarButtonItemScope.NONE) {
+        when (controller.barButtonItemScope) {
+            BarButtonItemScope.LEADING -> controller.navigationItem.leftBarButtonItem!!.title = text
+            BarButtonItemScope.TRAILING -> controller.navigationItem.rightBarButtonItem!!.title = text
+        }
     } else if (view is UIButton) {
         view.setTitle(text, 0)
         color?.let { view.setTitleColor(it.toUIColor(), 0) }

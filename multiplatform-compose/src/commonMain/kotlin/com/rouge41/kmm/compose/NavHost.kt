@@ -29,6 +29,8 @@ expect fun NavHost(
 expect fun NavGraphBuilder.composable(
     route: String,
     title: String? = null,
+    leadingButton: @Composable (() -> Unit)? = null,
+    trailingButton: @Composable (() -> Unit)? = null,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),
     content: @Composable (NavBackStackEntry) -> Unit

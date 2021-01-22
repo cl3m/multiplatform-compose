@@ -117,6 +117,8 @@ class UIComposeNavigationController() : UINavigationController(nibName = null, b
 actual fun NavGraphBuilder.composable(
     route: String,
     title: String?,
+    leadingButton: @Composable (() -> Unit)?,
+    trailingButton: @Composable (() -> Unit)?,
     arguments: List<NamedNavArgument>,
     deepLinks: List<NavDeepLink>,
     content: @Composable (NavBackStackEntry) -> Unit) {
@@ -128,6 +130,19 @@ actual fun NavGraphBuilder.composable(
         navigationController.composableControllers.add(controller)
     }
     controller.title = title
+    trailingButton?.let {
+        controller.barButtonItemScope = BarButtonItemScope.TRAILING
+        addController(controller) {
+            it()
+        }
+    }
+    leadingButton?.let {
+        controller.barButtonItemScope = BarButtonItemScope.LEADING
+        addController(controller) {
+            it()
+        }
+    }
+    controller.barButtonItemScope = BarButtonItemScope.NONE
     controller.view.backgroundColor = systemBackgroundColor()
     controller.view.configureLayoutWithBlock { layout ->
         layout?.isEnabled = true
@@ -150,9 +165,14 @@ actual fun NavGraphBuilder.composable(
     }
 }
 
+enum class BarButtonItemScope {
+    NONE, LEADING, TRAILING
+}
+
 class UIComposeViewController(val route: String, val initialTitle: String?) : UIViewController(nibName = null, bundle = null) {
     lateinit var content: @Composable (NavBackStackEntry) -> Unit
     val bundle = Bundle()
+    var barButtonItemScope = BarButtonItemScope.NONE
 }
 
 actual fun NavController.navigate(
