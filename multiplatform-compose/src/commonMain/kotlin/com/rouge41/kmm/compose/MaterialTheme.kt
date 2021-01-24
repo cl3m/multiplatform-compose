@@ -110,6 +110,13 @@ expect abstract class CornerBasedShape: Shape {
     val topRight: CornerSize
     val bottomRight: CornerSize
     val bottomLeft: CornerSize
+
+    abstract fun copy(
+        topLeft: CornerSize = this.topLeft,
+        topRight: CornerSize = this.topRight,
+        bottomRight: CornerSize = this.bottomRight,
+        bottomLeft: CornerSize = this.bottomLeft
+    ): CornerBasedShape
 }
 
 expect class RoundedCornerShape: CornerBasedShape

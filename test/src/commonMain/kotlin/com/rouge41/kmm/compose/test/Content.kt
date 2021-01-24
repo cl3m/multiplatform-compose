@@ -29,6 +29,7 @@ enum class Demo {
     PeopleInSpace,
     Buttons,
     Alert,
+    TextFields,
     // Below are dropped in navigation demos
     BottomNavigation,
     Navigation,

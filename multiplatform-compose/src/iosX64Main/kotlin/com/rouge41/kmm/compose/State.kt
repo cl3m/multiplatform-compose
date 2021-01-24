@@ -9,7 +9,6 @@ val cache = HashMap<String, Any>()
 @Composable actual fun <T> remember(calculation: @ComposableContract() () -> T): T {
     val controller = getCurrentController()
     val key = "$controller ${calculation::class}"
-    NSLog(key)
     return if (cache[key] != null) {
         cache[key] as T
     } else {

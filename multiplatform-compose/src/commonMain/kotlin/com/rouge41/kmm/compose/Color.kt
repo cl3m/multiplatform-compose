@@ -19,3 +19,10 @@ expect inline class Color(val value: ULong) {
 }
 
 expect fun Color(color: Long): Color
+
+expect fun Color.copy(
+    alpha: Float? = null,
+    red: Float? = null,
+    green: Float? = null,
+    blue: Float? = null,
+): Color

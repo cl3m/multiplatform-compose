@@ -13,15 +13,22 @@ interface ComposeView {
     var identifier: String
 }*/
 
+private val DEBUG_COMPOSE_VIEW = false
+
 @ExportObjCClass
 class UIComposeView(val contentIdentifier: String) : UIView(frame = cValue { CGRectZero }) {
     var isDirty: Boolean = false
     var onClick: (() -> Unit)? = null
 
+    init {
+        if (DEBUG_COMPOSE_VIEW) NSLog("🔴 [init UIComposeView] $contentIdentifier")
+    }
+
     companion object {
         fun createOrReuse(contentIdentifier: String): UIComposeView {
             for (view in getCurrentView().subviews) {
                 if (view is UIComposeView && view.isDirty && view.contentIdentifier == contentIdentifier) {
+                    if (DEBUG_COMPOSE_VIEW) NSLog("🟢 [reuse UIComposeView] $contentIdentifier")
                     view.isDirty = false
                     return view
                 }

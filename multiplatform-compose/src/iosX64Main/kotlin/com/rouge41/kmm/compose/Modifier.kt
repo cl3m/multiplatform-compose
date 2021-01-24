@@ -53,8 +53,14 @@ class iosModifier : Modifier {
                 when (change) {
                     is Layout.padding -> layout?.padding = YGPointValue(change.dp.toCGFloat())
                     is Layout.margin -> layout?.margin = YGPointValue(change.dp.toCGFloat())
-                    is Layout.fillMaxWidth -> layout?.width = YGPercentValue(100.0)
-                    is Layout.fillMaxHeight -> layout?.height = YGPercentValue(100.0)
+                    is Layout.fillMaxWidth -> {
+                        layout?.maxWidth = YGPercentValue(100.0)
+                        layout?.width = YGPercentValue(100.0)
+                    }
+                    is Layout.fillMaxHeight -> {
+                        layout?.maxHeight = YGPercentValue(100.0)
+                        layout?.height = YGPercentValue(100.0)
+                    }
                     is Layout.width -> layout?.width = YGPointValue(change.dp.toCGFloat())
                     is Layout.height -> layout?.height = YGPointValue(change.dp.toCGFloat())
                 }

@@ -86,8 +86,11 @@ open class HostingController(val controller: UIViewController, val content: @Com
                 is ComposeLabel -> {
                     subview.isDirty = true
                 }
+                is ComposeTextField -> {
+                    subview.isDirty = true
+                }
                 else -> {
-                    (subview as UIView).removeFromSuperview()
+                    (subview as UIView).tag = -1L
                 }
             }
         }
@@ -115,6 +118,10 @@ open class HostingController(val controller: UIViewController, val content: @Com
             } else if (subview is ComposeSystemButton && subview.isDirty) {
                 subview.removeFromSuperview()
             } else if (subview is ComposeLabel && subview.isDirty) {
+                subview.removeFromSuperview()
+            } else if (subview is ComposeTextField && subview.isDirty) {
+                subview.removeFromSuperview()
+            } else if (subview is UIView && subview.tag == -1L) {
                 subview.removeFromSuperview()
             } else {
                 removeDirtySubViews((subview as UIView))

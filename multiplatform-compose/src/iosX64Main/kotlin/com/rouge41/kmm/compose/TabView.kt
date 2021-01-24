@@ -12,6 +12,7 @@ fun rememberTabBarController() = remember { UITabBarController() }
 fun TabView(tabBarController: UITabBarController = rememberTabBarController(), content: @Composable () -> Unit) {
     getCurrentController().addChildViewController(tabBarController)
     getCurrentView().addSubview(tabBarController.view)
+    tabBarController.view.tag = 0L
     tabBarController.view.configureLayoutWithBlock { layout ->
         layout?.isEnabled = true
         layout?.width = YGPercentValue(100.0)

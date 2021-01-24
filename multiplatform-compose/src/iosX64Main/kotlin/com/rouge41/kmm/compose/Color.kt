@@ -36,7 +36,7 @@ actual inline class Color(val value: ULong) {
         alpha = alpha
     )
 
-    private fun Color(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat): Color {
+    internal fun Color(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat): Color {
         val argb = (
                 ((alpha * 255.0).toInt() shl 24) or
                         ((red * 255.0).toInt() shl 16) or
@@ -46,13 +46,13 @@ actual inline class Color(val value: ULong) {
         return Color(value = argb.toULong())
     }
 
-    private val alpha: CGFloat
+    internal val alpha: CGFloat
         get() = (value and 4278190080u shr 24).toDouble() / 255.0
-    private val red: CGFloat
+    internal val red: CGFloat
         get() = (value and 16711680u shr 16).toDouble() / 255.0
-    private val green: CGFloat
+    internal val green: CGFloat
         get() = (value and 65280u shr 8).toDouble() / 255.0
-    private val blue: CGFloat
+    internal val blue: CGFloat
         get() = (value and 255u).toDouble() / 255.0
 
     fun toUIColor(): UIColor? {
@@ -69,3 +69,10 @@ actual inline class Color(val value: ULong) {
 actual fun Color(color: Long): Color {
     return Color(value = color.toULong())
 }
+
+actual fun Color.copy(
+    alpha: Float?,
+    red: Float?,
+    green: Float?,
+    blue: Float?
+): Color = Color(red?.toDouble() ?: this.red, green?.toDouble() ?: this.green, blue?.toDouble() ?: this.blue, alpha?.toDouble() ?: this.alpha)

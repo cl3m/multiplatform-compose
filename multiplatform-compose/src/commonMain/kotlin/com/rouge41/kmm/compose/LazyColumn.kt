@@ -1,6 +1,6 @@
 package com.rouge41.kmm.compose
 
-expect class InteractionState
+expect class InteractionState constructor()
 expect class LazyListState
 
 expect interface LazyItemScope

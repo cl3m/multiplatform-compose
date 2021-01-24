@@ -30,6 +30,7 @@ actual fun LazyColumn(
     addSubview(view) {
         val controller = state
         controller.tableView.setFrame(getCurrentView().bounds)
+        controller.tableView.tag = 0L
         addSubview(controller.tableView) {
             addController(controller) {
                 controller.items.clear()

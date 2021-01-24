@@ -53,27 +53,29 @@ actual fun Text(
         view.titleLabel?.font = (style ?: TextStyle()).toUIFont(overrideFontSize = if (fontSize != TextUnit.Unspecified) fontSize else null,
             overrideFontStyle = fontStyle, overrideFontWeight = fontWeight, overrideFontFamily = fontFamily)
         modifier.setup(view)
+    } else if (view is ComposeTextField) {
+        view.placeholder = text
     } else {
         val container = UIComposeView(text)
-        val label = UILabel()
-        label.numberOfLines = 0
-        label.text = text
-        color?.toUIColor()?.let { label.textColor = it }
-        label.font = (style ?: TextStyle()).toUIFont(overrideFontSize = if (fontSize != TextUnit.Unspecified) fontSize else null,
-            overrideFontStyle = fontStyle, overrideFontWeight = fontWeight, overrideFontFamily = fontFamily)
-        //Set cell margin before custom
-        val cell = getCurrentView().superview
-        if (cell is UITableViewCell) {
-            container.configureLayoutWithBlock { layout ->
-                layout?.paddingTop = YGPointValue( cell.layoutMargins.useContents { top } )
-                layout?.paddingLeft = YGPointValue( cell.layoutMargins.useContents { left } )
-                layout?.paddingBottom = YGPointValue( cell.layoutMargins.useContents { bottom } )
-                layout?.paddingRight = YGPointValue( cell.layoutMargins.useContents { right } )
+            val label = UILabel()
+            label.numberOfLines = 0
+            label.text = text
+            color?.toUIColor()?.let { label.textColor = it }
+            label.font = (style ?: TextStyle()).toUIFont(overrideFontSize = if (fontSize != TextUnit.Unspecified) fontSize else null,
+                overrideFontStyle = fontStyle, overrideFontWeight = fontWeight, overrideFontFamily = fontFamily)
+            //Set cell margin before custom
+            val cell = getCurrentView().superview
+            if (cell is UITableViewCell) {
+                container.configureLayoutWithBlock { layout ->
+                    layout?.paddingTop = YGPointValue( cell.layoutMargins.useContents { top } )
+                    layout?.paddingLeft = YGPointValue( cell.layoutMargins.useContents { left } )
+                    layout?.paddingBottom = YGPointValue( cell.layoutMargins.useContents { bottom } )
+                    layout?.paddingRight = YGPointValue( cell.layoutMargins.useContents { right } )
+                }
             }
-        }
         modifier.setup(container)
-        modifier.setup(label)
-        container.addSubview(label)
+            modifier.padding(0.dp).margin(0.dp).setup(label)
+            container.addSubview(label)
         view.addSubview(container)
     }
 }
@@ -87,8 +89,7 @@ class ComposeLabel(val contentIdentifier: String) : UILabel(frame = cValue { CGR
     }
 
     companion object {
-        fun createOrReuse(onClick: () -> Unit): ComposeLabel {
-            val contentIdentifier = "${onClick::class}"
+        fun createOrReuse(contentIdentifier: String): ComposeLabel {
             for (view in getCurrentView().subviews) {
                 if (view is ComposeLabel && view.isDirty && view.contentIdentifier == contentIdentifier) {
                     if (DEBUG_COMPOSE) NSLog("🟢 [reuse ComposeLabel] ${view.contentIdentifier}")

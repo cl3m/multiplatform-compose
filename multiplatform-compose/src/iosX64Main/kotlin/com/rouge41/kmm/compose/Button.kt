@@ -64,7 +64,7 @@ actual fun Button(
         content.invoke(iosRowScope())
     } else {
         val container = ComposeSystemButton.createOrReuse(onClick)
-        modifier.margin(10.dp).padding(0.dp).setup(container)
+        modifier.padding(0.dp).setup(container)
         modifier.background(Color.Transparent).setup(container.button)
         if (border != null) {
             if (border.brush is SolidColor) {
@@ -152,7 +152,6 @@ class ComposeSystemButton(val contentIdentifier: String, val onClick: () -> Unit
     fun touchDown() {
         initialBackgroundColor = backgroundColor
         if (backgroundColor != null && backgroundColor != Color.Transparent.toUIColor()) {
-            NSLog("$backgroundColor ${UIColor.clearColor}")
             backgroundColor = backgroundColor?.colorWithAlphaComponent(0.5)
         }
     }

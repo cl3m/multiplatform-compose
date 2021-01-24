@@ -28,6 +28,7 @@ actual fun NavHost(
     }
     getCurrentController().addChildViewController(navController)
     getCurrentView().addSubview(navController.view)
+    navController.view.tag = 0L
     navController.view.configureLayoutWithBlock { layout ->
         layout?.isEnabled = true
         layout?.width = YGPercentValue(100.0)
@@ -54,13 +55,8 @@ class UIComposeNavigationController() : UINavigationController(nibName = null, b
 
         }
         layout(controller)
-        resetTableViews(controller.view)
         resetScrollViews(controller.view)
         pushViewController(controller, true)
-        dispatch_async(dispatch_get_main_queue()) {
-            //TODO: Avoid a full relayout
-            layout(controller)
-        }
     }
 
     fun popBackStack(): Boolean {
@@ -81,22 +77,16 @@ class UIComposeNavigationController() : UINavigationController(nibName = null, b
         }
     }
 
-    private fun resetTableViews(view: UIView) {
+    private fun resetScrollViews(view: UIView) {
         for (view in view.subviews) {
             if (view is UITableView) {
+                UIView.setAnimationsEnabled(false)
                 view.beginUpdates()
                 val y = view.adjustedContentInset.useContents { top }
                 view.setContentOffset(CGPointMake(0.0, -y), false)
                 view.endUpdates()
-            } else if (view is UIView){
-                resetTableViews(view)
-            }
-        }
-    }
-
-    private fun resetScrollViews(view: UIView) {
-        for (view in view.subviews) {
-            if (view !is UITableView && view is UIScrollView) {
+                UIView.setAnimationsEnabled(true)
+            } else if (view is UIScrollView) {
                 val y = view.adjustedContentInset.useContents { top }
                 view.setContentOffset(CGPointMake(0.0, -y), false)
             } else if (view is UIView){
@@ -154,6 +144,7 @@ actual fun NavGraphBuilder.composable(
     }
     controller.content = content
     if (navigationController.routes.contains(route)) {
+        controller.view.tag = 0L
         addController(controller) { content.invoke(NavBackStackEntry(controller.bundle)) }
         if (!navigationController.viewControllers.contains(controller)) {
             navigationController.pushViewController(controller, false)

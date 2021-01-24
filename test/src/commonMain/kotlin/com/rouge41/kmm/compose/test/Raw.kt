@@ -19,6 +19,7 @@ fun Raw(state: MutableState<Boolean>, resources: Resources) {
         Demo.Images -> SafeArea { Images(resources) }
         Demo.Buttons ->  SafeArea { Buttons() }
         Demo.Alert -> SafeArea { Alert() }
+        Demo.TextFields -> SafeArea { TextFields() }
         Demo.BottomNavigation -> BottomNavigation(state, resources)
         Demo.Navigation -> Navigation(state, resources)
     }
@@ -26,14 +27,11 @@ fun Raw(state: MutableState<Boolean>, resources: Resources) {
 
 @Composable
 fun RawDemos(demoState: MutableState<Demo>) {
-    Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.Start) {
+    ScrollableColumn(modifier = Modifier.padding(15.dp))  {
         Text("RAW")
         for (content in Demo.values().dropLast(2)) {
             Button(onClick = { demoState.value = content }) { Text(content.toString()) }
-            Spacer(modifier = Modifier.preferredHeight(16.dp))
+            Spacer(modifier = Modifier.preferredHeight(5.dp))
         }
     }
 }

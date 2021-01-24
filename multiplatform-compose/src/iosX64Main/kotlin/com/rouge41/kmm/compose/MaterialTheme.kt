@@ -77,14 +77,28 @@ actual abstract class CornerBasedShape(
     actual val topRight: CornerSize,
     actual val bottomRight: CornerSize,
     actual val bottomLeft: CornerSize
-): Shape
+): Shape {
+    actual abstract fun copy(
+        topLeft: CornerSize,
+        topRight: CornerSize,
+        bottomRight: CornerSize,
+        bottomLeft: CornerSize
+    ): CornerBasedShape
+}
 
 actual class RoundedCornerShape(
     topLeft: CornerSize,
     topRight: CornerSize,
     bottomRight: CornerSize,
     bottomLeft: CornerSize
-) : CornerBasedShape(topLeft, topRight, bottomRight, bottomLeft)
+) : CornerBasedShape(topLeft, topRight, bottomRight, bottomLeft) {
+    override fun copy(
+        topLeft: CornerSize,
+        topRight: CornerSize,
+        bottomRight: CornerSize,
+        bottomLeft: CornerSize
+    ): CornerBasedShape = RoundedCornerShape(topLeft, topRight, bottomRight, bottomLeft)
+}
 
 actual class Shapes {
     actual val small: CornerBasedShape = RoundedCornerShape(4.dp)
