@@ -1,6 +1,5 @@
 package com.rouge41.kmm.compose.test
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -8,13 +7,10 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.navigation.compose.*
-import com.rouge41.kmm.compose.MutableState
-import com.rouge41.kmm.compose.SafeArea
-import com.rouge41.kmm.compose.ScrollableColumn
-import com.rouge41.kmm.compose.clickable
+import com.rouge41.kmm.compose.runtime.MutableState
+import com.rouge41.kmm.compose.foundation.ScrollableColumn
+import com.rouge41.kmm.compose.ui.clickable
 import com.rouge41.kmm.compose.test.demos.*
 
 @Composable

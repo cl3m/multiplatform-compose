@@ -1,11 +1,11 @@
 package com.rouge41.kmm.compose.test
 
-import com.rouge41.kmm.compose.Composable
-import com.rouge41.kmm.compose.SafeArea
-import com.rouge41.kmm.compose.Text
+import com.rouge41.kmm.compose.runtime.Composable
+import com.rouge41.kmm.compose.ios.SafeArea
+import com.rouge41.kmm.compose.material.Text
 import platform.UIKit.UIImageView
 import platform.UIKit.UIViewController
-import com.rouge41.kmm.compose.HostingController as HC
+import com.rouge41.kmm.compose.ios.HostingController as HC
 
 class HostingController(
     controller: UIViewController,

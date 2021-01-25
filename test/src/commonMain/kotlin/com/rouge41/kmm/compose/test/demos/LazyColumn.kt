@@ -1,11 +1,15 @@
 package com.rouge41.kmm.compose.test.demos
 
-import com.rouge41.kmm.compose.*
+import com.rouge41.kmm.compose.material.Divider
+import com.rouge41.kmm.compose.material.Text
+import com.rouge41.kmm.compose.runtime.Composable
+import com.rouge41.kmm.compose.ui.Modifier
+import com.rouge41.kmm.compose.ui.fillMaxSize
 
 @Composable
 fun LazyColumn(){
     val items = (1..25).map { "Line $it" }
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
+    com.rouge41.kmm.compose.foundation.lazy.LazyColumn(modifier = Modifier.fillMaxSize()) {
         item {
             Text("Single\nWith\nMultiple\nLines")
         }

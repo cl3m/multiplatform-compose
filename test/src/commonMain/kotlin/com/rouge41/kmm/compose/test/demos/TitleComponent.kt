@@ -1,6 +1,16 @@
 package com.rouge41.kmm.compose.test.demos
 
-import com.rouge41.kmm.compose.*
+import com.rouge41.kmm.compose.material.Text
+import com.rouge41.kmm.compose.runtime.Composable
+import com.rouge41.kmm.compose.ui.Modifier
+import com.rouge41.kmm.compose.ui.fillMaxWidth
+import com.rouge41.kmm.compose.ui.graphics.Color
+import com.rouge41.kmm.compose.ui.padding
+import com.rouge41.kmm.compose.ui.text.TextStyle
+import com.rouge41.kmm.compose.ui.text.font.FontFamily
+import com.rouge41.kmm.compose.ui.text.font.FontWeight
+import com.rouge41.kmm.compose.ui.unit.dp
+import com.rouge41.kmm.compose.ui.unit.sp
 
 @Composable
 fun TitleComponent(title: String) {

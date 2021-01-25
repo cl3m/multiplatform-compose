@@ -1,12 +1,22 @@
 package com.rouge41.kmm.compose.test
 
-import com.rouge41.kmm.compose.*
+import com.rouge41.kmm.compose.ios.*
+import com.rouge41.kmm.compose.foundation.Image
+import com.rouge41.kmm.compose.foundation.ScrollableColumn
+import com.rouge41.kmm.compose.foundation.layout.Arrangement
+import com.rouge41.kmm.compose.foundation.layout.Column
+import com.rouge41.kmm.compose.material.Text
+import com.rouge41.kmm.compose.runtime.Composable
+import com.rouge41.kmm.compose.runtime.MutableState
 import com.rouge41.kmm.compose.test.demos.Counter
 import com.rouge41.kmm.compose.test.demos.Layout
 import com.rouge41.kmm.compose.test.demos.Lorem
+import com.rouge41.kmm.compose.ui.Alignment
+import com.rouge41.kmm.compose.ui.*
+import com.rouge41.kmm.compose.ui.res.imageResource
+import com.rouge41.kmm.compose.ui.unit.dp
 import kotlinx.cinterop.useContents
 import platform.Foundation.NSProcessInfo
-import platform.Foundation.NSSelectorFromString
 import platform.UIKit.*
 
 fun Tab.image(): UIImage? {

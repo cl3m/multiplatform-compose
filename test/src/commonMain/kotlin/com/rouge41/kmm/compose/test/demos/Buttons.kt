@@ -1,6 +1,16 @@
 package com.rouge41.kmm.compose.test.demos
 
 import com.rouge41.kmm.compose.*
+import com.rouge41.kmm.compose.foundation.BorderStroke
+import com.rouge41.kmm.compose.foundation.layout.Column
+import com.rouge41.kmm.compose.foundation.shape.RoundedCornerShape
+import com.rouge41.kmm.compose.material.*
+import com.rouge41.kmm.compose.runtime.Composable
+import com.rouge41.kmm.compose.ui.*
+import com.rouge41.kmm.compose.ui.graphics.Color
+import com.rouge41.kmm.compose.ui.graphics.SolidColor
+import com.rouge41.kmm.compose.ui.unit.dp
+import com.rouge41.kmm.compose.ui.unit.sp
 
 // From https://github.com/vinaygaba/Learn-Jetpack-Compose-By-Example/blob/master/app/src/main/java/com/example/jetpackcompose/material/ButtonActivity.kt
 

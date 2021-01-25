@@ -1,7 +1,9 @@
 package com.rouge41.kmm.compose.test
 
-import com.rouge41.kmm.compose.*
-import com.rouge41.kmm.compose.test.demos.*
+import com.rouge41.kmm.compose.runtime.Composable
+import com.rouge41.kmm.compose.runtime.mutableStateOf
+import com.rouge41.kmm.compose.runtime.remember
+import com.rouge41.kmm.compose.ui.graphics.ImageResource
 
 data class Resources(val logo: ImageResource)
 

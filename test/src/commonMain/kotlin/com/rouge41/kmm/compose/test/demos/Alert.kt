@@ -1,6 +1,18 @@
 package com.rouge41.kmm.compose.test.demos
 
-import com.rouge41.kmm.compose.*
+import com.rouge41.kmm.compose.foundation.layout.Column
+import com.rouge41.kmm.compose.material.AlertDialog
+import com.rouge41.kmm.compose.material.Button
+import com.rouge41.kmm.compose.material.Text
+import com.rouge41.kmm.compose.runtime.Composable
+import com.rouge41.kmm.compose.runtime.mutableStateOf
+import com.rouge41.kmm.compose.runtime.*
+import com.rouge41.kmm.compose.ui.Modifier
+import com.rouge41.kmm.compose.ui.padding
+import com.rouge41.kmm.compose.ui.text.TextStyle
+import com.rouge41.kmm.compose.ui.text.font.FontFamily
+import com.rouge41.kmm.compose.ui.unit.dp
+import com.rouge41.kmm.compose.ui.unit.sp
 
 // FROM https://raw.githubusercontent.com/vinaygaba/Learn-Jetpack-Compose-By-Example/master/app/src/main/java/com/example/jetpackcompose/material/AlertDialogActivity.kt
 

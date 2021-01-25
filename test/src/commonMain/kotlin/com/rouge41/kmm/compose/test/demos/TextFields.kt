@@ -1,6 +1,18 @@
 package com.rouge41.kmm.compose.test.demos
 
 import com.rouge41.kmm.compose.*
+import com.rouge41.kmm.compose.foundation.layout.Column
+import com.rouge41.kmm.compose.material.Text
+import com.rouge41.kmm.compose.material.TextField
+import com.rouge41.kmm.compose.runtime.Composable
+import com.rouge41.kmm.compose.runtime.mutableStateOf
+import com.rouge41.kmm.compose.runtime.*
+import com.rouge41.kmm.compose.ui.Modifier
+import com.rouge41.kmm.compose.ui.background
+import com.rouge41.kmm.compose.ui.fillMaxWidth
+import com.rouge41.kmm.compose.ui.graphics.Color
+import com.rouge41.kmm.compose.ui.padding
+import com.rouge41.kmm.compose.ui.unit.dp
 
 //FROM https://raw.githubusercontent.com/vinaygaba/Learn-Jetpack-Compose-By-Example/master/app/src/main/java/com/example/jetpackcompose/text/TextFieldActivity.kt
 

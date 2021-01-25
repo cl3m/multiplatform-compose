@@ -1,9 +1,24 @@
 package com.rouge41.kmm.compose.test.demos
 
 import com.rouge41.kmm.compose.*
+import com.rouge41.kmm.compose.foundation.ScrollableColumn
+import com.rouge41.kmm.compose.foundation.isSystemInDarkTheme
+import com.rouge41.kmm.compose.foundation.layout.Column
+import com.rouge41.kmm.compose.foundation.layout.Row
+import com.rouge41.kmm.compose.foundation.layout.Spacer
+import com.rouge41.kmm.compose.material.*
+import com.rouge41.kmm.compose.misc.Image
+import com.rouge41.kmm.compose.navigation.*
+import com.rouge41.kmm.compose.runtime.Composable
+import com.rouge41.kmm.compose.ui.*
+import com.rouge41.kmm.compose.ui.graphics.Color
+import com.rouge41.kmm.compose.ui.text.TextAlign
+import com.rouge41.kmm.compose.ui.text.TextStyle
+import com.rouge41.kmm.compose.ui.text.font.FontWeight
+import com.rouge41.kmm.compose.ui.unit.dp
+import com.rouge41.kmm.compose.ui.unit.sp
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlin.native.concurrent.ThreadLocal
 
 //FROM https://github.com/joreilly/PeopleInSpace
 
@@ -135,12 +150,12 @@ fun PersonList(peopleInSpaceViewModel: PeopleInSpaceViewModel, personSelected : 
             TopAppBar(title = { Text("People In Space") })
         },
         bodyContent = {
-            LazyColumn {
+            com.rouge41.kmm.compose.foundation.lazy.LazyColumn {
                 item {
                     ISSPosition(issPosition.value)
                     Divider(thickness = 2.dp)
                 }
-                items(peopleState.value) {  person ->
+                items(peopleState.value) { person ->
                     val personImageUrl = peopleInSpaceViewModel.getPersonImage(person.name)
                     PersonView(personImageUrl, person, personSelected)
                 }

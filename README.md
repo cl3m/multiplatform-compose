@@ -151,6 +151,7 @@ You did not read the requirements. Install cocoapods-generate "gem install cocoa
 - Better images/resources support
 - UI Test with Github Actions
 - Performance improvement/optimisation
+- Use Compose compiler and runtime on iOS
 
 ## Sponsors
 

@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.*
-import com.rouge41.kmm.compose.MutableState
+import com.rouge41.kmm.compose.runtime.MutableState
 import com.rouge41.kmm.compose.test.demos.Counter
 import com.rouge41.kmm.compose.test.demos.Layout
 import com.rouge41.kmm.compose.test.demos.Lorem

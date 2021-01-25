@@ -1,6 +1,14 @@
 package com.rouge41.kmm.compose.test.demos
 
-import com.rouge41.kmm.compose.*
+import com.rouge41.kmm.compose.foundation.isSystemInDarkTheme
+import com.rouge41.kmm.compose.material.Text
+import com.rouge41.kmm.compose.runtime.Composable
+import com.rouge41.kmm.compose.ui.graphics.Color
+import com.rouge41.kmm.compose.ui.text.TextStyle
+import com.rouge41.kmm.compose.ui.text.font.FontFamily
+import com.rouge41.kmm.compose.ui.text.font.FontStyle
+import com.rouge41.kmm.compose.ui.text.font.FontWeight
+import com.rouge41.kmm.compose.ui.unit.sp
 
 @Composable
 fun TextStyles() {

@@ -1,6 +1,15 @@
 package com.rouge41.kmm.compose.test.demos
 
-import com.rouge41.kmm.compose.*
+import com.rouge41.kmm.compose.foundation.layout.Arrangement
+import com.rouge41.kmm.compose.foundation.layout.Column
+import com.rouge41.kmm.compose.foundation.layout.Row
+import com.rouge41.kmm.compose.foundation.layout.Spacer
+import com.rouge41.kmm.compose.material.Text
+import com.rouge41.kmm.compose.runtime.Composable
+import com.rouge41.kmm.compose.ui.*
+import com.rouge41.kmm.compose.ui.graphics.Color
+import com.rouge41.kmm.compose.ui.text.TextStyle
+import com.rouge41.kmm.compose.ui.unit.dp
 
 @Composable
 fun Layout() {

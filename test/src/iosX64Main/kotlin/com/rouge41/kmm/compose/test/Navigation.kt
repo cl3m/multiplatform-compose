@@ -1,7 +1,16 @@
 package com.rouge41.kmm.compose.test
 
-import com.rouge41.kmm.compose.*
+import com.rouge41.kmm.compose.navigation.*
+import com.rouge41.kmm.compose.foundation.ScrollableColumn
+import com.rouge41.kmm.compose.foundation.layout.Column
+import com.rouge41.kmm.compose.ios.SafeArea
+import com.rouge41.kmm.compose.material.Button
+import com.rouge41.kmm.compose.material.ListItem
+import com.rouge41.kmm.compose.material.Text
+import com.rouge41.kmm.compose.runtime.Composable
+import com.rouge41.kmm.compose.runtime.MutableState
 import com.rouge41.kmm.compose.test.demos.*
+import com.rouge41.kmm.compose.ui.*
 import platform.Foundation.NSLog
 
 @Composable
@@ -25,13 +34,6 @@ actual fun Navigation(state: MutableState<Boolean>, resources: Resources) {
                     text = { Text("Raw mode") },
                     modifier = Modifier.clickable(
                         onClick = {
-                            //hacky way because state is not so good
-                            for (key in cache.keys) {
-                                if (key.contains("rememberNavController")) {
-                                    cache.remove(key)
-                                    break
-                                }
-                            }
                             state.value = false
                         }
                     )
