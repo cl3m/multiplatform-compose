@@ -3,8 +3,10 @@ package com.rouge41.kmm.compose.test
 import com.rouge41.kmm.compose.navigation.*
 import com.rouge41.kmm.compose.foundation.ScrollableColumn
 import com.rouge41.kmm.compose.foundation.layout.Column
+import com.rouge41.kmm.compose.foundation.lazy.LazyColumn
 import com.rouge41.kmm.compose.ios.SafeArea
 import com.rouge41.kmm.compose.material.Button
+import com.rouge41.kmm.compose.material.Divider
 import com.rouge41.kmm.compose.material.ListItem
 import com.rouge41.kmm.compose.material.Text
 import com.rouge41.kmm.compose.runtime.Composable
@@ -27,17 +29,19 @@ actual fun Navigation(state: MutableState<Boolean>, resources: Resources) {
             }) { Text ("Trailing") }
         }) {
             SafeArea {
-                Menu(state) { route ->
-                    navController.navigate(route)
+                LazyColumn {
+                    items(Demo.values().dropLast(4)) { item ->
+                        Text(
+                            item.toString(),
+                            modifier = Modifier.clickable { navController.navigate(item.toString()) })
+                        Divider()
+                    }
+                    item {
+                        Text(
+                            "Raw mode",
+                            modifier = Modifier.clickable { state.value = false })
+                    }
                 }
-                ListItem(
-                    text = { Text("Raw mode") },
-                    modifier = Modifier.clickable(
-                        onClick = {
-                            state.value = false
-                        }
-                    )
-                )
             }
         }
         Demo.values().dropLast(4).forEach { screen ->

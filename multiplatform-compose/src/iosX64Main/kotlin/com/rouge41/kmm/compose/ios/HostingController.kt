@@ -16,7 +16,7 @@ import platform.CoreGraphics.CGSizeMake
 import platform.UIKit.*
 import kotlin.math.max
 
-val DEBUG_COMPOSE = true
+val DEBUG_COMPOSE = false
 
 open class HostingController(val controller: UIViewController, val content: @Composable () -> Unit, val imageViewLoader: (UIImageView, String) -> Unit) {
     @ThreadLocal

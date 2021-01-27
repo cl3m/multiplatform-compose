@@ -1,6 +1,7 @@
 package com.rouge41.kmm.compose.test
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -10,8 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.*
 import com.rouge41.kmm.compose.runtime.MutableState
 import com.rouge41.kmm.compose.foundation.ScrollableColumn
+import com.rouge41.kmm.compose.foundation.layout.Spacer
 import com.rouge41.kmm.compose.ui.clickable
 import com.rouge41.kmm.compose.test.demos.*
+import com.rouge41.kmm.compose.ui.preferredHeight
+import com.rouge41.kmm.compose.ui.unit.dp
 
 @Composable
 fun DrawerNavigation(state: MutableState<Boolean>, resources: Resources) {
@@ -37,20 +41,29 @@ fun DrawerNavigation(state: MutableState<Boolean>, resources: Resources) {
             )
         },
         drawerContent = {
-            Menu(state) { route ->
-                navController.navigate(route) {
-                    launchSingleTop = true
+            LazyColumn {
+                items(Demo.values().dropLast(4)) { item ->
+                    ListItem(text = { Text(item.toString()) }, modifier = Modifier.clickable {
+                        navController.navigate(item.toString()) {
+                            launchSingleTop = true
+                        }
+                        scaffoldState.drawerState.close()
+                    })
+                    Divider()
                 }
-                scaffoldState.drawerState.close()
+                item {
+                    ListItem(
+                        text = { Text("Raw mode") },
+                        modifier = Modifier.clickable(
+                            onClick = {
+                                state.value = false
+                            }
+                        )
+                    )
+                    Spacer(modifier = Modifier.preferredHeight(60.dp))
+                }
             }
-            ListItem(
-                text = { Text("Raw mode") },
-                modifier = Modifier.clickable(
-                    onClick = {
-                        state.value = false
-                    }
-                )
-            )
+
         },
         scaffoldState = scaffoldState
     ) {
