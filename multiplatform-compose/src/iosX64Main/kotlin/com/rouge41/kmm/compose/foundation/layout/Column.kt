@@ -7,6 +7,9 @@ import com.rouge41.kmm.compose.ios.addSubview
 import com.rouge41.kmm.compose.runtime.Composable
 import com.rouge41.kmm.compose.ui.AlignmentHorizontal
 import com.rouge41.kmm.compose.ui.iosAlignmentHorizontal
+import com.rouge41.kmm.compose.ui.unit.toCGFloat
+import platform.UIKit.UIView
+import platform.UIKit.subviews
 
 actual interface ColumnScope
 class iosColumnScope : ColumnScope
@@ -37,4 +40,13 @@ actual fun Column(
         }
     }
     addSubview(view) { content.invoke(iosColumnScope()) }
+    if (verticalArrangement is iosArrangement.spacedBy) {
+        for ((index, subview) in view.subviews.withIndex()) {
+            if (subview is UIView && index > 0) {
+                subview.configureLayoutWithBlock { layout ->
+                    layout?.marginTop = YGPointValue(verticalArrangement.space.toCGFloat())
+                }
+            }
+        }
+    }
 }

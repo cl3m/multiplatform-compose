@@ -6,6 +6,7 @@ import com.rouge41.kmm.compose.ui.AlignmentVertical
 import com.rouge41.kmm.compose.ui.Modifier
 import androidx.compose.foundation.layout.Row as _Row
 
+@Suppress("NO_ACTUAL_CLASS_MEMBER_FOR_EXPECTED_CLASS")
 actual typealias RowScope = androidx.compose.foundation.layout.RowScope
 
 @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")

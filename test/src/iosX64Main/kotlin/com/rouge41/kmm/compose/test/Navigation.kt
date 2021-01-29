@@ -59,6 +59,7 @@ actual fun Navigation(state: MutableState<Boolean>, resources: Resources) {
                     Demo.Alert -> SafeArea { Alert() }
                     Demo.TextStyles -> SafeArea { Column { TextStyles() } }
                     Demo.TextFields -> SafeArea { TextFields() }
+                    Demo.Board2048 -> SafeArea { Board2048() }
                 }
             }
         }

@@ -1,6 +1,8 @@
 package com.rouge41.kmm.compose.foundation.layout
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.InternalLayoutApi
+import androidx.compose.ui.unit.Dp
 
 @OptIn(InternalLayoutApi::class)
 actual typealias ArrangementVertical = androidx.compose.foundation.layout.Arrangement.Vertical
@@ -18,4 +20,6 @@ actual object Arrangement {
     actual val SpaceEvenly: ArrangementHorizontalOrVertical = androidx.compose.foundation.layout.Arrangement.SpaceEvenly
     actual val SpaceBetween: ArrangementHorizontalOrVertical = androidx.compose.foundation.layout.Arrangement.SpaceBetween
     actual val SpaceAround: ArrangementHorizontalOrVertical = androidx.compose.foundation.layout.Arrangement.SpaceAround
+
+    actual fun spacedBy(space: Dp): ArrangementHorizontalOrVertical = androidx.compose.foundation.layout.Arrangement.spacedBy(space)
 }

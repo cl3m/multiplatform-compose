@@ -5,7 +5,9 @@ import com.rouge41.kmm.compose.ui.Alignment
 import com.rouge41.kmm.compose.ui.AlignmentVertical
 import com.rouge41.kmm.compose.ui.Modifier
 
-expect interface RowScope
+expect interface RowScope {
+        fun Modifier.weight(weight: Float, fill: Boolean = true): Modifier
+}
 
 @Composable
 expect fun Row(

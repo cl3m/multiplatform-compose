@@ -32,6 +32,7 @@ fun Raw(state: MutableState<Boolean>, resources: Resources) {
         Demo.Buttons ->  SafeArea { Buttons() }
         Demo.Alert -> SafeArea { Alert() }
         Demo.TextFields -> SafeArea { TextFields() }
+        Demo.Board2048 -> SafeArea { Board2048() }
         Demo.BottomNavigation -> BottomNavigation(state, resources)
         Demo.Navigation -> Navigation(state, resources)
     }

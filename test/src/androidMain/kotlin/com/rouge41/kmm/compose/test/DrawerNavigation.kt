@@ -83,6 +83,7 @@ fun DrawerNavigation(state: MutableState<Boolean>, resources: Resources) {
                         Demo.Alert ->  Alert()
                         Demo.TextStyles -> Column { TextStyles() }
                         Demo.TextFields -> TextFields()
+                        Demo.Board2048 -> Board2048()
                     }
                 }
             }

@@ -4,6 +4,7 @@ import com.rouge41.kmm.compose.runtime.Composable
 import com.rouge41.kmm.compose.runtime.mutableStateOf
 import com.rouge41.kmm.compose.runtime.remember
 import com.rouge41.kmm.compose.ui.graphics.ImageResource
+import com.rouge41.kmm.compose.test.demos.*
 
 data class Resources(val logo: ImageResource)
 
@@ -32,6 +33,7 @@ enum class Demo {
     Buttons,
     Alert,
     TextFields,
+    Board2048,
     // Below are dropped in navigation demos
     BottomNavigation,
     Navigation,
