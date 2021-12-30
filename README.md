@@ -6,7 +6,7 @@
 
 # Multiplatform Compose
 
-A Kotlin library to use Jetpack Compose in Android and iOS. Allow to write UI for both in Kotin. Still experimental as many compose features are not yet available.
+A Kotlin library to use Jetpack Compose in Android and iOS. Allow to write UI for both in Kotlin. Still experimental as many compose features are not yet available.
 
 ## Table of contents
 
