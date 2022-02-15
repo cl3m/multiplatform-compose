@@ -147,7 +147,7 @@ NavHost(navController = navController, startDestination = "first") {
 
 ### cinteropYogaKitIosArm64 FAILED YogaKit module not found
 
-You did not read the requirements. Install cocoapods-generate "gem install cocoapods-generate", invalid cache and restat Android Studio
+You did not read the requirements. Install cocoapods-generate "gem install cocoapods-generate", invalid cache and restart Android Studio
 
 ## Roadmap
 
