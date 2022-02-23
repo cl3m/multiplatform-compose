@@ -2,6 +2,7 @@
 
 :warning:  This PoC is currently not functional. Compose changed too much from beta and broke many things. I will update it using the compose compiler when it will be possible. There are some hope on the way :
 - [Compose Multiplatform by JetBrains](https://github.com/JetBrains/compose-jb) started native support via Skia ([Skiko](https://github.com/JetBrains/skiko)), you can have a look at the [sample](https://github.com/JetBrains/compose-jb/tree/master/experimental/examples/falling-balls-mpp) but it is still very early. Some of the demos in this repo works but there is still many broken functionality. It will use the compose compiler but not native component.  
+- [Platform-Kit by IceRock](https://github.com/Alex009/compose-jb/tree/platform-kit-sample/examples/common-platform-uikit) based on Compose Multiplatform by JetBrains, add support via UIKit, thus use the compose compiler and native iOS component.  
 - [Redwood Compose](https://jakewharton.com/multiplatform-compose-and-gradle-module-metadata-abuse/) by Cash App (not released yet). Use the compose compiler and native iOS component. 
 
 # Multiplatform Compose
