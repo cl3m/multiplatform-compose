@@ -1,7 +1,6 @@
 package com.rouge41.kmm.compose.test
 
-import com.rouge41.kmm.compose.foundation.ScrollableColumn
-import com.rouge41.kmm.compose.foundation.layout.Spacer
+import com.rouge41.kmm.compose.foundation.layout.Column
 import com.rouge41.kmm.compose.ios.SafeArea
 import com.rouge41.kmm.compose.material.Button
 import com.rouge41.kmm.compose.material.Text
@@ -12,7 +11,6 @@ import com.rouge41.kmm.compose.runtime.remember
 import com.rouge41.kmm.compose.test.demos.*
 import com.rouge41.kmm.compose.ui.Modifier
 import com.rouge41.kmm.compose.ui.padding
-import com.rouge41.kmm.compose.ui.preferredHeight
 import com.rouge41.kmm.compose.ui.unit.dp
 
 @Composable
@@ -21,9 +19,8 @@ fun Raw(state: MutableState<Boolean>, resources: Resources) {
     when (demoState.value) {
         Demo.Raw -> SafeArea { RawDemos(demoState) }
         Demo.HelloPlatform -> SafeArea { HelloPlatform() }
-        Demo.Lorem -> SafeArea { ScrollableColumn { Lorem() } }
-        Demo.LazyColumn -> LazyColumn()
-        Demo.PeopleInSpace -> PeopleInSpace()
+        Demo.Lorem -> Lorem()
+        Demo.LazyColumn -> LazyCol()
         Demo.Counter -> SafeArea { Counter() }
         Demo.BackPress -> SafeArea { BackPress() }
         Demo.Layout -> SafeArea { Layout() }
@@ -40,11 +37,11 @@ fun Raw(state: MutableState<Boolean>, resources: Resources) {
 
 @Composable
 fun RawDemos(demoState: MutableState<Demo>) {
-    ScrollableColumn(modifier = Modifier.padding(15.dp))  {
+    Column(modifier = Modifier.padding(15.dp))  {
         Text("RAW")
         for (content in Demo.values().dropLast(2)) {
             Button(onClick = { demoState.value = content }) { Text(content.toString()) }
-            Spacer(modifier = Modifier.preferredHeight(5.dp))
+            //Spacer(modifier = Modifier.preferredHeight(5.dp))
         }
     }
 }

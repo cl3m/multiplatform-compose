@@ -2,7 +2,6 @@ package com.rouge41.kmm.compose.foundation.lazy
 
 import com.rouge41.kmm.compose.ui.Modifier
 import com.rouge41.kmm.compose.foundation.layout.PaddingValues
-import com.rouge41.kmm.compose.foundation.InteractionState
 import com.rouge41.kmm.compose.foundation.layout.Arrangement
 import com.rouge41.kmm.compose.foundation.layout.ArrangementVertical
 import com.rouge41.kmm.compose.runtime.Composable
@@ -36,5 +35,4 @@ actual fun LazyColumn(
 actual fun rememberLazyListState(
     initialFirstVisibleItemIndex: Int = 0,
     initialFirstVisibleItemScrollOffset: Int = 0,
-    interactionState: InteractionState? = null
-): LazyListState =_rememberLazyListState(initialFirstVisibleItemIndex = initialFirstVisibleItemIndex, initialFirstVisibleItemScrollOffset = initialFirstVisibleItemScrollOffset, interactionState = interactionState)
+): LazyListState =_rememberLazyListState(initialFirstVisibleItemIndex = initialFirstVisibleItemIndex, initialFirstVisibleItemScrollOffset = initialFirstVisibleItemScrollOffset)

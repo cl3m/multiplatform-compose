@@ -9,10 +9,7 @@ import com.rouge41.kmm.compose.runtime.mutableStateOf
 import com.rouge41.kmm.compose.runtime.*
 import com.rouge41.kmm.compose.ui.Modifier
 import com.rouge41.kmm.compose.ui.padding
-import com.rouge41.kmm.compose.ui.text.TextStyle
-import com.rouge41.kmm.compose.ui.text.font.FontFamily
 import com.rouge41.kmm.compose.ui.unit.dp
-import com.rouge41.kmm.compose.ui.unit.sp
 
 // FROM https://raw.githubusercontent.com/vinaygaba/Learn-Jetpack-Compose-By-Example/master/app/src/main/java/com/example/jetpackcompose/material/AlertDialogActivity.kt
 
@@ -48,10 +45,6 @@ fun ClickableText() {
         // composable to render text on the screen
         Text(
             text = "Click to see dialog", modifier = Modifier.padding(16.dp),
-            style = TextStyle(
-                fontSize = 16.sp,
-                fontFamily = FontFamily.Serif
-            )
         )
     })
 

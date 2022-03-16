@@ -1,7 +1,6 @@
 package com.rouge41.kmm.compose.test
 
 import com.rouge41.kmm.compose.navigation.*
-import com.rouge41.kmm.compose.foundation.ScrollableColumn
 import com.rouge41.kmm.compose.foundation.layout.Column
 import com.rouge41.kmm.compose.foundation.lazy.LazyColumn
 import com.rouge41.kmm.compose.ios.SafeArea
@@ -47,11 +46,10 @@ actual fun Navigation(state: MutableState<Boolean>, resources: Resources) {
         Demo.values().dropLast(4).forEach { screen ->
             composable(screen.toString(), screen.toString()) {
                 when (screen) {
-                    Demo.LazyColumn -> SafeArea { LazyColumn() }
+                    Demo.LazyColumn -> SafeArea { LazyCol() }
                     Demo.HelloPlatform -> SafeArea { HelloPlatform() }
-                    Demo.Lorem -> SafeArea { ScrollableColumn { Lorem() } }
+                    Demo.Lorem -> SafeArea { Lorem() }
                     Demo.Counter -> Counter()
-                    Demo.PeopleInSpace -> SafeArea { Text("Go through Raw first") }
                     Demo.BackPress -> BackPress()
                     Demo.Layout -> SafeArea { Layout() }
                     Demo.Buttons -> SafeArea { Buttons() }

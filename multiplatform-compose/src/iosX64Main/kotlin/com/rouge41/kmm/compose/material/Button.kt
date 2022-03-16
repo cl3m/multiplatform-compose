@@ -1,8 +1,6 @@
 package com.rouge41.kmm.compose.material
 
 import cocoapods.YogaKit.*
-import com.rouge41.kmm.compose.foundation.BorderStroke
-import com.rouge41.kmm.compose.foundation.InteractionState
 import com.rouge41.kmm.compose.foundation.layout.PaddingValues
 import com.rouge41.kmm.compose.foundation.layout.RowScope
 import com.rouge41.kmm.compose.foundation.layout.iosRowScope
@@ -15,7 +13,6 @@ import com.rouge41.kmm.compose.ui.Modifier
 import com.rouge41.kmm.compose.ui.background
 import com.rouge41.kmm.compose.ui.graphics.Color
 import com.rouge41.kmm.compose.ui.graphics.Shape
-import com.rouge41.kmm.compose.ui.graphics.SolidColor
 import com.rouge41.kmm.compose.ui.padding
 import com.rouge41.kmm.compose.ui.unit.Dp
 import com.rouge41.kmm.compose.ui.unit.dp
@@ -27,7 +24,6 @@ import platform.UIKit.*
 
 actual interface ButtonColors
 actual object ButtonDefaults {
-    actual val outlinedBorder = BorderStroke(1.dp, Color.Tint)
     actual val ContentPadding = PaddingValues(8.dp)
     actual val TextButtonContentPadding = PaddingValues(16.dp, 8.dp, 16.dp, 8.dp)
 
@@ -59,10 +55,8 @@ actual fun Button(
         onClick: () -> Unit,
         modifier: Modifier,
         enabled: Boolean,
-        interactionState: InteractionState?,
         elevation: ButtonElevation?,
         shape: Shape?,
-        border: BorderStroke?,
         colors: ButtonColors?,
         contentPadding: PaddingValues?,
         content: @Composable RowScope.() -> Unit
@@ -81,14 +75,6 @@ actual fun Button(
         val container = ComposeSystemButton.createOrReuse(onClick)
         modifier.padding(0.dp).setup(container)
         modifier.background(Color.Transparent).setup(container.button)
-        if (border != null) {
-            if (border.brush is SolidColor) {
-                container.layer.borderColor = border.brush.value.toUIColor()?.CGColor
-            }
-            container.layer.borderWidth = border.width.value.toDouble()
-        } else {
-            container.layer.borderWidth = 0.0
-        }
         if (shape != null && shape is RoundedCornerShape) {
             if (colors != null && colors is DefaultButtonColors) {
                 colors.backgroundColor.toUIColor()?.let { container.backgroundColor = it }
@@ -98,7 +84,7 @@ actual fun Button(
                 container.button.titleLabel?.textColor = UIColor.whiteColor
             }
             //TODO: Use UIBezierPath
-            container.layer.cornerRadius = (shape.topLeft as Dp).value.toDouble()
+            //container.layer.cornerRadius = (shape.topLeft as Dp).value.toDouble()
         }
         if (colors != null && colors is DefaultButtonColors) {
             colors.backgroundColor.toUIColor()?.let { container.backgroundColor = it }
@@ -180,10 +166,8 @@ actual fun OutlinedButton(
         onClick: () -> Unit,
         modifier: Modifier,
         enabled: Boolean,
-        interactionState: InteractionState?,
         elevation: ButtonElevation?,
         shape: Shape?,
-        border: BorderStroke?,
         colors: ButtonColors?,
         contentPadding: PaddingValues?,
         content: @Composable RowScope.() -> Unit
@@ -191,10 +175,8 @@ actual fun OutlinedButton(
     onClick = onClick,
     modifier = modifier,
     enabled = enabled,
-    interactionState = interactionState,
     elevation = elevation,
     shape = shape ?: MaterialTheme.shapes.small,
-    border = border,
     colors = colors ?: ButtonDefaults.outlinedButtonColors(),
     contentPadding = contentPadding ?: ButtonDefaults.ContentPadding,
     content = content
@@ -205,10 +187,8 @@ actual fun TextButton(
         onClick: () -> Unit,
         modifier: Modifier,
         enabled: Boolean,
-        interactionState: InteractionState?,
         elevation: ButtonElevation?,
         shape: Shape?,
-        border: BorderStroke?,
         colors: ButtonColors?,
         contentPadding: PaddingValues?,
         content: @Composable RowScope.() -> Unit
@@ -216,10 +196,8 @@ actual fun TextButton(
     onClick = onClick,
     modifier = modifier,
     enabled = enabled,
-    interactionState = interactionState,
     elevation = elevation,
     shape = shape ?: MaterialTheme.shapes.small,
-    border = border,
     colors = colors ?: ButtonDefaults.textButtonColors(),
     contentPadding = contentPadding ?: ButtonDefaults.TextButtonContentPadding,
     content = content

@@ -28,7 +28,7 @@ fun MaterialTextInputComponent() {
     var textValue by remember { mutableStateOf("") }
 
     Text("Text is ${textValue}", modifier = Modifier)
-    Spacer(modifier = Modifier.preferredHeight(10.dp))
+    //Spacer(modifier = Modifier.preferredHeight(10.dp))
     TextField(
         value = textValue,
         onValueChange = { textValue = it },

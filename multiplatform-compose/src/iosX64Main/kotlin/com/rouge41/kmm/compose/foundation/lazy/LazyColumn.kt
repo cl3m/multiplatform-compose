@@ -1,7 +1,6 @@
 package com.rouge41.kmm.compose.foundation.lazy
 
 import cocoapods.YogaKit.*
-import com.rouge41.kmm.compose.foundation.InteractionState
 import com.rouge41.kmm.compose.foundation.layout.ArrangementVertical
 import com.rouge41.kmm.compose.foundation.layout.PaddingValues
 import com.rouge41.kmm.compose.ios.*
@@ -53,7 +52,6 @@ actual typealias LazyListState = ComposeTableViewController
 actual fun rememberLazyListState(
     initialFirstVisibleItemIndex: Int,
     initialFirstVisibleItemScrollOffset: Int,
-    interactionState: InteractionState?
 ): LazyListState = remember { ComposeTableViewController() }
 
 actual interface LazyListScope {

@@ -22,7 +22,6 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerVersion = Version.kotlin
         kotlinCompilerExtensionVersion = Version.compose
     }
     sourceSets {
@@ -35,19 +34,6 @@ android {
 
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
-    kotlinOptions.useIR = true
-}
-
-// workaround for https://youtrack.jetbrains.com/issue/KT-43944
-android {
-    configurations {
-        create("androidTestApi")
-        create("androidTestDebugApi")
-        create("androidTestReleaseApi")
-        create("testApi")
-        create("testDebugApi")
-        create("testReleaseApi")
-    }
 }
 
 kotlin {

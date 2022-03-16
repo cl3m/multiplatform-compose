@@ -6,5 +6,5 @@ import com.rouge41.kmm.compose.runtime.Composable
 @Composable
 actual fun Scaffold(
         topBar: @Composable () -> Unit,
-        bodyContent: @Composable (PaddingValues) -> Unit
-) = androidx.compose.material.Scaffold(topBar = topBar, bodyContent = bodyContent)
+        content: @Composable (PaddingValues) -> Unit
+) = androidx.compose.material.Scaffold(topBar = topBar, content = content)

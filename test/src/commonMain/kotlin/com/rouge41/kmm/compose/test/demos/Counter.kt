@@ -17,7 +17,7 @@ fun Counter(modifier: Modifier = Modifier.fillMaxSize()) {
     var count = remember { mutableStateOf<Int>(0) }
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.Center,
+        //verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = "${count.value}", modifier = Modifier.height(50.dp))

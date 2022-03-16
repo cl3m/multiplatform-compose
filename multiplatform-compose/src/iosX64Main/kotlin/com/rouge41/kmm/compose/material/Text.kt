@@ -8,18 +8,10 @@ import com.rouge41.kmm.compose.ios.getCurrentView
 import com.rouge41.kmm.compose.navigation.BarButtonItemScope
 import com.rouge41.kmm.compose.navigation.UIComposeViewController
 import com.rouge41.kmm.compose.runtime.Composable
-import com.rouge41.kmm.compose.ui.text.style.TextOverflow
 import com.rouge41.kmm.compose.ui.Modifier
 import com.rouge41.kmm.compose.ui.graphics.Color
 import com.rouge41.kmm.compose.ui.margin
 import com.rouge41.kmm.compose.ui.padding
-import com.rouge41.kmm.compose.ui.text.TextAlign
-import com.rouge41.kmm.compose.ui.text.TextDecoration
-import com.rouge41.kmm.compose.ui.text.TextStyle
-import com.rouge41.kmm.compose.ui.text.font.FontFamily
-import com.rouge41.kmm.compose.ui.text.font.FontStyle
-import com.rouge41.kmm.compose.ui.text.font.FontWeight
-import com.rouge41.kmm.compose.ui.unit.TextUnit
 import com.rouge41.kmm.compose.ui.unit.dp
 import kotlinx.cinterop.ExportObjCClass
 import kotlinx.cinterop.cValue
@@ -34,23 +26,10 @@ actual fun Text(
         text: String,
         modifier: Modifier,
         color: com.rouge41.kmm.compose.ui.graphics.Color,
-        fontSize: TextUnit,
-        fontStyle: FontStyle?,
-        fontWeight: FontWeight?,
-        fontFamily: FontFamily?,
-        letterSpacing: TextUnit,
-        textDecoration: TextDecoration?,
-        textAlign: TextAlign?,
-        lineHeight: TextUnit,
-        overflow: TextOverflow,
-        softWrap: Boolean,
-        maxLines: Int,
-    /*onTextLayout: (TextLayoutResult) -> Unit,*/
-    style: TextStyle?
 ) {
     val controller = getCurrentController()
     val view = getCurrentView()
-    val color = if (color != Color.Unspecified) color else style?.color
+    val color = if (color != Color.Unspecified) color else Color.Unspecified
     if (controller is ComposeAlertController) {
         controller.text = text
     } else if (controller is UIComposeViewController && controller.barButtonItemScope != BarButtonItemScope.NONE) {
@@ -61,8 +40,8 @@ actual fun Text(
     } else if (view is UIButton) {
         view.setTitle(text, 0)
         color?.let { view.setTitleColor(it.toUIColor(), 0) }
-        view.titleLabel?.font = (style ?: TextStyle()).toUIFont(overrideFontSize = if (fontSize != TextUnit.Unspecified) fontSize else null,
-            overrideFontStyle = fontStyle, overrideFontWeight = fontWeight, overrideFontFamily = fontFamily)
+        /*view.titleLabel?.font = (style ?: TextStyle()).toUIFont(overrideFontSize = if (fontSize != TextUnit.Unspecified) fontSize else null,
+            overrideFontStyle = fontStyle, overrideFontWeight = fontWeight, overrideFontFamily = fontFamily)*/
         modifier.setup(view)
     } else if (view is ComposeTextField) {
         view.placeholder = text
@@ -72,8 +51,8 @@ actual fun Text(
             label.numberOfLines = 0
             label.text = text
             color?.toUIColor()?.let { label.textColor = it }
-            label.font = (style ?: TextStyle()).toUIFont(overrideFontSize = if (fontSize != TextUnit.Unspecified) fontSize else null,
-                overrideFontStyle = fontStyle, overrideFontWeight = fontWeight, overrideFontFamily = fontFamily)
+            /*label.font = (style ?: TextStyle()).toUIFont(overrideFontSize = if (fontSize != TextUnit.Unspecified) fontSize else null,
+                overrideFontStyle = fontStyle, overrideFontWeight = fontWeight, overrideFontFamily = fontFamily)*/
             //Set cell margin before custom
             val cell = getCurrentView().superview
             if (cell is UITableViewCell) {

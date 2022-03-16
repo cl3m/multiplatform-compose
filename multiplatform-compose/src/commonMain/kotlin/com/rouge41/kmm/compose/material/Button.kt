@@ -1,7 +1,5 @@
 package com.rouge41.kmm.compose.material
 
-import com.rouge41.kmm.compose.foundation.BorderStroke
-import com.rouge41.kmm.compose.foundation.InteractionState
 import com.rouge41.kmm.compose.foundation.layout.PaddingValues
 import com.rouge41.kmm.compose.foundation.layout.RowScope
 import com.rouge41.kmm.compose.runtime.Composable
@@ -13,7 +11,6 @@ import com.rouge41.kmm.compose.ui.unit.dp
 
 expect interface ButtonColors
 expect object ButtonDefaults {
-    val outlinedBorder: BorderStroke
     val ContentPadding: PaddingValues
     val TextButtonContentPadding: PaddingValues
 
@@ -39,10 +36,8 @@ expect fun Button(
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
         enabled: Boolean = true,
-        interactionState: InteractionState? = null,
         elevation: ButtonElevation? = null,
         shape: Shape? = null,
-        border: BorderStroke? = null,
         colors: ButtonColors? = null,
         contentPadding: PaddingValues? = null,
         content: @Composable RowScope.() -> Unit
@@ -53,10 +48,8 @@ expect fun OutlinedButton(
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
         enabled: Boolean = true,
-        interactionState: InteractionState? = null,
         elevation: ButtonElevation? = null,
         shape: Shape? =  null,
-        border: BorderStroke? = ButtonDefaults.outlinedBorder,
         colors: ButtonColors? = null,
         contentPadding: PaddingValues? = null,
         content: @Composable RowScope.() -> Unit
@@ -67,10 +60,8 @@ expect fun TextButton(
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
         enabled: Boolean = true,
-        interactionState: InteractionState? = null,
         elevation: ButtonElevation? = null,
         shape: Shape? = null,
-        border: BorderStroke? = null,
         colors: ButtonColors? = null,
         contentPadding: PaddingValues? = null,
         content: @Composable RowScope.() -> Unit

@@ -5,7 +5,6 @@ import com.rouge41.kmm.compose.ui.graphics.Color
 import com.rouge41.kmm.compose.ui.Modifier
 import com.rouge41.kmm.compose.ui.graphics.Shape
 import com.rouge41.kmm.compose.runtime.Composable
-import com.rouge41.kmm.compose.ui.DialogProperties
 import androidx.compose.material.AlertDialog as _AlertDialog
 
 @Composable
@@ -19,8 +18,7 @@ actual fun AlertDialog(
         text: @Composable (() -> Unit)? = null,
         shape: Shape? = null,
         backgroundColor: Color? = null,
-        contentColor: Color? = null,
-        properties: DialogProperties? = null
+        contentColor: Color? = null
 ) = _AlertDialog(onDismissRequest = onDismissRequest, confirmButton = confirmButton, modifier = modifier, dismissButton = dismissButton,
     title = title, text = text, shape = shape ?: MaterialTheme.shapes.medium, backgroundColor = backgroundColor ?: MaterialTheme.colors.surface,
-    contentColor = if (backgroundColor != null) contentColorFor(backgroundColor) else contentColorFor(MaterialTheme.colors.surface), properties = properties)
+    contentColor = if (backgroundColor != null) contentColorFor(backgroundColor) else contentColorFor(MaterialTheme.colors.surface))

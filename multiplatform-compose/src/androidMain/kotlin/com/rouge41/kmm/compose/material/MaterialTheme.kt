@@ -9,12 +9,10 @@ actual typealias MaterialTheme = androidx.compose.material.MaterialTheme
 @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
 actual fun MaterialTheme(
         colors: Colors? = null,
-        typography: Typography? = null,
         shapes: Shapes? = null,
         content: @Composable () -> Unit
 ) = _MaterialTheme(
         colors = colors ?: _MaterialTheme.colors,
-        typography = typography ?: _MaterialTheme.typography,
         shapes = shapes ?: _MaterialTheme.shapes,
         content = content)
 

@@ -29,7 +29,7 @@ enum class Demo {
     Layout,
     TextStyles,
     Images,
-    PeopleInSpace,
+//    PeopleInSpace,
     Buttons,
     Alert,
     TextFields,

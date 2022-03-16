@@ -3,7 +3,8 @@ CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
 FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Yoga" "${PODS_CONFIGURATION_BUILD_DIR}/YogaKit" "${PODS_ROOT}/../../test/build/cocoapods/framework"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Yoga/yoga.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/YogaKit/YogaKit.framework/Headers"
-LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+LD_RUNPATH_SEARCH_PATHS = $(inherited) /usr/lib/swift '@executable_path/Frameworks' '@loader_path/Frameworks'
+LIBRARY_SEARCH_PATHS = $(inherited) "${DT_TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}" /usr/lib/swift
 OTHER_CFLAGS = $(inherited) -isystem "${PODS_CONFIGURATION_BUILD_DIR}/Yoga/yoga.framework/Headers" -isystem "${PODS_CONFIGURATION_BUILD_DIR}/YogaKit/YogaKit.framework/Headers" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/Yoga" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/YogaKit" -iframework "${PODS_ROOT}/../../test/build/cocoapods/framework"
 OTHER_LDFLAGS = $(inherited) -ObjC -l"c++" -framework "UIKit" -framework "YogaKit" -framework "test" -framework "yoga"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS

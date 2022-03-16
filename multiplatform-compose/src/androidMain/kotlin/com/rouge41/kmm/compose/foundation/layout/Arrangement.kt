@@ -1,14 +1,9 @@
 package com.rouge41.kmm.compose.foundation.layout
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.InternalLayoutApi
 import androidx.compose.ui.unit.Dp
 
-@OptIn(InternalLayoutApi::class)
 actual typealias ArrangementVertical = androidx.compose.foundation.layout.Arrangement.Vertical
-@OptIn(InternalLayoutApi::class)
 actual typealias ArrangementHorizontal = androidx.compose.foundation.layout.Arrangement.Horizontal
-@OptIn(InternalLayoutApi::class)
 actual typealias ArrangementHorizontalOrVertical = androidx.compose.foundation.layout.Arrangement.HorizontalOrVertical
 
 actual object Arrangement {

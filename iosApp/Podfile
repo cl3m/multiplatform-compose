@@ -20,10 +20,14 @@ target 'iosApp' do
 
 end
 
+# See https://stackoverflow.com/questions/37160688/set-deployment-target-for-cocoapodss-pod/51416359#51416359
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
       config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
+      # Force CocoaPods targets to always build for x86_64
+      config.build_settings['ARCHS[sdk=iphonesimulator*]'] = 'x86_64'
     end
   end
 end
+

@@ -4,7 +4,6 @@ import com.rouge41.kmm.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController as _rememberNavController
 import androidx.navigation.compose.NavHost as _NavHost
 import androidx.navigation.compose.composable as _composable
-import androidx.navigation.compose.navigate as _navigate
 
 actual typealias Bundle = android.os.Bundle
 actual typealias NavController = androidx.navigation.NavController
@@ -13,7 +12,7 @@ actual typealias NavGraphBuilder = androidx.navigation.NavGraphBuilder
 @Suppress("NO_ACTUAL_CLASS_MEMBER_FOR_EXPECTED_CLASS")
 actual typealias NavBackStackEntry =  androidx.navigation.NavBackStackEntry
 actual typealias NavDeepLink =  androidx.navigation.NavDeepLink
-actual typealias NamedNavArgument =  androidx.navigation.compose.NamedNavArgument
+actual typealias NamedNavArgument =  androidx.navigation.NamedNavArgument
 actual typealias NavOptionsBuilder =  androidx.navigation.NavOptionsBuilder
 
 @Composable
@@ -40,4 +39,4 @@ actual fun NavGraphBuilder.composable(
 ) = _composable(route = route, arguments = arguments, deepLinks = deepLinks, content = content)
 
 @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
-actual fun NavController.navigate(route: String, builder: NavOptionsBuilder.() -> Unit = {}) = _navigate(route = route, builder = builder)
+actual fun NavController.navigate(route: String, builder: NavOptionsBuilder.() -> Unit = {}) = this.navigate(route = route, builder = builder)

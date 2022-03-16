@@ -7,8 +7,6 @@ import com.rouge41.kmm.compose.material.darkColors
 import com.rouge41.kmm.compose.material.lightColors
 import com.rouge41.kmm.compose.runtime.Composable
 import com.rouge41.kmm.compose.ui.graphics.Color
-import com.rouge41.kmm.compose.ui.text.TextStyle
-import com.rouge41.kmm.compose.ui.unit.sp
 
 @Composable
 fun Theme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
@@ -25,7 +23,7 @@ fun Theme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () ->
         HumanAppearance(
             tintColor = orange,
             backgroundColor = null,
-            style = TextStyle(fontSize = 17.sp)
+            //style = TextStyle(fontSize = 17.sp)
         ) {
             content()
         }

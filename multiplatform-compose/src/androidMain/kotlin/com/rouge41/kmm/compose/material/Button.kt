@@ -1,8 +1,6 @@
 package com.rouge41.kmm.compose.material
 
-import androidx.compose.foundation.InteractionState
 import androidx.compose.material.ExperimentalMaterialApi
-import com.rouge41.kmm.compose.foundation.BorderStroke
 import com.rouge41.kmm.compose.foundation.layout.PaddingValues
 import com.rouge41.kmm.compose.foundation.layout.RowScope
 import com.rouge41.kmm.compose.runtime.Composable
@@ -38,19 +36,17 @@ actual fun ButtonDefaults.textButtonColors(): ButtonColors =
 @Composable
 @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
 actual fun Button(
-        onClick: () -> Unit,
-        modifier: Modifier = Modifier,
-        enabled: Boolean = true,
-        interactionState: InteractionState? = null,
-        elevation: ButtonElevation? = ButtonDefaults.elevation(),
-        shape: Shape? = null,
-        border: BorderStroke? = null,
-        colors: ButtonColors? = null,
-        contentPadding: PaddingValues? = null,
-        content: @Composable RowScope.() -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    elevation: ButtonElevation? = ButtonDefaults.elevation(),
+    shape: Shape? = null,
+    colors: ButtonColors? = null,
+    contentPadding: PaddingValues? = null,
+    content: @Composable RowScope.() -> Unit
 ) {
     _Button(onClick = onClick, modifier = modifier, enabled = enabled,
-    elevation = elevation, shape = shape ?: MaterialTheme.shapes.small, border = border,
+    elevation = elevation, shape = shape ?: MaterialTheme.shapes.small,
     colors = colors ?: ButtonDefaults.buttonColors(), contentPadding = contentPadding ?: ButtonDefaults.ContentPadding,
     content = content)
 }
@@ -61,10 +57,8 @@ actual fun OutlinedButton(
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
         enabled: Boolean = true,
-        interactionState: InteractionState? = null,
         elevation: ButtonElevation? = null,
         shape: Shape? =  null,
-        border: BorderStroke? = BorderStroke(1.dp, MaterialTheme.colors.onSurface.copy(alpha = ButtonDefaults.OutlinedBorderOpacity)),
         colors: ButtonColors? = null,
         contentPadding: PaddingValues? = null,
         content: @Composable RowScope.() -> Unit
@@ -72,10 +66,8 @@ actual fun OutlinedButton(
     onClick = onClick,
     modifier = modifier,
     enabled = enabled,
-    interactionState = interactionState,
     elevation = elevation,
     shape = shape ?: MaterialTheme.shapes.small,
-    border = border,
     colors = colors ?: ButtonDefaults.outlinedButtonColors(),
     contentPadding = contentPadding ?: ButtonDefaults.ContentPadding,
     content = content
@@ -87,10 +79,8 @@ actual fun TextButton(
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
         enabled: Boolean = true,
-        interactionState: InteractionState? = null,
         elevation: ButtonElevation? = null,
         shape: Shape? = null,
-        border: BorderStroke? = null,
         colors: ButtonColors? = null,
         contentPadding: PaddingValues? = null,
         content: @Composable RowScope.() -> Unit
@@ -98,10 +88,8 @@ actual fun TextButton(
     onClick = onClick,
     modifier = modifier,
     enabled = enabled,
-    interactionState = interactionState,
     elevation = elevation,
     shape = shape ?: MaterialTheme.shapes.small,
-    border = border,
     colors = colors ?: ButtonDefaults.textButtonColors(),
     contentPadding = contentPadding ?: ButtonDefaults.TextButtonContentPadding,
     content = content

@@ -1,16 +1,13 @@
 package com.rouge41.kmm.compose.test.demos
 
 import com.rouge41.kmm.compose.*
-import com.rouge41.kmm.compose.foundation.BorderStroke
 import com.rouge41.kmm.compose.foundation.layout.Column
 import com.rouge41.kmm.compose.foundation.shape.RoundedCornerShape
 import com.rouge41.kmm.compose.material.*
 import com.rouge41.kmm.compose.runtime.Composable
 import com.rouge41.kmm.compose.ui.*
 import com.rouge41.kmm.compose.ui.graphics.Color
-import com.rouge41.kmm.compose.ui.graphics.SolidColor
 import com.rouge41.kmm.compose.ui.unit.dp
-import com.rouge41.kmm.compose.ui.unit.sp
 
 // From https://github.com/vinaygaba/Learn-Jetpack-Compose-By-Example/blob/master/app/src/main/java/com/example/jetpackcompose/material/ButtonActivity.kt
 
@@ -33,7 +30,7 @@ fun Buttons() {
             elevation = null,
             colors = ButtonDefaults.textButtonColors(),
             onClick = {}) {
-            Text(text = "Big Button", modifier = Modifier.padding(16.dp), fontSize = 30.sp, color = Color.Red)
+            Text(text = "Big Button", modifier = Modifier.padding(16.dp), color = Color.Red)
         }
         Counter(modifier = Modifier.height(200.dp))
     }
@@ -80,7 +77,7 @@ fun SimpleButtonWithBorderComponent() {
         modifier = Modifier.padding(16.dp),
         elevation = ButtonDefaults.elevation(5.dp),
         // Provide a border for this button
-        border = BorderStroke(width = 5.dp, brush = SolidColor(Color.Black))
+        //border = BorderStroke(width = 5.dp, brush = SolidColor(Color.Black))
     ) {
         // The Button composable allows you to provide child composables that inherit this button
         // functionality.

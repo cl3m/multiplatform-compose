@@ -6,10 +6,7 @@ import com.rouge41.kmm.compose.foundation.shape.RoundedCornerShape
 import com.rouge41.kmm.compose.material.*
 import com.rouge41.kmm.compose.ui.*
 import com.rouge41.kmm.compose.ui.graphics.Color
-import com.rouge41.kmm.compose.ui.text.TextStyle
-import com.rouge41.kmm.compose.ui.text.font.FontWeight
 import com.rouge41.kmm.compose.ui.unit.dp
-import com.rouge41.kmm.compose.ui.unit.sp
 
 object Game2048 {
     val board = arrayOf(
@@ -40,7 +37,6 @@ fun Board2048() {
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
 
         Board(Game2048.board)
-        Spacer(modifier = Modifier.preferredHeight(10.dp))
         Row {
             ActionButton("Left")
             ActionButton("Right")
@@ -78,11 +74,6 @@ fun Cell(num: Int, modifier: Modifier) {
         if (num > 0) {
             Text(
                 text = "$num",
-                style = TextStyle(
-                    color = Color(0xFF6F665E),
-                    fontSize = 48.sp,
-                    fontWeight = FontWeight.Black
-                )
             )
         }
     }
@@ -92,7 +83,6 @@ fun Cell(num: Int, modifier: Modifier) {
 fun ActionButton(text: String, action: (() -> Unit)? = null) {
     Button(
         onClick = { action?.invoke() },
-        modifier = Modifier.preferredWidth(180.dp).padding(top = 8.dp, start = 8.dp, end = 8.dp),
         colors = ButtonDefaults.buttonColors(backgroundColor = ProjectColors.amber)
     ) {
         Text(text, color = Color.White)

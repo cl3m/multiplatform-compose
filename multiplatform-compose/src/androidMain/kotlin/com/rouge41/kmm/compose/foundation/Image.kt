@@ -16,6 +16,7 @@ actual inline fun Image(bitmap: ImageBitmap,
                         contentScale: ContentScale = ContentScale.Fit,
                         alpha: Float = 1.0f) = _Image(
     bitmap = bitmap,
+    contentDescription = null,
     modifier = modifier,
     alignment = alignment,
     contentScale = contentScale,

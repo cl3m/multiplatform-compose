@@ -18,7 +18,6 @@ fun Images(resources: Resources) {
                 Color.LightGray
             )
         )
-        Image("https://loremflickr.com/320/240/ocean", modifier = Modifier.preferredSize(200.dp).background(
-            Color.Black))
+        Image("https://loremflickr.com/320/240/ocean")
     }
 }

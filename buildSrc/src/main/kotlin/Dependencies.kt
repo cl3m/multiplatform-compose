@@ -1,25 +1,25 @@
 
 object Version {
-    const val kotlin = "1.4.21"
+    const val kotlin = "1.6.10"
 
-    const val appcompat = "1.2.0"
-    const val material = "1.2.1"
+    const val appcompat = "1.4.0"
+    const val material = "1.4.0"
 
-    const val compose = "1.0.0-alpha09"
-    const val nav_compose = "1.0.0-alpha04"
+    const val compose = "1.1.0"
+    const val nav_compose = "2.4.1"
 
     const val yoga = "~> 1.7"
 
     const val junit = "4.13"
 
-    const val coil = "1.1.1"
-    const val coroutines = "1.4.2"
+    const val coil = "1.4.0"
+    const val coroutines = "1.5.2"
 }
 
 
 object AndroidSdk {
     const val min = 24
-    const val compile = 29
+    const val compile = 31
     const val target = compile
 }
 

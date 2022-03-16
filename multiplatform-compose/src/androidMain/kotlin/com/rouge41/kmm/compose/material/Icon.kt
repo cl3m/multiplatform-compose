@@ -1,7 +1,7 @@
 package com.rouge41.kmm.compose.material
 
-import androidx.compose.material.AmbientContentAlpha
-import androidx.compose.material.AmbientContentColor
+import androidx.compose.material.LocalContentAlpha
+import androidx.compose.material.LocalContentColor
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import com.rouge41.kmm.compose.ui.Modifier
@@ -17,7 +17,7 @@ actual fun Icon(
         modifier: Modifier = Modifier,
         tint: Color? = null
 ) {
-    _Icon(imageVector = imageVector, modifier = modifier, tint = tint ?: AmbientContentColor.current.copy(alpha = AmbientContentAlpha.current))
+    _Icon(imageVector = imageVector, contentDescription = null, modifier = modifier, tint = tint ?: LocalContentColor.current.copy(alpha = LocalContentAlpha.current))
 }
 
 actual fun iconArrowBack(): ImageVector = Icons.Filled.ArrowBack

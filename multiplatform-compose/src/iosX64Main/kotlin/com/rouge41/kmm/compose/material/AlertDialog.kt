@@ -3,7 +3,6 @@ package com.rouge41.kmm.compose.material
 import com.rouge41.kmm.compose.ios.addController
 import com.rouge41.kmm.compose.ios.getCurrentController
 import com.rouge41.kmm.compose.runtime.Composable
-import com.rouge41.kmm.compose.ui.DialogProperties
 import com.rouge41.kmm.compose.ui.Modifier
 import com.rouge41.kmm.compose.ui.graphics.Color
 import com.rouge41.kmm.compose.ui.graphics.Shape
@@ -20,7 +19,6 @@ actual fun AlertDialog(
         shape: Shape?,
         backgroundColor: Color?,
         contentColor: Color?,
-        properties: DialogProperties?
 ) {
     val alertController = ComposeAlertController()
     addController(alertController) {

@@ -4,16 +4,16 @@ import com.rouge41.kmm.compose.ui.graphics.Shape
 import com.rouge41.kmm.compose.ui.unit.Dp
 
 expect abstract class CornerBasedShape: Shape {
-    val topLeft: CornerSize
-    val topRight: CornerSize
-    val bottomRight: CornerSize
-    val bottomLeft: CornerSize
+    val topStart: CornerSize
+    val topEnd: CornerSize
+    val bottomEnd: CornerSize
+    val bottomStart: CornerSize
 
     abstract fun copy(
-            topLeft: CornerSize = this.topLeft,
-            topRight: CornerSize = this.topRight,
-            bottomRight: CornerSize = this.bottomRight,
-            bottomLeft: CornerSize = this.bottomLeft
+            topStart: CornerSize = this.topStart,
+            topEnd: CornerSize = this.topEnd,
+            bottomEnd: CornerSize = this.bottomEnd,
+            bottomStart: CornerSize = this.bottomStart
     ): CornerBasedShape
 }
 expect interface CornerSize

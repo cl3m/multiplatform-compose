@@ -574,6 +574,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CE74B5DFF3CA6D0C9CE89E1F /* Pods-iosApp.debug.xcconfig */;
 			buildSettings = {
+				"ARCHS[sdk=iphonesimulator*]" = x86_64;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";

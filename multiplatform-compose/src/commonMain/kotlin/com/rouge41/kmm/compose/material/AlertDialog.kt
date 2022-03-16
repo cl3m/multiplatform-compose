@@ -4,7 +4,6 @@ import com.rouge41.kmm.compose.ui.graphics.Color
 import com.rouge41.kmm.compose.ui.Modifier
 import com.rouge41.kmm.compose.ui.graphics.Shape
 import com.rouge41.kmm.compose.runtime.Composable
-import com.rouge41.kmm.compose.ui.DialogProperties
 
 @Composable
 expect fun AlertDialog(
@@ -17,5 +16,4 @@ expect fun AlertDialog(
         shape: Shape? = null,
         backgroundColor: Color? = null,
         contentColor: Color? = null,
-        properties: DialogProperties? = null
 )

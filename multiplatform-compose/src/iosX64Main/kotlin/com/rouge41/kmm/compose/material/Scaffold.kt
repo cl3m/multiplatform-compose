@@ -7,7 +7,7 @@ import com.rouge41.kmm.compose.ui.unit.dp
 @Composable
 actual fun Scaffold(
         topBar: @Composable () -> Unit,
-        bodyContent: @Composable (PaddingValues) -> Unit
+        content: @Composable (PaddingValues) -> Unit
 ) {
-    bodyContent.invoke(PaddingValues(0.dp))
+    content.invoke(PaddingValues(0.dp))
 }

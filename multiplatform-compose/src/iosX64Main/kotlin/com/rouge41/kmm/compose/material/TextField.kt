@@ -1,18 +1,10 @@
 package com.rouge41.kmm.compose.material
 
-import com.rouge41.kmm.compose.ui.text.TextStyle
-import com.rouge41.kmm.compose.foundation.InteractionState
-import com.rouge41.kmm.compose.foundation.text.KeyboardOptions
 import com.rouge41.kmm.compose.ios.*
 import com.rouge41.kmm.compose.runtime.Composable
 import com.rouge41.kmm.compose.ui.Modifier
-import com.rouge41.kmm.compose.ui.graphics.Color
-import com.rouge41.kmm.compose.ui.graphics.Shape
 import com.rouge41.kmm.compose.ui.margin
 import com.rouge41.kmm.compose.ui.padding
-import com.rouge41.kmm.compose.ui.text.SoftwareKeyboardController
-import com.rouge41.kmm.compose.ui.text.input.ImeAction
-import com.rouge41.kmm.compose.ui.text.input.VisualTransformation
 import com.rouge41.kmm.compose.ui.unit.dp
 import kotlinx.cinterop.ExportObjCClass
 import kotlinx.cinterop.ObjCAction
@@ -27,24 +19,8 @@ actual fun TextField(
         value: String,
         onValueChange: (String) -> Unit,
         modifier: Modifier,
-        textStyle: TextStyle,
         label: @Composable (() -> Unit)?,
         placeholder: @Composable (() -> Unit)?,
-        leadingIcon: @Composable (() -> Unit)?,
-        trailingIcon: @Composable (() -> Unit)?,
-        isErrorValue: Boolean,
-        visualTransformation: VisualTransformation,
-        keyboardOptions: KeyboardOptions,
-        singleLine: Boolean,
-        maxLines: Int,
-        onImeActionPerformed: ((ImeAction, SoftwareKeyboardController?) -> Unit)?,
-        onTextInputStarted: ((SoftwareKeyboardController) -> Unit)?,
-        interactionState: InteractionState?,
-        activeColor: Color?,
-        inactiveColor: Color?,
-        errorColor: Color?,
-        backgroundColor: Color?,
-        shape: Shape?
 ) {
     val container = UIComposeView.createOrReuse("${onValueChange::class}")
     modifier.setup(container)

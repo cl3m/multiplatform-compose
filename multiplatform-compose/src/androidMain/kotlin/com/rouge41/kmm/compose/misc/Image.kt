@@ -2,7 +2,7 @@ package com.rouge41.kmm.compose.misc
 
 import android.graphics.drawable.Drawable
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.platform.AmbientContext
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.graphics.drawable.toBitmap
 import coil.ImageLoader
 import coil.request.ImageRequest
@@ -33,13 +33,13 @@ actual inline fun Image(url: String, modifier: Modifier = Modifier,
             alpha = alpha
         )
     } else {
-        val request = ImageRequest.Builder(AmbientContext.current)
+        val request = ImageRequest.Builder(LocalContext.current)
             .data(url)
             .target { drawable ->
                 image = drawable
             }
             .build()
-        ImageLoader(AmbientContext.current).enqueue(request)
+        ImageLoader(LocalContext.current).enqueue(request)
         Column(modifier = modifier) {}
     }
 }

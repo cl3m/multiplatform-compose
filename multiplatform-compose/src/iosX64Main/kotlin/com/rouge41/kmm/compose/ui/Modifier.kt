@@ -62,12 +62,12 @@ class iosModifier : Modifier {
         view.configureLayoutWithBlock { layout ->
             for (change in this.changes) {
                 when (change) {
-                    is Layout.padding -> {
+                    /*is Layout.padding -> {
                         layout?.paddingStart = YGPointValue(change.values.start.toCGFloat())
                         layout?.paddingTop = YGPointValue(change.values.top.toCGFloat())
                         layout?.paddingEnd = YGPointValue(change.values.end.toCGFloat())
                         layout?.paddingBottom = YGPointValue(change.values.bottom.toCGFloat())
-                    }
+                    }*/
                     is Layout.margin -> layout?.margin = YGPointValue(change.dp.toCGFloat())
                     is Layout.fillMaxWidth -> {
                         layout?.maxWidth = YGPercentValue(100.0)
@@ -120,11 +120,11 @@ actual fun Modifier.padding(dp: Dp): Modifier {
     return modifier
 }
 
-actual fun Modifier.padding(start: Dp, top: Dp, end: Dp, bottom: Dp): Modifier {
+/*actual fun Modifier.padding(start: Dp, top: Dp, end: Dp, bottom: Dp): Modifier {
     val modifier = if (this is iosModifier) { this } else { iosModifier() }
     modifier.changes.add(iosModifier.Layout.padding(PaddingValues(start, top, end, bottom)))
     return modifier
-}
+}*/
 
 fun Modifier.margin(dp: Dp): Modifier {
     val modifier = if (this is iosModifier) { this } else { iosModifier() }
@@ -150,9 +150,7 @@ actual fun Modifier.height(dp: Dp): Modifier {
     return modifier
 }
 
-actual fun Modifier.preferredWidth(dp: Dp): Modifier = width(dp)
-actual fun Modifier.preferredHeight(dp: Dp): Modifier = height(dp)
-actual fun Modifier.preferredSize(dp: Dp): Modifier = height(dp).width(dp)
+actual fun Modifier.size(dp: Dp): Modifier = height(dp).width(dp)
 
 @Composable
 actual fun Modifier.clickable(onClick: () -> Unit): Modifier {
@@ -163,9 +161,9 @@ actual fun Modifier.clickable(onClick: () -> Unit): Modifier {
 
 actual fun Modifier.clip(shape: Shape): Modifier {
     val modifier = if (this is iosModifier) { this } else { iosModifier() }
-    if (shape is CornerBasedShape) {
+    /*if (shape is CornerBasedShape) {
         modifier.changes.add(iosModifier.Layout.clip(shape.topLeft as Dp))
-    }
+    }*/
     return modifier
 }
 actual fun Modifier.aspectRatio(ratio: Float, matchHeightConstraintsFirst: Boolean): Modifier {
