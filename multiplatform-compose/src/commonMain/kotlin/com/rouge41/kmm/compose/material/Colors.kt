@@ -19,12 +19,13 @@ expect class Colors {
 }
 
 expect fun darkColors(
-        primary: Color = Color(0xFFBB86FCu),
-        primaryVariant: Color = Color(0xFF3700B3u),
-        secondary: Color = Color(0xFF03DAC6u),
-        background: Color = Color(0xFF121212u),
-        surface: Color = Color(0xFF121212u),
-        error: Color = Color(0xFFCF6679u),
+        primary: Color = Color(0xFFBB86FC),
+        primaryVariant: Color = Color(0xFF3700B3),
+        secondary: Color = Color(0xFF03DAC6),
+        secondaryVariant: Color = Color(0xFF0018786),
+        background: Color = Color(0xFF121212),
+        surface: Color = Color(0xFF121212),
+        error: Color = Color(0xFFCF6679),
         onPrimary: Color = Color.Black,
         onSecondary: Color = Color.Black,
         onBackground: Color = Color.White,
@@ -33,13 +34,13 @@ expect fun darkColors(
 ): Colors
 
 expect fun lightColors(
-        primary: Color = Color(0xFF6200EEu),
-        primaryVariant: Color = Color(0xFF3700B3u),
-        secondary: Color = Color(0xFF03DAC6u),
-        secondaryVariant: Color = Color(0xFF018786u),
+        primary: Color = Color(0xFF6200EE),
+        primaryVariant: Color = Color(0xFF3700B3),
+        secondary: Color = Color(0xFF03DAC6),
+        secondaryVariant: Color = Color(0xFF018786),
         background: Color = Color.White,
         surface: Color = Color.White,
-        error: Color = Color(0xFFB00020u),
+        error: Color = Color(0xFFB00020),
         onPrimary: Color = Color.White,
         onSecondary: Color = Color.Black,
         onBackground: Color = Color.Black,

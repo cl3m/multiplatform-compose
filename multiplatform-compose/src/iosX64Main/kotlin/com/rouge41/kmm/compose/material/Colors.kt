@@ -22,6 +22,7 @@ actual fun darkColors(
         primary: Color,
         primaryVariant: Color,
         secondary: Color,
+        secondaryVariant: Color,
         background: Color,
         surface: Color,
         error: Color,
