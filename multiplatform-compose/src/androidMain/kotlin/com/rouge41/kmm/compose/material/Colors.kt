@@ -19,7 +19,7 @@ actual fun darkColors(
         onBackground: Color,
         onSurface: Color,
         onError: Color
-): Colors = _darkColors(primary = primary, primaryVariant = primaryVariant, secondary = secondary, background = background,
+): Colors = _darkColors(primary = primary, primaryVariant = primaryVariant, secondary = secondary, secondaryVariant = secondaryVariant, background = background,
         surface = surface, error = error, onPrimary = onPrimary, onSecondary = onSecondary, onBackground = onBackground,
         onSurface = onSurface, onError = onError)
 
