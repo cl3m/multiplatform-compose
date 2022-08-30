@@ -1,9 +1,9 @@
 [![Kotlin Multiplatform](https://img.shields.io/static/v1?logo=Kotlin&&logoColor=3c94cf&label=&message=Kotlin%20Multiplatform&color=555)](https://kotlinlang.org/docs/reference/multiplatform.html)
 
 :warning:  This PoC compile on iOS and Android but I've remove some functionality because Compose changed too much since I started it. I will update it using the compose compiler when it will be possible. There are some hope on the way :
-- [Compose Multiplatform by JetBrains](https://github.com/JetBrains/compose-jb) started native support via Skia ([Skiko](https://github.com/JetBrains/skiko)), you can have a look at the [sample](https://github.com/JetBrains/compose-jb/tree/master/experimental/examples/falling-balls-mpp) but it is still very early. Some of the demos in this repo works but there is still many broken functionality. It will use the compose compiler but not native component.  
+- [Compose Multiplatform by JetBrains](https://github.com/JetBrains/compose-jb) started native support via Skia ([Skiko](https://github.com/JetBrains/skiko)), you can have a look at the [sample](https://github.com/JetBrains/compose-jb/tree/master/experimental/examples/falling-balls-mpp) but it is still very early. Some of the demos in this repo works but there is still many broken functionality. Touchlab made a demo for [Droidcon NYC App](https://touchlab.co/droidcon-nyc-ios-app-with-compose/) It will use the compose compiler but not native component.  
 - [Platform-Kit by IceRock](https://github.com/Alex009/compose-jb/tree/platform-kit-sample/examples/common-platform-uikit) based on Compose Multiplatform by JetBrains, add support via UIKit, thus use the compose compiler and native iOS component.  
-- [Redwood Compose](https://jakewharton.com/multiplatform-compose-and-gradle-module-metadata-abuse/) by Cash App (not released yet). Use the compose compiler and native iOS component. 
+- [Redwood Compose](https://jakewharton.com/multiplatform-compose-and-gradle-module-metadata-abuse/) by Cash App (not released yet). [Native UI with multiplatform Compose](https://nyc.droidcon.com/jake-wharton/). Use the compose compiler and native iOS component. 
 
 # Multiplatform Compose
 
