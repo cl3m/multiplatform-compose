@@ -5,6 +5,8 @@
 - [Compose Multiplatform by JetBrains](https://github.com/JetBrains/compose-jb) started native support via Skia ([Skiko](https://github.com/JetBrains/skiko)), you can have a look at the [sample](https://github.com/JetBrains/compose-jb/tree/master/experimental/examples/falling-balls-mpp) but it is still very early. Some of the demos in this repo works but there is still many broken functionality. Touchlab made a demo for [Droidcon NYC App](https://touchlab.co/droidcon-nyc-ios-app-with-compose/) It will use the compose compiler but not native component.  
 - [Platform-Kit by IceRock](https://github.com/Alex009/compose-jb/tree/platform-kit-sample/examples/common-platform-uikit) based on Compose Multiplatform by JetBrains, add support via UIKit, thus use the compose compiler and native iOS component.  
 
+I've started to experiment with Compose Native, you can have a look at https://github.com/cl3m/kmp-redux/tree/skiko on iOS two views are SwiftUI and two views are Compose (ComposeSpaceView & ComposeCounterView) and share the same store. 
+
 # Multiplatform Compose
 
 A Kotlin library to use Jetpack Compose in Android and iOS. Allow to write UI for both in Kotlin. Still experimental as many compose features are not yet available.
