@@ -1,11 +1,18 @@
 package com.rouge41.kmm.compose.test.demos
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.rouge41.kmm.compose.test.SafeArea
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.rememberNavigator
 
@@ -16,28 +23,33 @@ internal fun BottomNavigationDemo() {
     val currentRoute = navBackStackEntry?.route?.route ?: ""
     Scaffold(
         bottomBar = {
-            BottomNavigation {
-                Tab.values().forEach { screen ->
-                    BottomNavigationItem(
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Default.Home,
-                                contentDescription = null
-                            )
-                        },
-                        label = { Text(screen.toString()) },
-                        selected = currentRoute == screen.toString(),
-                        onClick = {
-                            navigator.navigate(route = screen.toString())
-                        },
-                        selectedContentColor = MaterialTheme.colors.onPrimary,
-                        unselectedContentColor = MaterialTheme.colors.onPrimary.copy(alpha = 0.5f)
-                    )
+            Box(modifier = Modifier.background(MaterialTheme.colors.primary)) {
+                BottomNavigation(
+                    modifier = Modifier.height(55.dp + SafeArea.current.value.calculateBottomPadding())
+                ) {
+                    Tab.values().forEach { screen ->
+                        BottomNavigationItem(
+                            modifier = Modifier.padding(bottom = SafeArea.current.value.calculateBottomPadding()),
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Default.Home,
+                                    contentDescription = null
+                                )
+                            },
+                            label = { Text(screen.toString()) },
+                            selected = currentRoute == screen.toString(),
+                            onClick = {
+                                navigator.navigate(route = screen.toString())
+                            },
+                            selectedContentColor = MaterialTheme.colors.onPrimary,
+                            unselectedContentColor = MaterialTheme.colors.onPrimary.copy(alpha = 0.5f)
+                        )
+                    }
                 }
             }
         }
     ) {
-        NavHost(navigator = navigator, initialRoute = Tab.values().first().toString()) {
+        NavHost(navigator = navigator, initialRoute = Tab.values().first().toString(), modifier = Modifier.padding(bottom = 55.dp + SafeArea.current.value.calculateBottomPadding())) {
             Tab.values().forEach { screen ->
                 scene(screen.toString()) {
                     when (screen) {

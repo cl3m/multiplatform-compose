@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import test
 
 // ComposeWindow is disposed on viewDidDisappear so but it inside a container view:
 // https://github.com/JetBrains/androidx/blob/jb-main/compose/ui/ui/src/uikitMain/kotlin/androidx/compose/ui/window/ComposeWindow.uikit.kt
@@ -49,9 +50,12 @@ class AvoidDispose: UIViewController {
     
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
-        view.setNeedsLayout()
-        controller.view.setNeedsLayout()
-        controller.viewWillAppear(false)
+        RootViewControllersKt.setSafeArea(start: view.safeAreaInsets.left, top: view.safeAreaInsets.top, end: view.safeAreaInsets.right, bottom: view.safeAreaInsets.bottom)
+        //kotlin compose refresh
+        controller.view.touchesCancelled([UITouch()], with: UIEvent())
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 }

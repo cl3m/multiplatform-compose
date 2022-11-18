@@ -1,7 +1,10 @@
 package com.rouge41.kmm.compose.test
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -26,23 +29,26 @@ internal fun App() {
     val currentRoute = navBackStackEntry?.route?.route
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(currentRoute ?: "") },
-                navigationIcon = {
-                    Icon(
-                        Icons.Default.Menu,
-                        "test",
-                        modifier = Modifier.clickable(
-                            onClick = {
-                                scope.launch { scaffoldState.drawerState.open() }
-                            }
+            Box(modifier = Modifier.background(MaterialTheme.colors.primary)) {
+                TopAppBar(
+                    modifier = Modifier.padding(top = SafeArea.current.value.calculateTopPadding()),
+                    title = { Text(currentRoute ?: "") },
+                    navigationIcon = {
+                        Icon(
+                            Icons.Default.Menu,
+                            "test",
+                            modifier = Modifier.clickable(
+                                onClick = {
+                                    scope.launch { scaffoldState.drawerState.open() }
+                                }
+                            )
                         )
-                    )
-                }
-            )
+                    }
+                )
+            }
         },
         drawerContent = {
-            LazyColumn {
+            LazyColumn(modifier = Modifier.padding(top = SafeArea.current.value.calculateTopPadding())) {
                 items(Demo.values().size) {
                     val item = Demo.values()[it]
                     ListItem(
@@ -58,21 +64,27 @@ internal fun App() {
         },
         scaffoldState = scaffoldState
     ) {
-        NavHost(navigator = navigator, initialRoute = Demo.values().first().toString()) {
+        NavHost(navigator = navigator, initialRoute = Demo.HelloPlatform.toString()) {
             Demo.values().forEach { screen ->
                 scene(screen.toString()) {
-                    when (screen) {
-                        Demo.LazyColumn -> LazyColumnDemo()
-                        Demo.HelloPlatform -> HelloPlatform()
-                        Demo.Lorem -> Lorem()
-                        Demo.Counter -> Counter()
-                        Demo.Layout -> Layout()
-                        Demo.Images -> Images()
-                        Demo.Buttons -> Buttons()
-                        // Demo.Alert -> Alert()
-                        Demo.TextStyles -> Column { TextStyles() }
-                        Demo.TextFields -> TextFields()
-                        Demo.BottomNavigation -> BottomNavigationDemo()
+                    if (screen == Demo.BottomNavigation) {
+                        BottomNavigationDemo()
+                    } else {
+                        Box(modifier = Modifier.padding(bottom = SafeArea.current.value.calculateBottomPadding())) {
+                            when (screen) {
+                                Demo.LazyColumn -> LazyColumnDemo()
+                                Demo.HelloPlatform -> HelloPlatform()
+                                Demo.Lorem -> Lorem()
+                                Demo.Counter -> Counter()
+                                Demo.Layout -> Layout()
+                                Demo.Images -> Images()
+                                Demo.Buttons -> Buttons()
+                                // Demo.Alert -> Alert()
+                                Demo.TextStyles -> Column { TextStyles() }
+                                Demo.TextFields -> TextFields()
+                                else -> {}
+                            }
+                        }
                     }
                 }
             }
