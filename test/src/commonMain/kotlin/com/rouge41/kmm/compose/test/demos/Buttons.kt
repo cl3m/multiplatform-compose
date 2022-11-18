@@ -1,18 +1,22 @@
 package com.rouge41.kmm.compose.test.demos
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.*
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.rouge41.kmm.compose.*
-import com.rouge41.kmm.compose.foundation.layout.Column
-import com.rouge41.kmm.compose.foundation.shape.RoundedCornerShape
-import com.rouge41.kmm.compose.material.*
-import com.rouge41.kmm.compose.runtime.Composable
-import com.rouge41.kmm.compose.ui.*
-import com.rouge41.kmm.compose.ui.graphics.Color
-import com.rouge41.kmm.compose.ui.unit.dp
 
 // From https://github.com/vinaygaba/Learn-Jetpack-Compose-By-Example/blob/master/app/src/main/java/com/example/jetpackcompose/material/ButtonActivity.kt
 
 @Composable
-fun Buttons() {
+internal fun Buttons() {
     // Column is a composable that places its children in a vertical sequence. You
     // can think of it similar to a LinearLayout with the vertical orientation.
 
@@ -29,10 +33,15 @@ fun Buttons() {
             modifier = Modifier.padding(16.dp).background(Color.Green),
             elevation = null,
             colors = ButtonDefaults.textButtonColors(),
-            onClick = {}) {
-            Text(text = "Big Button", modifier = Modifier.padding(16.dp), color = Color.Red)
+            onClick = {}
+        ) {
+            Text(
+                text = "Big Button",
+                modifier = Modifier.padding(16.dp),
+                fontSize = 30.sp,
+                color = Color.Red
+            )
         }
-        Counter(modifier = Modifier.height(200.dp))
     }
 }
 
@@ -41,7 +50,7 @@ fun Buttons() {
 // think of composable functions to be similar to lego blocks - each composable function is in turn
 // built up of smaller composable functions.
 @Composable
-fun SimpleButtonComponent() {
+internal fun SimpleButtonComponent() {
     // Button is a pre-defined Material Design implementation of a contained button -
     // https://material.io/design/components/buttons.html#contained-button.
 
@@ -51,7 +60,8 @@ fun SimpleButtonComponent() {
     Button(
         modifier = Modifier.padding(16.dp),
         // elevation = ButtonDefaults.elevation(5.dp),
-        onClick = {}) {
+        onClick = {}
+    ) {
         // The Button composable allows you to provide child composables that inherit this button
         // functionality.
         // The Text composable is pre-defined by the Compose UI library; you can use this
@@ -65,7 +75,7 @@ fun SimpleButtonComponent() {
 // think of composable functions to be similar to lego blocks - each composable function is in turn
 // built up of smaller composable functions.
 @Composable
-fun SimpleButtonWithBorderComponent() {
+internal fun SimpleButtonWithBorderComponent() {
     // Button is a pre-defined Material Design implementation of a contained button -
     // https://material.io/design/components/buttons.html#contained-button.
 
@@ -77,7 +87,7 @@ fun SimpleButtonWithBorderComponent() {
         modifier = Modifier.padding(16.dp),
         elevation = ButtonDefaults.elevation(5.dp),
         // Provide a border for this button
-        //border = BorderStroke(width = 5.dp, brush = SolidColor(Color.Black))
+        border = BorderStroke(width = 5.dp, brush = SolidColor(Color.Black))
     ) {
         // The Button composable allows you to provide child composables that inherit this button
         // functionality.
@@ -92,7 +102,7 @@ fun SimpleButtonWithBorderComponent() {
 // think of composable functions to be similar to lego blocks - each composable function is in turn
 // built up of smaller composable functions.
 @Composable
-fun RoundedCornerButtonComponent() {
+internal fun RoundedCornerButtonComponent() {
     // Button is a pre-defined Material Design implementation of a contained button -
     // https://material.io/design/components/buttons.html#contained-button.
 
@@ -105,7 +115,7 @@ fun RoundedCornerButtonComponent() {
         // Provide a custom shape for this button. In this example. we specify the button to have
         // round corners of 16dp radius.
         shape = RoundedCornerShape(16.dp),
-        elevation = ButtonDefaults.elevation(5.dp),
+        elevation = ButtonDefaults.elevation(5.dp)
     ) {
         // The Button composable allows you to provide child composables that inherit this button
         // functionality.
@@ -120,7 +130,7 @@ fun RoundedCornerButtonComponent() {
 // think of composable functions to be similar to lego blocks - each composable function is in turn
 // built up of smaller composable functions.
 @Composable
-fun OutlinedButtonComponent() {
+internal fun OutlinedButtonComponent() {
     // Button is a pre-defined Material Design implementation of a outlined button -
     // https://material.io/design/components/buttons.html#outlined-button.
 
@@ -144,7 +154,7 @@ fun OutlinedButtonComponent() {
 // think of composable functions to be similar to lego blocks - each composable function is in turn
 // built up of smaller composable functions.
 @Composable
-fun TextButtonComponent() {
+internal fun TextButtonComponent() {
     // Button is a pre-defined Material Design implementation of a text button -
     // https://material.io/design/components/buttons.html#text-button.
 

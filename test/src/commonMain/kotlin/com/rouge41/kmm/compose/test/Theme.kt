@@ -1,31 +1,23 @@
 package com.rouge41.kmm.compose.test
 
-import com.rouge41.kmm.compose.foundation.isSystemInDarkTheme
-import com.rouge41.kmm.compose.ios.HumanAppearance
-import com.rouge41.kmm.compose.material.MaterialTheme
-import com.rouge41.kmm.compose.material.darkColors
-import com.rouge41.kmm.compose.material.lightColors
-import com.rouge41.kmm.compose.runtime.Composable
-import com.rouge41.kmm.compose.ui.graphics.Color
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.darkColors
+import androidx.compose.material.lightColors
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 @Composable
-fun Theme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
+internal fun Theme(content: @Composable () -> Unit) {
     val orange = Color(0xFFFF8C00)
-    val colors = if (darkTheme) {
-        darkColors(primary = orange)
+    val colors = if (DarkMode.current.value) {
+        darkColors(primary = orange, surface = orange, onPrimary = Color.White)
     } else {
         lightColors(primary = orange)
     }
 
     MaterialTheme(
-        colors = colors,
+        colors = colors
     ) {
-        HumanAppearance(
-            tintColor = orange,
-            backgroundColor = null,
-            //style = TextStyle(fontSize = 17.sp)
-        ) {
-            content()
-        }
+        content()
     }
 }

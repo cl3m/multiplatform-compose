@@ -2,28 +2,22 @@ package com.rouge41.kmm.compose.androidApp
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.platform.ComposeView
-import com.rouge41.kmm.compose.test.Content
-import com.rouge41.kmm.compose.test.Resources
+import com.rouge41.kmm.compose.Android
+import com.rouge41.kmm.compose.RootView
+import moe.tlaster.precompose.lifecycle.PreComposeActivity
+import moe.tlaster.precompose.lifecycle.setContent
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : PreComposeActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        //has to be set in code or in theme
+        // has to be set in code or in theme
         window.decorView.setBackgroundColor(Color.WHITE)
         window.statusBarColor = Color.parseColor("#cc7000")
-        //window.statusBarColor = Color.WHITE
-        //window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        val cv: ComposeView = findViewById(R.id.compose_view)
-        val resources = Resources(logo = R.drawable.logo)
-
-        cv.setContent {
-            Content(resources)
+        Android.context = this
+        setContent {
+            RootView()
         }
     }
 }

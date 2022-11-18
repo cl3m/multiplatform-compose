@@ -1,45 +1,29 @@
 package com.rouge41.kmm.compose.test
 
-import com.rouge41.kmm.compose.runtime.Composable
-import com.rouge41.kmm.compose.runtime.mutableStateOf
-import com.rouge41.kmm.compose.runtime.remember
-import com.rouge41.kmm.compose.ui.graphics.ImageResource
-import com.rouge41.kmm.compose.test.demos.*
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.mutableStateOf
+import io.ktor.client.*
+import io.ktor.client.call.*
+import io.ktor.client.request.*
+import io.ktor.utils.io.core.*
 
-data class Resources(val logo: ImageResource)
+internal val darkmodeState = mutableStateOf(false)
+internal val safeAreaState = mutableStateOf(PaddingValues())
+internal val SafeArea = compositionLocalOf { safeAreaState }
+internal val DarkMode = compositionLocalOf { darkmodeState }
 
 @Composable
-fun Content(resources: Resources) {
+internal fun Content() {
     Theme {
-        var state = remember { mutableStateOf(true) }
-        if (state.value) {
-            App(state, resources)
-        } else {
-            Raw(state, resources)
-        }
+        App()
     }
+    // isSystemInDarkTheme is not working correctly on iOS
+    val darkMode = isSystemInDarkTheme()
+    LaunchedEffect(key1 = Unit, block = {
+        darkmodeState.value = darkMode
+    })
 }
-
-enum class Demo {
-    HelloPlatform,
-    Lorem,
-    LazyColumn,
-    Counter,
-    BackPress,
-    Layout,
-    TextStyles,
-    Images,
-//    PeopleInSpace,
-    Buttons,
-    Alert,
-    TextFields,
-    Board2048,
-    // Below are dropped in navigation demos
-    BottomNavigation,
-    Navigation,
-    App,
-    Raw,
-}
-
-@Composable
-expect fun Test()

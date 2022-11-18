@@ -1,3 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks.sh
-${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework
-${BUILT_PRODUCTS_DIR}/YogaKit/YogaKit.framework
+${BUILT_PRODUCTS_DIR}/KMPNativeCoroutinesCombine/KMPNativeCoroutinesCombine.framework
+${BUILT_PRODUCTS_DIR}/KMPNativeCoroutinesCore/KMPNativeCoroutinesCore.framework

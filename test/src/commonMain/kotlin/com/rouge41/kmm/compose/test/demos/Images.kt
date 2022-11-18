@@ -1,23 +1,58 @@
 package com.rouge41.kmm.compose.test.demos
 
-import com.rouge41.kmm.compose.foundation.layout.Column
-import com.rouge41.kmm.compose.misc.Image
-import com.rouge41.kmm.compose.runtime.Composable
-import com.rouge41.kmm.compose.test.Resources
-import com.rouge41.kmm.compose.ui.*
-import com.rouge41.kmm.compose.ui.graphics.Color
-import com.rouge41.kmm.compose.ui.res.imageResource
-import com.rouge41.kmm.compose.ui.unit.dp
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.unit.dp
+import com.rouge41.kmm.compose.imageResource
+import com.rouge41.kmm.compose.toImageBitmap
+import io.ktor.client.*
+import io.ktor.client.call.*
+import io.ktor.client.request.*
+import io.ktor.utils.io.core.*
 
 @Composable
-fun Images(resources: Resources) {
+internal fun Images() {
     Column {
-        com.rouge41.kmm.compose.foundation.Image(
-            bitmap = imageResource(resources.logo),
+        Image(
+            imageResource("logo"),
+            null,
             modifier = Modifier.width(200.dp).height(300.dp).background(
                 Color.LightGray
             )
         )
-        Image("https://loremflickr.com/320/240/ocean")
+
+        AsyncImage(
+            url = "https://loremflickr.com/320/320/ocean",
+            modifier = Modifier.size(200.dp).background(Color.Black)
+        )
     }
+}
+
+@Composable
+internal fun AsyncImage(
+    url: String,
+    contentDescription: String? = "",
+    modifier: Modifier = Modifier
+) {
+    var image by remember { mutableStateOf<ImageBitmap?>(null) }
+    image?.let {
+        androidx.compose.foundation.Image(
+            modifier = modifier,
+            bitmap = it,
+            contentDescription = contentDescription
+        )
+    } ?: run {
+        Spacer(modifier = modifier)
+    }
+    LaunchedEffect(key1 = url, block = {
+        val bytes: ByteArray = HttpClient().use { client ->
+            client.get(url).body()
+        }
+        image = bytes.toImageBitmap()
+    })
 }

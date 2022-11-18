@@ -1,13 +1,16 @@
 buildscript {
     repositories {
         gradlePluginPortal()
-        jcenter()
         google()
+        jcenter()
         mavenCentral()
+        maven("https://jitpack.io")
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}")
-        classpath("com.android.tools.build:gradle:7.1.2")
+        classpath(Kotlin.gradle)
+        classpath(Android.gradle)
+        classpath(Kotlin.serialization)
     }
 }
 
@@ -16,5 +19,6 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 }

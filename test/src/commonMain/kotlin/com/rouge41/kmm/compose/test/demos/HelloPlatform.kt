@@ -1,16 +1,16 @@
 package com.rouge41.kmm.compose.test.demos
 
-import com.rouge41.kmm.compose.foundation.layout.Arrangement
-import com.rouge41.kmm.compose.foundation.layout.Column
-import com.rouge41.kmm.compose.material.Text
-import com.rouge41.kmm.compose.runtime.Composable
-import com.rouge41.kmm.compose.test.Platform
-import com.rouge41.kmm.compose.ui.Alignment
-import com.rouge41.kmm.compose.ui.Modifier
-import com.rouge41.kmm.compose.ui.fillMaxSize
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import com.rouge41.kmm.compose.Platform
 
 @Composable
-fun HelloPlatform() {
+internal fun HelloPlatform() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,

@@ -1,176 +1,63 @@
 [![Kotlin Multiplatform](https://img.shields.io/static/v1?logo=Kotlin&&logoColor=3c94cf&label=&message=Kotlin%20Multiplatform&color=555)](https://kotlinlang.org/docs/reference/multiplatform.html)
 
-:warning:  This PoC compile on iOS and Android but I've remove some functionality because Compose changed too much since I started it. I will update it using the compose compiler when it will be possible. There are some hope on the way :
-- [Redwood Compose](https://github.com/cashapp/redwood) by Cash App. [Native UI with multiplatform Compose](https://jakewharton.com/native-ui-with-multiplatform-compose/). Use the compose compiler and native iOS component. 
-- [Compose Multiplatform by JetBrains](https://github.com/JetBrains/compose-jb) started native support via Skia ([Skiko](https://github.com/JetBrains/skiko)), you can have a look at the [sample](https://github.com/JetBrains/compose-jb/tree/master/experimental/examples/falling-balls-mpp) but it is still very early. Some of the demos in this repo works but there is still many broken functionality. Touchlab made a demo for [Droidcon NYC App](https://touchlab.co/droidcon-nyc-ios-app-with-compose/) It will use the compose compiler but not native component.  
-- [Platform-Kit by IceRock](https://github.com/Alex009/compose-jb/tree/platform-kit-sample/examples/common-platform-uikit) based on Compose Multiplatform by JetBrains, add support via UIKit, thus use the compose compiler and native iOS component.  
-
-I've started to experiment with Compose Native, you can have a look at https://github.com/cl3m/kmp-redux/tree/skiko on iOS two views are SwiftUI and two views are Compose (ComposeSpaceView & ComposeCounterView) and share the same store. 
-
 # Multiplatform Compose
 
-A Kotlin library to use Jetpack Compose in Android and iOS. Allow to write UI for both in Kotlin. Still experimental as many compose features are not yet available.
+A demo to show usage of Jetbrains Compose in Android and iOS. Originally a Jetpack Compose implementation with native view and yoga for iOS.
 
 ## Table of contents
 
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Known issues](#known-issues)
+- [Libraries](#libraries)
+- [Demos](#demos)
 - [Troubleshooting](#troubleshooting)
-- [Roadmap](#roadmap)
-- [Contributing](#contributing)
-- [Sponsors](#sponsors)
+- [Alternatives](#alternatives)
 - [License](#license)
 
-## Requirements
+## Libraries
 
-- Android Studio Canary
-- cocoapods (gem install cocoapods)
-- cocoapods-generate (gem install cocoapods-generate)
+- kotlinx coroutines
+- ktor
+- Jetbrains Compose (uikit experimental)
+- [PreCompose](https://github.com/Tlaster/PreCompose) (for navigation)
 
-## Installation
+## Demos
 
-The library is not yet published to Maven Central as it is still experimental.
+Run the app to see a demo of compose on ios.
 
-## Usage
+![Demos](https://github.com/cl3m/multiplatform-compose/blob/compose-jb/screenshots/Demos.png?raw=true)
 
-The simpliest code is :
-
-```kotlin
-@Composable
-fun Content(resources: Resources) {
-    Text("Hello world!")
-}
-```
-
-A better start would be :
-
-```kotlin
-@Composable
-fun Content(resources: Resources) {
-    HelloPlatform()
-}
-
-@Composable
-fun HelloPlatform() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally) {
-            Text("Hello, ${Platform().platform}!")
-    }
-}
-```
-![Hello Platform Screenshot](https://github.com/cl3m/multiplatform-compose/blob/develop/screenshots/HelloPlatform.png?raw=true)
-
-More advance sample are in the [demos](https://github.com/cl3m/multiplatform-compose/tree/develop/test/src/commonMain/kotlin/com/rouge41/kmm/compose/test/demos) directory of the test library.
-
-#### Image
+#### AsyncImage
 
 The image composable allow url loading
 
 ```kotlin
-Image(url = "https://loremflickr.com/320/240/ocean", modifier = Modifier.preferredSize(200.dp))
-```
-
-### iOS Composables
-
-#### HumanAppearance
-
-Allow iOS styling such as font or global tintColor. 
-
-```kotlin
-HumanAppearance(tintColor: Color, backgroundColor: Color?, style: TextStyle) {
-    // ...
-}
+AsyncImage(url = "https://loremflickr.com/320/240/ocean", modifier = Modifier.size(200.dp))
 ```
 
 #### SafeArea
 
-Add safe area insets to the view, works in root, TabView and NavigationView
+SafeArea.current to get PaddingValues.
 
-```kotlin
-SafeArea {
-    // ...
-}
-```
+#### DarkMode
 
-![Safe Area Screenshot](https://github.com/cl3m/multiplatform-compose/blob/develop/screenshots/Layout.png?raw=true)
-*Layout without the safe area, with the safe area and on android*
+DarkMode.current to fix dark mode on iOS.
 
-#### TabView
-
-UITabBarController for Compose
-
-```kotlin
-TabView {
-    Tab(title = "First", image = UIImage.systemImageNamed("a.circle.fill")) {
-      // ...
-    }
-    Tab(title = "Second", image = UIImage.systemImageNamed("a.circle.fill")) {
-      // ...
-    }
-}
-```
-
-#### NavigationView
-
-UINavigationController for Compose, renamed to NavHost but as additional parameter title, leadingButton and trailingButton in composable
-
-```kotlin
-val navController = rememberNavController()
-NavHost(navController = navController, startDestination = "first") {
-    composable("first", title = "First", trailingButton = Button(onClick = {}) { Text ("Edit") }) {
-			SafeArea {
-	    Button(onClick = { navController.navigate("second") }) { 
-                // ...
-            }
-        }
-    }
-    composable("second", title = "Second") {
-        SafeArea {
-	    // ...
-        }
-    }
-}
-```
-
-## Known issues
-
-- Jetpack Compose require Android Studio Canary and an alpha build of Gradle. There is some workaround in _build.gradle.kts_ to make it work (testApi).
-- Jetpack Compose is not supported in Kotlin Multiplatform Mobile library ([KT-38694](https://youtrack.jetbrains.com/issue/KT-38694)). Unfortunatly, the workaround was messing with actual/expect function and prevent the use of expect function with default value. The library now use @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS") to workaround this problem. If you use an expect function with default value and without the suppress, you will get an error function not found or _java.lang.IllegalStateException: 2. expected value parameter count to be higher_.
-- Jetpack Compose dependencies can not be used in commonMain because they have a dependency on kotlinx-coroutines-android.
-- Android Studio does not autocomplete cocoapods imported library in iosMain. Thus it is in iosx64Main and symlinked to iosArm64Main.
-- Images needs currently to be included in the android and ios resources separately.
-- Navigation is currently not shared in the library
-- Latest Android Studio Canary shows many undefined error but everthing compile fine. It was not the case before.
 
 ## Troubleshooting
 
-### cinteropYogaKitIosArm64 FAILED YogaKit module not found
+### e: java.lang.IllegalStateException: No file for ***
 
-You did not read the requirements. Install cocoapods-generate "gem install cocoapods-generate", invalid cache and restart Android Studio
+Compose function and CompositonLocal have to be internal and not exposed to iOS module.
 
-## Roadmap
+## Alternatives
 
-- More Jetpack Compose feature support
-- Better images/resources support
-- UI Test with Github Actions
-- Performance improvement/optimisation
-- Use Compose compiler and runtime on iOS
+- [Compose Multiplatform by JetBrains](https://github.com/JetBrains/compose-jb) started native support via Skia ([Skiko](https://github.com/JetBrains/skiko)), you can have a look at the [sample](https://github.com/JetBrains/compose-jb/tree/master/experimental/examples/falling-balls-mpp). Touchlab made a demo for [Droidcon NYC App](https://touchlab.co/droidcon-nyc-ios-app-with-compose/) It will use the compose compiler but not native component.  
 
-## Sponsors
+- [Redwood Compose](https://github.com/cashapp/redwood) by Cash App. [Native UI with multiplatform Compose](https://jakewharton.com/native-ui-with-multiplatform-compose/). Use the compose compiler and native iOS component. 
 
-No one yet, be the first [sponsor](https://github.com/sponsors/cl3m)!
+- [Platform-Kit by IceRock](https://github.com/Alex009/compose-jb/tree/platform-kit-sample/examples/common-platform-uikit) based on Compose Multiplatform by JetBrains, add support via UIKit, thus use the compose compiler and native iOS component.  
 
-## Contributing
+- [multiplatform-compose](https://github.com/cl3m/multiplatform-compose/tree/yoga) This original repo, an experiment with native view and yoga for layout. You can also have a look at [kmp-redux](https://github.com/cl3m/kmp-redux/tree/skiko) that show Compose integration with SwiftUI. 
 
-All development (both new features and bug fixes) is performed in the `develop` branch. This way `master` always contains the sources of the most recently released version. Use git-flow if possible.
-
-You can start a PR with incomplete implementation to shows what you are working on. Please send PRs with bug fixes or new features to the `develop` branch. Documentation fixes in the markdown files are an exception to this rule. They are updated directly in `master`.
-
-The `develop` branch is pushed to `master` on release.
 
 ## License
 
