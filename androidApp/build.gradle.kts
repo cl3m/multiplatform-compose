@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion(AndroidSdk.compile)
+    compileSdk = AndroidSdk.compile
     defaultConfig {
         applicationId = "com.rouge41.kmm.compose.androidApp"
-        minSdkVersion(AndroidSdk.min)
-        targetSdkVersion(AndroidSdk.target)
+        minSdk = AndroidSdk.min
+        targetSdk = AndroidSdk.target
         versionCode = 1
         versionName = "1.0"
     }
@@ -28,21 +28,18 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Version.compose
+        kotlinCompilerExtensionVersion = Version.compose_compiler
     }
 }
 
 dependencies {
-    implementation(Android.appcompact)
-    implementation(Android.material)
-
-    implementation(project(":multiplatform-compose"))
     implementation(project(":test"))
+
+    implementation(Android.appcompat)
+    implementation(Android.material)
 
     implementation(Compose.runtime)
     implementation(Compose.ui)
     implementation(Compose.foundationLayout)
     implementation(Compose.material)
-    implementation(Compose.runtimeLiveData)
-    implementation(Compose.navigation)
 }

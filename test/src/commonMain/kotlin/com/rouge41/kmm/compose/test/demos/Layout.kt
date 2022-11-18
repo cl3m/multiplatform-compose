@@ -1,23 +1,23 @@
 package com.rouge41.kmm.compose.test.demos
 
-import com.rouge41.kmm.compose.foundation.layout.Arrangement
-import com.rouge41.kmm.compose.foundation.layout.Column
-import com.rouge41.kmm.compose.foundation.layout.Row
-import com.rouge41.kmm.compose.foundation.layout.Spacer
-import com.rouge41.kmm.compose.material.Text
-import com.rouge41.kmm.compose.runtime.Composable
-import com.rouge41.kmm.compose.ui.*
-import com.rouge41.kmm.compose.ui.graphics.Color
-import com.rouge41.kmm.compose.ui.unit.dp
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.dp
 
 @Composable
-fun Layout() {
+internal fun Layout() {
     Column(
         modifier = Modifier.fillMaxSize().background(Color.Magenta),
-        //verticalArrangement = Arrangement.SpaceEvenly,
+        verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally,
         content = {
-            Text("Layout is the new Blue.", modifier = Modifier.background(Color.Blue), color = Color.White)
+            Text("Layout is the new Blue.", modifier = Modifier.background(Color.Blue), style = TextStyle(color = Color.White))
             Text("Green.", modifier = Modifier.background(Color.Green))
             Row(
                 modifier = Modifier.fillMaxWidth().background(Color.Yellow),
