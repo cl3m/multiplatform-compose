@@ -1,9 +1,7 @@
 package com.rouge41.kmm.compose.test.demos
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -11,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.rouge41.kmm.compose.test.SafeArea
 import moe.tlaster.precompose.navigation.NavHost
@@ -49,7 +48,17 @@ internal fun BottomNavigationDemo() {
             }
         }
     ) {
-        NavHost(navigator = navigator, initialRoute = Tab.values().first().toString(), modifier = Modifier.padding(bottom = 55.dp + SafeArea.current.value.calculateBottomPadding())) {
+        NavHost(
+            navigator = navigator,
+            initialRoute = Tab.values().first().toString(),
+            modifier = Modifier.padding(
+                start = SafeArea.current.value.calculateStartPadding(
+                    LayoutDirection.Ltr
+                ),
+                end = SafeArea.current.value.calculateEndPadding(LayoutDirection.Ltr),
+                bottom = 55.dp + SafeArea.current.value.calculateBottomPadding()
+            )
+        ) {
             Tab.values().forEach { screen ->
                 scene(screen.toString()) {
                     when (screen) {

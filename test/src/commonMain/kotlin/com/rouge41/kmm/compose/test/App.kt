@@ -2,15 +2,14 @@ package com.rouge41.kmm.compose.test
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.LayoutDirection
 import com.rouge41.kmm.compose.test.demos.*
 import com.rouge41.kmm.compose.test.demos.Counter
 import com.rouge41.kmm.compose.test.demos.HelloPlatform
@@ -31,7 +30,11 @@ internal fun App() {
         topBar = {
             Box(modifier = Modifier.background(MaterialTheme.colors.primary)) {
                 TopAppBar(
-                    modifier = Modifier.padding(top = SafeArea.current.value.calculateTopPadding()),
+                    modifier = Modifier.padding(
+                        start = SafeArea.current.value.calculateStartPadding(LayoutDirection.Ltr),
+                        top = SafeArea.current.value.calculateTopPadding(),
+                        end = SafeArea.current.value.calculateEndPadding(LayoutDirection.Ltr)
+                    ),
                     title = { Text(currentRoute ?: "") },
                     navigationIcon = {
                         Icon(
@@ -47,8 +50,14 @@ internal fun App() {
                 )
             }
         },
+        drawerBackgroundColor = MaterialTheme.colors.background,
         drawerContent = {
-            LazyColumn(modifier = Modifier.padding(top = SafeArea.current.value.calculateTopPadding())) {
+            LazyColumn(
+                modifier = Modifier.padding(
+                    start = SafeArea.current.value.calculateStartPadding(LayoutDirection.Ltr),
+                    top = SafeArea.current.value.calculateTopPadding()
+                )
+            ) {
                 items(Demo.values().size) {
                     val item = Demo.values()[it]
                     ListItem(
@@ -70,7 +79,13 @@ internal fun App() {
                     if (screen == Demo.BottomNavigation) {
                         BottomNavigationDemo()
                     } else {
-                        Box(modifier = Modifier.padding(bottom = SafeArea.current.value.calculateBottomPadding())) {
+                        Box(
+                            modifier = Modifier.padding(
+                                start = SafeArea.current.value.calculateStartPadding(LayoutDirection.Ltr),
+                                end = SafeArea.current.value.calculateEndPadding(LayoutDirection.Ltr),
+                                bottom = SafeArea.current.value.calculateBottomPadding()
+                            )
+                        ) {
                             when (screen) {
                                 Demo.LazyColumn -> LazyColumnDemo()
                                 Demo.HelloPlatform -> HelloPlatform()

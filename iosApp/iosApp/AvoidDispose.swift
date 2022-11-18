@@ -18,7 +18,6 @@ class AvoidDispose: UIViewController {
     init(_ controller: UIViewController) {
         self.controller = controller
         super.init(nibName: nil, bundle: nil)
-        view.backgroundColor = .red
     }
     
     required init?(coder: NSCoder) {
@@ -29,17 +28,10 @@ class AvoidDispose: UIViewController {
         super.viewWillAppear(animated)
         addChild(controller)
         view.addSubview(controller.view)
-        controller.view.frame = view.safeAreaLayoutGuide.layoutFrame
-        controller.view.backgroundColor = .blue
-        //kotlin compose refresh
-        //controller.view.touchesCancelled([UITouch()], with: UIEvent())
-        view.isHidden = true
-        print("\(view.bounds) \(view.safeAreaInsets)")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        view.isHidden = false
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -48,14 +40,31 @@ class AvoidDispose: UIViewController {
         controller.view.removeFromSuperview()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        skiaRefresh()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        skiaRefresh()
+    }
+    
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
-        RootViewControllersKt.setSafeArea(start: view.safeAreaInsets.left, top: view.safeAreaInsets.top, end: view.safeAreaInsets.right, bottom: view.safeAreaInsets.bottom)
-        //kotlin compose refresh
-        controller.view.touchesCancelled([UITouch()], with: UIEvent())
+        skiaRefresh()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    private func skiaRefresh() {
+        controller.view.frame = view.bounds
+        controller.viewWillAppear(false)
+        RootViewControllersKt.setDarkMode()
+        RootViewControllersKt.setSafeArea(start: view.safeAreaInsets.left, top: view.safeAreaInsets.top, end: view.safeAreaInsets.right, bottom: view.safeAreaInsets.bottom)
+        //kotlin compose refresh
+        controller.view.touchesCancelled([UITouch()], with: UIEvent())
     }
 }
